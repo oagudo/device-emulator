@@ -12,14 +12,19 @@ find_package(Boost 1.49 COMPONENTS system filesystem unit_test_framework thread 
 
 add_definitions( -DBOOST_ALL_NO_LIB )
 
+FILE(GLOB_RECURSE TEST_SOURCES "src/*.cpp")
+FILE(GLOB_RECURSE TEST_INCLUDES "src/*.h")
+
+source_group("src" FILES ${TEST_SOURCES})
+source_group("include" FILES ${TEST_INCLUDES})
+
 include_directories ("${PROJECT_SOURCE_DIR}/kernel/include") 
-include_directories (./Mocks) 
+include_directories (./src/Mocks) 
 
 link_directories(${Boost_LIBRARY_DIR})
 
-
 # Creates executable
-add_executable(UnitTests main.cpp)
+add_executable(UnitTests ${TEST_SOURCES})
 
 # Additional Dependencies
 target_link_libraries(UnitTests

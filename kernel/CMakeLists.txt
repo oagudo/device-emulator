@@ -7,8 +7,8 @@
 
 find_package(Boost 1.49 COMPONENTS system thread date_time REQUIRED)
 
-FILE(GLOB KERNEL_SOURCES "src/Data/*.cpp" "src/Comms/*.cpp" "src/Device/*.cpp" "src/Device/Behaviour/*.cpp" "src/Device/Orders/*.cpp")
-FILE(GLOB KERNEL_INCLUDES "include/Data/*.h" "include/Comms/*.h" "include/Device/*.h" "include/Device/Behaviour/*.h" "include/Device/Orders/*.h")
+FILE(GLOB_RECURSE KERNEL_SOURCES "src/*.cpp")
+FILE(GLOB_RECURSE KERNEL_INCLUDES "include/*.h")
 
 # Create named folders 
 source_group("src" FILES ${KERNEL_SOURCES})

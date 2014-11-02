@@ -176,5 +176,6 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_CanBeStoppedAtAnyTime ) {
 
     // After 50 ms a stop is requested
     f.behaviour->Stop();
+    f.behaviour->Wait();
     BOOST_CHECK(f.behaviour->GetState()->IsErrorState() == false);
 }

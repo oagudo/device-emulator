@@ -12,9 +12,6 @@
 
 namespace device_emulator {
 
-class CommunicationChannel;
-typedef boost::shared_ptr<CommunicationChannel> ComChannelPtr;
-
 class IDeviceBehaviour;
 typedef boost::shared_ptr<IDeviceBehaviour> IDeviceBehaviourPtr;
 

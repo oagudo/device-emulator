@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Comms/CommunicationChannel.h"
 #include "Device/Behaviour/IDeviceBehaviour.h"
 

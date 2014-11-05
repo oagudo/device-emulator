@@ -22,7 +22,7 @@ public:
 
     void Send(const IMessagePtr &msg);
 
-    void MsgReceived(const IMessagePtr &msg);
+    void OnMsgReceived(const IMessagePtr &msg);
 };
 
 } // namespace

@@ -62,16 +62,16 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_WakesUpAfterReceivingAMessageWhichWasWaiti
     Fixture f;
     f.behaviour->Start(f.orders);
     boost::this_thread::sleep( boost::posix_time::milliseconds(50) );
-    f.channel->MsgReceived(f.msg1); // After 50 ms the message is received, at this point thread should be wake up
-    f.channel->MsgReceived(f.msg2);
+    f.channel->OnMsgReceived(f.msg1); // After 50 ms the message is received, at this point thread should be wake up
+    f.channel->OnMsgReceived(f.msg2);
     f.behaviour->Wait();
     BOOST_CHECK(f.behaviour->GetState()->IsErrorState() == false);
 }
 
 BOOST_AUTO_TEST_CASE( DeviceBehaviour_FinishedOKIfMessagesArePresent ) {
     Fixture f;
-    f.channel->MsgReceived(f.msg1);
-    f.channel->MsgReceived(f.msg2);
+    f.channel->OnMsgReceived(f.msg1);
+    f.channel->OnMsgReceived(f.msg2);
     f.behaviour->Start(f.orders);
     f.behaviour->Wait();
     BOOST_CHECK(f.behaviour->GetState()->IsErrorState() == false);
@@ -89,8 +89,8 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_CanBeStoppedAtAnyTime ) {
 
 BOOST_AUTO_TEST_CASE( DeviceBehaviour_MessagesArePickedInOrder ) {
     Fixture f;
-    f.channel->MsgReceived(f.msg1);
-    f.channel->MsgReceived(f.msg2);
+    f.channel->OnMsgReceived(f.msg1);
+    f.channel->OnMsgReceived(f.msg2);
     f.behaviour->Start(f.orders);
     boost::this_thread::sleep( boost::posix_time::milliseconds(50) );
     f.behaviour2->Start(f.orders2); // Second behaviour starts after first one

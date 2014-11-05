@@ -41,7 +41,7 @@ public:
     /*!
         \brief Callback used for receiving a message
     */
-    virtual void MessageArrived(const IMessagePtr &msg) = 0;
+    virtual void OnMessageArrived(const IMessagePtr &msg) = 0;
 
     /*!
         \brief Gets the state of the behaviour

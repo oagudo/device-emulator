@@ -45,7 +45,7 @@ public:
     /*!
         \brief Called when a message is received at the channel
     */
-    virtual void MsgReceived(const IMessagePtr &msg);
+    virtual void OnMsgReceived(const IMessagePtr &msg);
 
     /*!
         \brief Used for Device behaviour for retrieving messages from the channel

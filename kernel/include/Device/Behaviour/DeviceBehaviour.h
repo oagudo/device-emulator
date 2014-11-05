@@ -26,7 +26,7 @@ public:
 
     void Wait();
 
-    void MessageArrived(const IMessagePtr &msg);
+    void OnMessageArrived(const IMessagePtr &msg);
 
     void WaitForMessageReception(const unsigned int milliseconds);
 

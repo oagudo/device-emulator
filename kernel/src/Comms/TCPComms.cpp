@@ -19,9 +19,9 @@ void TCPComms::Send(const IMessagePtr &msg) {
 }
 
 
-void TCPComms::MsgReceived(const IMessagePtr &msg) {
+void TCPComms::OnMsgReceived(const IMessagePtr &msg) {
     // TODO: Implement
-    CommunicationChannel::MsgReceived(msg);
+    CommunicationChannel::OnMsgReceived(msg);
 }
 
 } // namespace

@@ -8,7 +8,7 @@ bool CommunicationChannel::WantMessage(const unsigned int msgID, const IDeviceBe
 
     bool received = false;
     if (existsMessage(msgID)) {
-        who->MessageArrived(_hashArrivedMessages[msgID].front());
+        who->OnMessageArrived(_hashArrivedMessages[msgID].front());
         _hashArrivedMessages[msgID].pop();
         received = true;
     }
@@ -18,12 +18,12 @@ bool CommunicationChannel::WantMessage(const unsigned int msgID, const IDeviceBe
     return received;
 }
 
-void CommunicationChannel::MsgReceived(const IMessagePtr &msg) {
+void CommunicationChannel::OnMsgReceived(const IMessagePtr &msg) {
     boost::lock_guard<boost::mutex> lock(_mutexMsgArrived);
 
     if (anyDeviceWaitingFor(msg->GetId())) {
         // Notify them!
-        _hashWaitingForMessage[msg->GetId()].front()->MessageArrived(msg);
+        _hashWaitingForMessage[msg->GetId()].front()->OnMessageArrived(msg);
         _hashWaitingForMessage[msg->GetId()].pop();
     } else {
         // Adds the message to the receiving queue

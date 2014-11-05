@@ -24,7 +24,7 @@ struct Fixture {
 
 BOOST_AUTO_TEST_CASE( CommunicationChannel_ReceivedMessageIsReadyToBePicked ) {
     Fixture f;
-    f.channel->MsgReceived(f.msg1);
+    f.channel->OnMsgReceived(f.msg1);
     BOOST_CHECK(f.channel->WantMessage(f.msg1->GetId(), f.behaviour));
 }
 
@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE( CommunicationChannel_NonReceivedMessageCannotBePicked ) {
 BOOST_AUTO_TEST_CASE( CommunicationChannel_MessagesWaitingToBePickedAreDeliveried ) {
     Fixture f;
     f.channel->WantMessage(f.msg1->GetId(), f.behaviour);
-    f.channel->MsgReceived(f.msg1);
+    f.channel->OnMsgReceived(f.msg1);
     BOOST_CHECK(!f.channel->WantMessage(f.msg1->GetId(), f.behaviour)); // Already taken
 }
 

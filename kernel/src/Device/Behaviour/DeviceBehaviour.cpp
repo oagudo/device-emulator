@@ -27,7 +27,7 @@ void DeviceBehaviour::Stop() {
     _state.reset(new StoppedState());
 }
 
-void DeviceBehaviour::MessageArrived(const IMessagePtr &msg) {
+void DeviceBehaviour::OnMessageArrived(const IMessagePtr &msg) {
     // Device behaviour notified!
     boost::mutex::scoped_lock lock(_mutexCondition);
     _condition.notify_one();

@@ -27,7 +27,7 @@ public:
 
     void Send(const IMessagePtr &/*msg*/) { }
 
-    void MsgReceived(const IMessagePtr &msg) { CommunicationChannel::MsgReceived(msg); };
+    void OnMsgReceived(const IMessagePtr &msg) { CommunicationChannel::OnMsgReceived(msg); };
 };
 
 #endif

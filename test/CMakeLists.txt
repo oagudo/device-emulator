@@ -5,7 +5,7 @@
 
 set( Boost_USE_STATIC_LIBS ON ) # or Off, depending on what you want
 
-find_package(Boost 1.49 COMPONENTS system filesystem unit_test_framework thread REQUIRED)
+find_package(Boost 1.49 COMPONENTS system filesystem unit_test_framework thread serialization REQUIRED)
 
 # Unit testing definition for inserting main function automatically
 # ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK) 

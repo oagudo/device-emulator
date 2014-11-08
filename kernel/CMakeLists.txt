@@ -5,7 +5,7 @@
 
 # set( Boost_USE_STATIC_LIBS OFF )
 
-find_package(Boost 1.49 COMPONENTS system thread date_time REQUIRED)
+find_package(Boost 1.49 COMPONENTS system thread date_time serialization REQUIRED)
 
 FILE(GLOB_RECURSE KERNEL_SOURCES "src/*.cpp")
 FILE(GLOB_RECURSE KERNEL_INCLUDES "include/*.h")

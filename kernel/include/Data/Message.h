@@ -6,6 +6,9 @@
 
 namespace device_emulator {
 
+class Message;
+typedef boost::shared_ptr<Message> MessagePtr;    
+
 /*!
   \class Message implementation
 */
@@ -13,6 +16,7 @@ class Message : public IMessage {
 public:
 
     Message(unsigned int msgID, std::string msgName, std::string msgContent) : _msgId(msgID), _msgName(msgName), _msgContent(msgContent) { };
+    Message() { };
 
     virtual ~Message() { };
 

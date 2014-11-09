@@ -8,7 +8,7 @@
 #include <Device/Orders/ReceiveOrder.h>
 #include <Device/Orders/SendOrder.h>
 
-#include "Mocks/CommunicationChannelMock.h"
+#include "Comms/Mocks/CommunicationChannelMock.h"
 
 using namespace device_emulator;
 

@@ -13,6 +13,7 @@ typedef boost::shared_ptr<CommunicationChannelSetup> ComChannelSetupPtr;
 class CommunicationChannelSetup {
  public:
     CommunicationChannelSetup() { };
+    virtual ~CommunicationChannelSetup() { };
 };
 
 } // namespace

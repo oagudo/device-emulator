@@ -52,7 +52,7 @@ public:
     */
     bool WantMessage(const unsigned int msgID, const IDeviceBehaviourPtr &who);
 
-private:
+protected:
 
     /*!
         \brief True if the message has arrived, False otherwise

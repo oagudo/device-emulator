@@ -28,6 +28,7 @@ namespace device_emulator {
 
         } catch (std::exception& /*e*/) {
             //std::cerr << e.what() << std::endl;
+            return false;
         }
 
         return true;

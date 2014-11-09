@@ -19,7 +19,7 @@ source_group("src" FILES ${TEST_SOURCES})
 source_group("include" FILES ${TEST_INCLUDES})
 
 include_directories ("${PROJECT_SOURCE_DIR}/kernel/include") 
-include_directories (./src/Mocks) 
+include_directories (./src/) 
 
 link_directories(${Boost_LIBRARY_DIR})
 

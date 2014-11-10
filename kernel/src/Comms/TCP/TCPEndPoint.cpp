@@ -1,3 +1,4 @@
+#include <boost/make_shared.hpp>
 #include "Comms/TCP/TCPEndPoint.h"
 #include "Data/Message.h"
 
@@ -12,6 +13,8 @@ void TCPEndPoint::Send(const IMessagePtr &msg) {
 
 void TCPEndPoint::handleRead(const boost::system::error_code& e) {
     if (!e) {
+        MessagePtr msgPtr(new Message(_msg));
+        CommunicationChannel::OnMsgReceived(boost::dynamic_pointer_cast<IMessage>(msgPtr));
         _conn->async_read(_msg,
                           boost::bind(&TCPEndPoint::handleRead, this,
                                       boost::asio::placeholders::error));

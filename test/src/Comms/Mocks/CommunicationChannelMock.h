@@ -23,7 +23,7 @@ public:
 
     bool Start() { return true; }
 
-    void Close() { }
+    void Stop() { }
 
     void Send(const IMessagePtr &/*msg*/) { }
 

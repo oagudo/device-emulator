@@ -33,9 +33,9 @@ public:
     virtual bool Start() = 0;
 
     /*!
-        \brief Closes the communication
+        \brief Stops the communication
     */
-    virtual void Close() = 0;
+    virtual void Stop() = 0;
 
     /*!
         \brief Sends a message throught the channel

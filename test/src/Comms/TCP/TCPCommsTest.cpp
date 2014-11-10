@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE( TCPCommsTests_ServerStartsListenningCorrectly ) {
 
     Fixture f;
     BOOST_CHECK (f.server->Start());
-    f.server->Close();
+    f.server->Stop();
 }
 
 BOOST_AUTO_TEST_CASE( TCPCommsTests_ClientConnectsToServerCorrectly ) {
@@ -36,8 +36,8 @@ BOOST_AUTO_TEST_CASE( TCPCommsTests_ClientConnectsToServerCorrectly ) {
     Fixture f;
     f.server->Start();
     BOOST_CHECK(f.client->Start());
-    f.server->Close();
-    f.client->Close();
+    f.server->Stop();
+    f.client->Stop();
 }
 
 BOOST_AUTO_TEST_SUITE_END()

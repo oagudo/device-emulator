@@ -21,7 +21,7 @@ public:
 
     TCPServer(TCPServerSetupPtr setup);
     bool Start();
-    void Close();
+    void Stop();
 
 private:
 

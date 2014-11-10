@@ -19,7 +19,7 @@ class TCPEndPoint  : public CommunicationChannel {
 public:
 
     bool Start() = 0;
-    virtual void Close();
+    virtual void Stop();
     void Send(const IMessagePtr &msg);
 
 protected:

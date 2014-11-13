@@ -1,7 +1,10 @@
 #include "Comms/CommunicationChannel.h"
 #include "Device/Behaviour/IDeviceBehaviour.h"
+#include "Log/Logger.h"
 
 namespace device_emulator {
+
+DEFINE_LOGGER(logger, "emulator.comms")
 
 bool CommunicationChannel::WantMessage(const unsigned int msgID, const IDeviceBehaviourPtr &who) {
     boost::lock_guard<boost::mutex> lock(_mutexMsgArrived);
@@ -21,6 +24,7 @@ bool CommunicationChannel::WantMessage(const unsigned int msgID, const IDeviceBe
 void CommunicationChannel::OnMsgReceived(const IMessagePtr &msg) {
     boost::lock_guard<boost::mutex> lock(_mutexMsgArrived);
 
+    LOG_INFO(logger, "Message '" << msg->GetId() << "' arrived");
     if (anyDeviceWaitingFor(msg->GetId())) {
         // Notify them!
         _hashWaitingForMessage[msg->GetId()].front()->OnMessageArrived(msg);

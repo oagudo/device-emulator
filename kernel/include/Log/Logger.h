@@ -19,10 +19,10 @@
 
 #else
 
-#define DEFINE_LOGGER(VAR, NAME) static const char *VAR = NAME;
-#define LOG_ERROR(LOGGER, DATA) std::cerr << "E: <" << LOGGER << "> " << DATA << "\n";
-#define LOG_WARN(LOGGER, DATA) std::cout << "W: <" << LOGGER << "> " << DATA << "\n";
-#define LOG_INFO(LOGGER, DATA) std::cout << "I: <" << LOGGER << "> " << DATA << "\n";
+#define DEFINE_LOGGER(VAR, NAME)
+#define LOG_ERROR(LOGGER, DATA) 
+#define LOG_WARN(LOGGER, DATA) 
+#define LOG_INFO(LOGGER, DATA) 
 
 #endif // WITH_LOG4CXX
 

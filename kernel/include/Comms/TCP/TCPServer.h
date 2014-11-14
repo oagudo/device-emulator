@@ -31,6 +31,11 @@ private:
     void handleAccept(const boost::system::error_code& e, TCPConnectionPtr conn);
 
     /*!
+        \brief Retrieves the server setup
+     */
+    TCPServerSetupPtr getSetup();
+
+    /*!
         \brief Acceptor object used for accepting new conenctions
      */
     boost::shared_ptr<boost::asio::ip::tcp::acceptor> _acceptorPtr;

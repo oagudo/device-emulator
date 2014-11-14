@@ -1,21 +1,19 @@
 #include <boost/lexical_cast.hpp>
 #include "Comms/TCP/TCPServer.h"
+#include "Log/Logger.h"
 
 namespace device_emulator {
+
+DEFINE_LOGGER(logger, "emulator.comms.tcp.server")
 
 TCPServer::TCPServer(TCPServerSetupPtr setup) : TCPEndPoint(setup) { }
 
 bool TCPServer::Start() {
     try {
-
-        // Gets server configuration
-        TCPServerSetupPtr TCPsetup =
-            boost::dynamic_pointer_cast<TCPServerSetup>(_setup);
-
         _acceptorPtr.reset(
                            new boost::asio::ip::tcp::acceptor(_io_service,
                                                               boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
-                                                                                             boost::lexical_cast<int>(TCPsetup->GetPort()))));
+                                                                                             boost::lexical_cast<int>(getSetup()->GetPort()))));
         // Starts a new connection
         TCPConnectionPtr newConn(new TCPConnection(_acceptorPtr->get_io_service()));
 
@@ -26,8 +24,8 @@ bool TCPServer::Start() {
         // Boost asio loop in other thread
         _thread = boost::thread(boost::bind(&boost::asio::io_service::run, &_io_service));
 
-    } catch (std::exception& /*e*/) {
-        // std::cerr << e.what() << std::endl;
+    } catch (std::exception &e) {
+        LOG_ERROR(logger, "Error starting listening on port (" << getSetup()->GetPort() << ") [ex:" << e.what() << "]" );
         return false;
     }
 
@@ -47,7 +45,8 @@ void TCPServer::handleAccept(const boost::system::error_code& e, TCPConnectionPt
     }
 
     if (!e) {
-        // std::cout << "Successfully accepted a new connection" << std::endl;
+        LOG_INFO(logger, "Successfully accepted new connection to port (" << getSetup()->GetPort() << ")" );
+
         _conn = conn;
 
         // Starts reading data from the socket
@@ -56,10 +55,15 @@ void TCPServer::handleAccept(const boost::system::error_code& e, TCPConnectionPt
                                      boost::asio::placeholders::error));
 
     } else {
-        // std::cout << "Could not accept a new operation" << std::endl;
+        LOG_ERROR(logger, "Error when accepting a new connection to port (" << getSetup()->GetPort() << ") [error:" << e.message() << "]" );
     }
 
     // Do not starts a new accept operation as only one client can be connected
 }
+
+TCPServerSetupPtr TCPServer::getSetup() {
+    return boost::dynamic_pointer_cast<TCPServerSetup>(_setup);
+}
+
 
 }

@@ -4,7 +4,7 @@
 
 namespace device_emulator {
 
-DEFINE_LOGGER(logger, "emulator.Comms.TCP")
+DEFINE_LOGGER(logger, "emulator.comms.tcp.client")
 
 TCPClient::TCPClient(TCPClientSetupPtr setup) : TCPEndPoint(setup) { }
 
@@ -26,8 +26,8 @@ bool TCPClient::Start() {
 
         _thread = boost::thread(boost::bind(&boost::asio::io_service::run, &_io_service));
 
-    } catch (std::exception& /*e*/) {
-        LOG_ERROR(logger, "Error starting connection to server (" << getSetup()->GetHost() << ":" << getSetup()->GetPort() << ")" );
+    } catch (std::exception& e) {
+        LOG_ERROR(logger, "Error starting connection to server (" << getSetup()->GetHost() << ":" << getSetup()->GetPort() << ") [ex:" << e.what() << "]");
         return false;
     }
 
@@ -45,12 +45,11 @@ void TCPClient::handleConnect(const boost::system::error_code& e) {
                           boost::bind(&TCPClient::handleRead, this,
                                       boost::asio::placeholders::error));
     } else {
-        LOG_ERROR(logger, "Error when connecting to server (" << getSetup()->GetHost() << ":" << getSetup()->GetPort() << ")" );
+        LOG_ERROR(logger, "Error when connecting to server (" << getSetup()->GetHost() << ":" << getSetup()->GetPort() << " [error:" << e.message() << "]" );
     }
 }
 
-TCPClientSetupPtr TCPClient::getSetup()
-{
+TCPClientSetupPtr TCPClient::getSetup() {
     return boost::dynamic_pointer_cast<TCPClientSetup>(_setup);
 }
 

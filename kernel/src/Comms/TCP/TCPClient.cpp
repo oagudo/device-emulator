@@ -27,7 +27,8 @@ bool TCPClient::Start() {
         _thread = boost::thread(boost::bind(&boost::asio::io_service::run, &_io_service));
 
     } catch (std::exception& e) {
-        LOG_ERROR(logger, "Error starting connection to server (" << getSetup()->GetHost() << ":" << getSetup()->GetPort() << ") [ex:" << e.what() << "]");
+        LOG_ERROR(logger, "Error starting connection to server (" << 
+                  getSetup()->GetHost() << ":" << getSetup()->GetPort() << ") [ex:" << e.what() << "]");
         return false;
     }
 
@@ -39,13 +40,15 @@ bool TCPClient::Start() {
 void TCPClient::handleConnect(const boost::system::error_code& e) {
     if (!e) {
 
-        LOG_INFO(logger, "Client successfully bind to server (" << getSetup()->GetHost() << ":" << getSetup()->GetPort() << ")" );
+        LOG_INFO(logger, "Client successfully bind to server (" << 
+                 getSetup()->GetHost() << ":" << getSetup()->GetPort() << ")" );
 
         _conn->async_read(_msg,
                           boost::bind(&TCPClient::handleRead, this,
                                       boost::asio::placeholders::error));
     } else {
-        LOG_ERROR(logger, "Error when connecting to server (" << getSetup()->GetHost() << ":" << getSetup()->GetPort() << " [error:" << e.message() << "]" );
+        LOG_ERROR(logger, "Error when connecting to server (" << 
+                  getSetup()->GetHost() << ":" << getSetup()->GetPort() << " [error:" << e.message() << "]" );
     }
 }
 

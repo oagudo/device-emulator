@@ -3,7 +3,6 @@
 
 #include <boost/shared_ptr.hpp>
 #include "Device/Behaviour/States/IDeviceBehaviourState.h"
-#include "Comms/CommunicationChannel.h"
 #include "Data/IMessage.h"
 
 namespace device_emulator {
@@ -22,6 +21,8 @@ typedef boost::shared_ptr<OrderList> OrderListPtr;
 */
 class IDeviceBehaviour {
 public:
+    IDeviceBehaviour(const std::string &name) : _name(name) { }
+
     virtual ~IDeviceBehaviour() { };
     /*!
         \brief Starts behaving
@@ -57,6 +58,13 @@ public:
         \brief Returns the current communication channel
     */
     virtual ComChannelPtr GetCommChannel() = 0;
+
+    std::string GetName() const { return _name; }
+
+protected:
+
+    std::string _name;
+
 };
 
 } // namespace

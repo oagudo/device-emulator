@@ -14,7 +14,7 @@ namespace device_emulator {
 class DeviceBehaviour : public IDeviceBehaviour, public boost::enable_shared_from_this<DeviceBehaviour> {
 public:
     
-    DeviceBehaviour(const ComChannelPtr &channel, const std::string &behaviourName);
+    DeviceBehaviour(const ComChannelPtr &channel, const std::string &name);
 
     virtual ~DeviceBehaviour() { }
 
@@ -40,7 +40,6 @@ private:
     void behave(OrderListPtr &orders);
 
     ComChannelPtr _channel;
-    std::string _behaviourName;
     IDeviceBehaviourStatePtr _state;
 
     /*!

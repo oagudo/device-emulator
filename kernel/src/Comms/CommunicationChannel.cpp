@@ -16,6 +16,7 @@ bool CommunicationChannel::WantMessage(const unsigned int msgID, const IDeviceBe
         received = true;
     }
     else {
+        LOG_INFO(logger, "No message '" << msgID << "' ready for " << who->GetName());
         addWaitingForMessage(msgID, who);
     }
     return received;
@@ -24,7 +25,7 @@ bool CommunicationChannel::WantMessage(const unsigned int msgID, const IDeviceBe
 void CommunicationChannel::OnMsgReceived(const IMessagePtr &msg) {
     boost::lock_guard<boost::mutex> lock(_mutexMsgArrived);
 
-    LOG_INFO(logger, "Message '" << msg->GetId() << "' arrived");
+    LOG_INFO(logger, "Message '" << msg->GetId() << "' received");
     if (anyDeviceWaitingFor(msg->GetId())) {
         // Notify them!
         _hashWaitingForMessage[msg->GetId()].front()->OnMessageArrived(msg);

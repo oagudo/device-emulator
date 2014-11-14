@@ -7,8 +7,7 @@
 
 namespace device_emulator {
 
-DeviceBehaviour::DeviceBehaviour(const ComChannelPtr &channel, const std::string &behaviourName) : 
-  _channel(channel), _behaviourName(behaviourName), _state(new NotStartedState()) { 
+DeviceBehaviour::DeviceBehaviour(const ComChannelPtr &channel, const std::string &name) : IDeviceBehaviour(name), _channel(channel), _state(new NotStartedState()) { 
 }
 
 IDeviceBehaviourStatePtr DeviceBehaviour::GetState() { 

@@ -28,7 +28,11 @@ private:
         \brief Handles a new client connection
      */
     void handleConnect(const boost::system::error_code& e);
-
+    
+    /*!
+        \brief Retrieves the current client setup
+     */
+    TCPClientSetupPtr getSetup();
 };
 } // namespace
 

@@ -1,7 +1,7 @@
 Device emulator
 ===============
 
-Project for emulating devices which help us to test systems in isolation and run regression tests. 
+Project for emulating devices which allow to test systems in isolation and run regression tests. 
 
 Getting Started
 ---------------

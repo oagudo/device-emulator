@@ -1,8 +1,11 @@
 #include <boost/make_shared.hpp>
 #include "Comms/TCP/TCPEndPoint.h"
 #include "Data/Message.h"
+#include "Log/Logger.h"
 
 namespace device_emulator {
+
+DEFINE_LOGGER(logger, "emulator.comms.tcp")
 
 TCPEndPoint::TCPEndPoint(const ComChannelSetupPtr &setup) : CommunicationChannel(setup) { }
 
@@ -19,14 +22,14 @@ void TCPEndPoint::handleRead(const boost::system::error_code& e) {
                           boost::bind(&TCPEndPoint::handleRead, this,
                                       boost::asio::placeholders::error));
     } else {
-        //std::cerr << e.message() << std::endl;
+        LOG_ERROR(logger, "Error when reading [error:" << e.message() << "]");
     }
 }
 
 void TCPEndPoint::handleWrite(const boost::system::error_code& e, TCPConnectionPtr conn) {
     if (!e) {
     } else {
-        //std::cerr << e.message() << std::endl;
+        LOG_ERROR(logger, "Error when writting [error:" << e.message() << "]");
     }
 }
 
@@ -37,6 +40,7 @@ void TCPEndPoint::doWrite(const Message &msg) {
 }
 
 void TCPEndPoint::Stop() {
+    LOG_INFO(logger, "TCP end point stop requested!");
     _io_service.post(boost::bind(&TCPEndPoint::doClose, this));
     _io_service.stop();
     _thread.join();

@@ -21,7 +21,7 @@ public:
         \brief Adds a behaviour to the device
     */
     void AddBehaviour(const IDeviceBehaviourPtr &behaviour);
-
+    
     /*!
       Name Getter 
     */

@@ -3,6 +3,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include "Device/Behaviour/States/IDeviceBehaviourState.h"
+#include "Device/Behaviour/States/NotStartedState.h"
 #include "Data/IMessage.h"
 
 namespace device_emulator {
@@ -21,13 +22,13 @@ typedef boost::shared_ptr<OrderList> OrderListPtr;
 */
 class IDeviceBehaviour {
 public:
-    IDeviceBehaviour(const std::string &name) : _name(name) { }
+    IDeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders) : _name(name), _channel(channel), _orders(orders), _state(new NotStartedState()) { }
 
     virtual ~IDeviceBehaviour() { };
     /*!
         \brief Starts behaving
     */
-    virtual void Start(OrderListPtr &orders) = 0;
+    virtual void Start() = 0;
 
     /*!
         \brief Stops current behaviour
@@ -65,6 +66,18 @@ protected:
 
     std::string _name;
 
+    /*!
+      \brief Communication channel used for exchanging messages
+     */
+    ComChannelPtr _channel;
+
+    /*!
+      \brief List of orders executed by the behaviour
+     */
+    OrderListPtr _orders;
+
+
+    IDeviceBehaviourStatePtr _state;
 };
 
 } // namespace

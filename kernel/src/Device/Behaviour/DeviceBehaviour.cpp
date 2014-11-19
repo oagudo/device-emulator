@@ -1,5 +1,4 @@
 #include "Device/Behaviour/DeviceBehaviour.h"
-#include "Device/Behaviour/States/NotStartedState.h"
 #include "Device/Behaviour/States/FinishedState.h"
 #include "Device/Behaviour/States/ErrorState.h"
 #include "Device/Behaviour/States/StoppedState.h"
@@ -10,7 +9,7 @@ namespace device_emulator {
 
 DEFINE_LOGGER(logger, "emulator.device.behaviour")
 
-DeviceBehaviour::DeviceBehaviour(const ComChannelPtr &channel, const std::string &name) : IDeviceBehaviour(name), _channel(channel), _state(new NotStartedState()) { 
+DeviceBehaviour::DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders) : IDeviceBehaviour(name, channel, orders) { 
 }
 
 IDeviceBehaviourStatePtr DeviceBehaviour::GetState() { 
@@ -23,8 +22,8 @@ void DeviceBehaviour::Wait() {
     LOG_INFO(logger, "Behaviour " << GetName() << " finished!");
 }
 
-void DeviceBehaviour::Start(OrderListPtr &orders) {
-    _behaviourThread = boost::thread(&DeviceBehaviour::behave, this, orders);
+void DeviceBehaviour::Start() {
+    _behaviourThread = boost::thread(&DeviceBehaviour::behave, this);
 }
 
 void DeviceBehaviour::Stop() {
@@ -61,9 +60,9 @@ ComChannelPtr DeviceBehaviour::GetCommChannel() {
     return _channel;
 }
 
-void DeviceBehaviour::behave(OrderListPtr &orders) {
-    while (!orders->Empty() && _state->AllowToContinue()) {
-        orders->Next()->Execute(shared_from_this());
+void DeviceBehaviour::behave() {
+    while (!_orders->Empty() && _state->AllowToContinue()) {
+        _orders->Next()->Execute(shared_from_this());
     }
 
     // Check if there were some errors

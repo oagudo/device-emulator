@@ -20,10 +20,10 @@ struct Fixture {
     TCPClientPtr clientChannel;
     TCPServerSetupPtr serverSetup;
     TCPServerPtr serverChannel;
-    IDeviceBehaviourPtr behaviourClient;
-    IDeviceBehaviourPtr behaviourServer;
     OrderListPtr ordersClient;
     OrderListPtr ordersServer;
+    IDeviceBehaviourPtr behaviourClient;
+    IDeviceBehaviourPtr behaviourServer;
     IDeviceOrderPtr orderReceive;
     IDeviceOrderPtr orderSend;
     Fixture() :
@@ -32,10 +32,10 @@ struct Fixture {
         clientChannel(new TCPClient(clientSetup)),
         serverSetup(new TCPServerSetup("2222")),
         serverChannel(new TCPServer(serverSetup)),
-        behaviourClient(new DeviceBehaviour(clientChannel, "Test Behaviour")),
-        behaviourServer(new DeviceBehaviour(serverChannel, "Test Behaviour2")),
         ordersClient(new OrderList),
         ordersServer(new OrderList),
+        behaviourClient(new DeviceBehaviour("Test Behaviour", clientChannel, ordersClient)),
+        behaviourServer(new DeviceBehaviour("Test Behaviour2", serverChannel, ordersServer)),
         orderReceive(new ReceiveOrder(1, 250)),
         orderSend(new SendOrder(msg1))
     {
@@ -76,8 +76,8 @@ BOOST_AUTO_TEST_CASE( TCPCommsTests_DeviceBehavioursSendAndReceiveMessagesThroug
     f.serverChannel->Start();
     f.clientChannel->Start();
 
-    f.behaviourServer->Start(f.ordersServer);
-    f.behaviourClient->Start(f.ordersClient);
+    f.behaviourServer->Start();
+    f.behaviourClient->Start();
 
     f.behaviourServer->Wait();
     f.behaviourClient->Wait();

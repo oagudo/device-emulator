@@ -6,4 +6,11 @@ void Device::AddBehaviour(const IDeviceBehaviourPtr &behaviour) {
     _behaviours.push_back(behaviour);
 }
 
+void Device::Start() {
+    std::vector< IDeviceBehaviourPtr >::iterator it;
+    for (it = _behaviours.begin(); it != _behaviours.end(); ++it) {
+        (*it)->Start();
+    }
+}
+
 } // namespace

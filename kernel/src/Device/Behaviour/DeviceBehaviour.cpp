@@ -66,7 +66,7 @@ void DeviceBehaviour::behave() {
     }
 
     // Check if there were some errors
-    if (!_state->IsErrorState()) {
+    if (_state->AllowToContinue()) {
         _state.reset(new FinishedState());
     }
 }

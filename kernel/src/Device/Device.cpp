@@ -13,4 +13,11 @@ void Device::Start() {
     }
 }
 
+void Device::Stop() {
+    std::vector< IDeviceBehaviourPtr >::iterator it;
+    for (it = _behaviours.begin(); it != _behaviours.end(); ++it) {
+        (*it)->Stop();
+    }
+}
+
 } // namespace

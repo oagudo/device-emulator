@@ -32,6 +32,11 @@ public:
     void Start();
 
     /*!
+      \brief Stops all its behaviours
+     */
+    void Stop();
+
+    /*!
       Name Getter 
     */
     std::string GetName() const { return _deviceName; }

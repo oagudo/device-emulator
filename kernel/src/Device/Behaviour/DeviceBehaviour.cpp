@@ -1,5 +1,6 @@
 #include "Device/Behaviour/DeviceBehaviour.h"
 #include "Device/Behaviour/States/FinishedState.h"
+#include "Device/Behaviour/States/RunningState.h"
 #include "Device/Behaviour/States/ErrorState.h"
 #include "Device/Behaviour/States/StoppedState.h"
 #include "Device/Orders/OrderList.h"
@@ -12,7 +13,7 @@ DEFINE_LOGGER(logger, "emulator.device.behaviour")
 DeviceBehaviour::DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders) : IDeviceBehaviour(name, channel, orders) { 
 }
 
-IDeviceBehaviourStatePtr DeviceBehaviour::GetState() { 
+IDeviceBehaviourStatePtr DeviceBehaviour::GetState() const { 
     return _state; 
 }
 
@@ -23,6 +24,7 @@ void DeviceBehaviour::Wait() {
 }
 
 void DeviceBehaviour::Start() {
+    _state.reset(new RunningState());
     _behaviourThread = boost::thread(&DeviceBehaviour::behave, this);
 }
 
@@ -61,12 +63,12 @@ ComChannelPtr DeviceBehaviour::GetCommChannel() {
 }
 
 void DeviceBehaviour::behave() {
-    while (!_orders->Empty() && _state->AllowToContinue()) {
+    while (!_orders->Empty() && GetState()->AllowToContinue()) {
         _orders->Next()->Execute(shared_from_this());
     }
 
-    // Check if there were some errors
-    if (_state->AllowToContinue()) {
+    // Check if there were some errors (There can be infinite order list!)
+    if (GetState()->AllowToContinue()) {
         _state.reset(new FinishedState());
     }
 }

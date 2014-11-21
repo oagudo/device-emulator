@@ -20,6 +20,7 @@ class TCPServer : public TCPEndPoint {
 public:
 
     TCPServer(TCPServerSetupPtr setup);
+    virtual ~TCPServer() { }
     bool Start();
     void Stop();
 

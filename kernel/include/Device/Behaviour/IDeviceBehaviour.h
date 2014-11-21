@@ -48,7 +48,7 @@ public:
     /*!
         \brief Gets the state of the behaviour
     */
-    virtual IDeviceBehaviourStatePtr GetState() = 0;
+    virtual IDeviceBehaviourStatePtr GetState() const = 0;
 
     /*!
         \brief Waits n milliseconds until receive a message

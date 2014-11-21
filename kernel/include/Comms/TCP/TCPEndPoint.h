@@ -18,6 +18,7 @@ class TCPEndPoint  : public CommunicationChannel {
 
 public:
 
+    virtual ~TCPEndPoint() { }
     bool Start() = 0;
     virtual void Stop();
     void Send(const IMessagePtr &msg);

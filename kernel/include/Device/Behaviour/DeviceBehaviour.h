@@ -18,7 +18,7 @@ public:
 
     virtual ~DeviceBehaviour() { }
 
-    IDeviceBehaviourStatePtr GetState();
+    IDeviceBehaviourStatePtr GetState() const;
 
     void Start();
 

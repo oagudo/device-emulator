@@ -20,6 +20,7 @@ class TCPClient  : public TCPEndPoint {
 public:
 
     TCPClient(TCPClientSetupPtr setup);
+    virtual ~TCPClient() { }
     bool Start();
 
 private:

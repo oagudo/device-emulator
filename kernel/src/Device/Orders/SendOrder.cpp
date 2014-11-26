@@ -5,7 +5,7 @@ namespace device_emulator {
 SendOrder::SendOrder(const IMessagePtr &msg) : _msg(msg) {
 }
 
-void SendOrder::Execute(const IDeviceBehaviourPtr &context) {
+void SendOrder::Execute(const DeviceBehaviourPtr &context) {
     context->GetCommChannel()->Send(_msg);
 }
 

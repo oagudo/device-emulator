@@ -23,9 +23,9 @@ struct Fixture {
     OrderListPtr orders;
     OrderListPtr orders2;
     OrderListPtr infSendOrders;
-    IDeviceBehaviourPtr behaviour;
-    IDeviceBehaviourPtr behaviour2;
-    IDeviceBehaviourPtr infiniteBehaviour;
+    DeviceBehaviourPtr behaviour;
+    DeviceBehaviourPtr behaviour2;
+    DeviceBehaviourPtr infiniteBehaviour;
     IDeviceOrderPtr orderReceive1;
     IDeviceOrderPtr orderReceive2;
     IDeviceOrderPtr orderSend1;

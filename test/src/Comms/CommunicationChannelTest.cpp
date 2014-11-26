@@ -14,7 +14,7 @@ struct Fixture {
     IMessagePtr msg2;
     ComChannelPtr channel;
     OrderListPtr orders;
-    IDeviceBehaviourPtr behaviour;
+    DeviceBehaviourPtr behaviour;
 
     Fixture() :
         msg1(new Message(1, "msg1", "content1")),

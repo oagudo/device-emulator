@@ -7,13 +7,13 @@
 #include <boost/thread/mutex.hpp>
 
 #include "Comms/CommunicationChannelSetup.h"
-#include "Device/Behaviour/IDeviceBehaviour.h"
+#include "Device/Behaviour/DeviceBehaviour.h"
 #include "Data/Message.h"
 
 namespace device_emulator {
 
-class IDeviceBehaviour;
-typedef boost::shared_ptr<IDeviceBehaviour> IDeviceBehaviourPtr;
+class DeviceBehaviour;
+typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
 
 /*!
     \class Interface for communication channels
@@ -50,7 +50,7 @@ public:
     /*!
         \brief Used for Device behaviour for retrieving messages from the channel
     */
-    bool WantMessage(const unsigned int msgID, const IDeviceBehaviourPtr &who);
+    bool WantMessage(const unsigned int msgID, const DeviceBehaviourPtr &who);
 
 protected:
 
@@ -67,14 +67,14 @@ protected:
     /*!
         \brief Adds a device behaviour to the waiting queue
     */
-    void addWaitingForMessage(unsigned int msgId, const IDeviceBehaviourPtr &who);
+    void addWaitingForMessage(unsigned int msgId, const DeviceBehaviourPtr &who);
 
     /*!
         \brief Queue of device behaviour for each kind of messages
                TODO: Encapsulate in custom class
                Hash { msgID } -> Queue { DeviceBehaviour }
     */
-    std::map< unsigned int, std::queue< IDeviceBehaviourPtr > > _hashWaitingForMessage;
+    std::map< unsigned int, std::queue< DeviceBehaviourPtr > > _hashWaitingForMessage;
 
     /*!
         \brief Queue of messages for each kind of message

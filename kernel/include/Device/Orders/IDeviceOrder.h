@@ -11,8 +11,8 @@ namespace device_emulator {
 class IDeviceOrder;
 typedef boost::shared_ptr<IDeviceOrder> IDeviceOrderPtr;
 
-class IDeviceBehaviour;
-typedef boost::shared_ptr<IDeviceBehaviour> IDeviceBehaviourPtr;
+class DeviceBehaviour;
+typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
 
 class CommunicationChannel;
 typedef boost::shared_ptr<CommunicationChannel> ComChannelPtr;
@@ -23,7 +23,7 @@ typedef boost::shared_ptr<CommunicationChannel> ComChannelPtr;
 class IDeviceOrder
 {
 public:
-    virtual void Execute(const IDeviceBehaviourPtr &context) = 0;
+    virtual void Execute(const DeviceBehaviourPtr &context) = 0;
 };
 
 } // namespace

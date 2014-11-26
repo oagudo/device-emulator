@@ -7,8 +7,8 @@ namespace device_emulator {
 class DeviceBehaviourState;
 typedef boost::shared_ptr<DeviceBehaviourState> DeviceBehaviourStatePtr;
 
-class IDeviceBehaviour;
-typedef boost::shared_ptr<IDeviceBehaviour> IDeviceBehaviourPtr;
+class DeviceBehaviour;
+typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
 
 /*!
     \class Represents a state of the device behaviour
@@ -21,9 +21,9 @@ public:
     virtual bool IsErrorState() = 0;
     virtual bool AllowToContinue() = 0;
     virtual std::string GetErrorMsg() { return ""; }
-    virtual void Start(const IDeviceBehaviourPtr &context) { }
-    virtual void ExecuteOrders(const IDeviceBehaviourPtr &context) { }
-    virtual void Stop(const IDeviceBehaviourPtr &context) { }
+    virtual void Start(const DeviceBehaviourPtr &context) { }
+    virtual void ExecuteOrders(const DeviceBehaviourPtr &context) { }
+    virtual void Stop(const DeviceBehaviourPtr &context) { }
 };
 /*!
     \class Represents a state which is not considered as error

@@ -12,7 +12,7 @@ class ReceiveOrder : public IDeviceOrder
 {
 public:
     ReceiveOrder(const unsigned int msgID, const unsigned int timeout);
-    void Execute(const IDeviceBehaviourPtr &context);
+    void Execute(const DeviceBehaviourPtr &context);
 
 private:
     unsigned int _msgID;

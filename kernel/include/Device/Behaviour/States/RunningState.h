@@ -2,7 +2,7 @@
 #define _RUNNING_STATE_h
 
 #include "DeviceBehaviourState.h"
-#include "Device/Behaviour/IDeviceBehaviour.h"
+#include "Device/Behaviour/DeviceBehaviour.h"
 #include "Device/Orders/OrderList.h"
 #include "StoppedState.h"
 #include "FinishedState.h"
@@ -11,7 +11,7 @@ namespace device_emulator {
 
 class RunningState : public NonErrorState {
 public:
-    void ExecuteOrders(const IDeviceBehaviourPtr &context) {
+    void ExecuteOrders(const DeviceBehaviourPtr &context) {
         while (!context->GetOrders()->Empty() && context->GetState()->AllowToContinue()) {
             context->GetOrders()->Next()->Execute(context);
         }
@@ -21,7 +21,7 @@ public:
         }
     }
 
-    void Stop(const IDeviceBehaviourPtr &context) { 
+    void Stop(const DeviceBehaviourPtr &context) { 
         context->TransitionTo(DeviceBehaviourStatePtr(new StoppedState()));
     }
 };

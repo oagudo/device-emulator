@@ -12,7 +12,7 @@ class WaitOrder : public IDeviceOrder
 {
 public:
     WaitOrder(const unsigned int milliseconds);
-    void Execute(const IDeviceBehaviourPtr &context);
+    void Execute(const DeviceBehaviourPtr &context);
 
 private:
     unsigned int _milliseconds;

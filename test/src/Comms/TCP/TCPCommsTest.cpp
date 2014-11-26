@@ -24,8 +24,8 @@ struct Fixture {
     TCPServerPtr serverChannel;
     OrderListPtr ordersClient;
     OrderListPtr ordersServer;
-    IDeviceBehaviourPtr behaviourClient;
-    IDeviceBehaviourPtr behaviourServer;
+    DeviceBehaviourPtr behaviourClient;
+    DeviceBehaviourPtr behaviourServer;
     IDeviceOrderPtr orderReceive;
     IDeviceOrderPtr orderSend;
     IDeviceOrderPtr orderWait;

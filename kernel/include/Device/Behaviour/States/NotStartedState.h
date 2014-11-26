@@ -2,14 +2,14 @@
 #define _NOT_STARTED_STATE_h
 
 #include "DeviceBehaviourState.h"
-#include "Device/Behaviour/IDeviceBehaviour.h"
+#include "Device/Behaviour/DeviceBehaviour.h"
 #include "RunningState.h"
 
 namespace device_emulator {
 
 class NotStartedState : public NonErrorState {
 public:
-    void Start(const IDeviceBehaviourPtr &context) {
+    void Start(const DeviceBehaviourPtr &context) {
         context->TransitionTo(DeviceBehaviourStatePtr(new RunningState()));
     }
 };

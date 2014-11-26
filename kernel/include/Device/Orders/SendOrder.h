@@ -12,7 +12,7 @@ class SendOrder : public IDeviceOrder
 {
 public:
     SendOrder(const IMessagePtr &msg);
-    void Execute(const IDeviceBehaviourPtr &context);
+    void Execute(const DeviceBehaviourPtr &context);
 
 private:
     IMessagePtr _msg;

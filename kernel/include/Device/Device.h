@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include "Device/Behaviour/IDeviceBehaviour.h"
+#include "Device/Behaviour/DeviceBehaviour.h"
 
 namespace device_emulator {
 
@@ -24,7 +24,7 @@ public:
     /*!
         \brief Adds a behaviour to the device
     */
-    void AddBehaviour(const IDeviceBehaviourPtr &behaviour);
+    void AddBehaviour(const DeviceBehaviourPtr &behaviour);
 
     /*!
       \brief Starts all its behaviours
@@ -44,7 +44,7 @@ public:
 private:
     std::string _deviceName;
 
-    std::vector< IDeviceBehaviourPtr > _behaviours;
+    std::vector< DeviceBehaviourPtr > _behaviours;
 };
 
 } // namespace

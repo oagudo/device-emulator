@@ -64,6 +64,14 @@ void DeviceBehaviour::TransitionTo(const DeviceBehaviourStatePtr &newState) {
     _state = newState;
 }
 
+std::string DeviceBehaviour::GetName() const { 
+    return _name; 
+}
+
+OrderListPtr DeviceBehaviour::GetOrders() { 
+    return _orders; 
+}
+
 void DeviceBehaviour::executeOrders() {
     _state->ExecuteOrders(shared_from_this());
 }

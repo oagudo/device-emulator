@@ -33,6 +33,12 @@ public:
 
     DeviceBehaviourStatePtr GetState() const;
 
+    std::string GetName() const;
+
+    OrderListPtr GetOrders();
+
+    ComChannelPtr GetCommChannel();
+
     void Start();
 
     void Stop();
@@ -43,12 +49,7 @@ public:
 
     void WaitForMessageReception(const unsigned int milliseconds);
 
-    ComChannelPtr GetCommChannel();
-
     void TransitionTo(const DeviceBehaviourStatePtr &newState);
-
-    std::string GetName() const { return _name; }
-    OrderListPtr GetOrders() { return _orders; }
 
 private:
 

@@ -2,8 +2,6 @@
 #define _IDEVICE_BEHAVIOUR_H
 
 #include <boost/shared_ptr.hpp>
-#include "Device/Behaviour/States/IDeviceBehaviourState.h"
-#include "Device/Behaviour/States/NotStartedState.h"
 #include "Data/IMessage.h"
 
 namespace device_emulator {
@@ -17,12 +15,16 @@ typedef boost::shared_ptr<CommunicationChannel> ComChannelPtr;
 class OrderList;
 typedef boost::shared_ptr<OrderList> OrderListPtr;
 
+class DeviceBehaviourState;
+typedef boost::shared_ptr<DeviceBehaviourState> DeviceBehaviourStatePtr;
+
 /*!
     \class Interface for a device behaviour. A device behaviour could be: Polling, initial Handshaking, etc.
 */
 class IDeviceBehaviour {
+
 public:
-    IDeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders) : _name(name), _channel(channel), _orders(orders), _state(new NotStartedState()) { }
+    IDeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders) : _name(name), _channel(channel), _orders(orders) { }
 
     virtual ~IDeviceBehaviour() { };
     /*!
@@ -48,8 +50,9 @@ public:
     /*!
         \brief Gets the state of the behaviour
     */
-    virtual IDeviceBehaviourStatePtr GetState() const = 0;
+    virtual DeviceBehaviourStatePtr GetState() const = 0;
 
+    
     /*!
         \brief Waits n milliseconds until receive a message
     */
@@ -61,7 +64,9 @@ public:
     virtual ComChannelPtr GetCommChannel() = 0;
 
     std::string GetName() const { return _name; }
+    OrderListPtr GetOrders() { return _orders; }
 
+    virtual void TransitionTo(const DeviceBehaviourStatePtr &newState) = 0;
 protected:
 
     std::string _name;
@@ -77,7 +82,11 @@ protected:
     OrderListPtr _orders;
 
 
-    IDeviceBehaviourStatePtr _state;
+    DeviceBehaviourStatePtr _state;
+
+
+
+
 };
 
 } // namespace

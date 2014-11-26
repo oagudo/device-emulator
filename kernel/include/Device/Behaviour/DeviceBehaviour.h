@@ -18,7 +18,7 @@ public:
 
     virtual ~DeviceBehaviour() { }
 
-    IDeviceBehaviourStatePtr GetState() const;
+    DeviceBehaviourStatePtr GetState() const;
 
     void Start();
 
@@ -32,12 +32,14 @@ public:
 
     ComChannelPtr GetCommChannel();
 
+    void TransitionTo(const DeviceBehaviourStatePtr &newState);
+
 private:
 
     /*!
         \brief Method executed in a separate thread
     */
-    void behave();
+    void executeOrders();
 
     /*!
         \brief Protects critical sectionds

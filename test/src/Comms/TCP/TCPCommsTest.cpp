@@ -3,6 +3,7 @@
 #include <Comms/TCP/TCPClient.h>
 #include <Comms/TCP/TCPServer.h>
 #include <Device/Behaviour/DeviceBehaviour.h>
+#include <Device/Behaviour/States/DeviceBehaviourState.h>
 #include <Data/Message.h>
 #include <Device/Orders/OrderList.h>
 #include <Device/Orders/IDeviceOrder.h>

@@ -3,6 +3,7 @@
 #include <Device/Device.h>
 #include <Data/Message.h>
 #include <Device/Behaviour/DeviceBehaviour.h>
+#include <Device/Behaviour/States/DeviceBehaviourState.h>
 #include <Device/Orders/OrderList.h>
 #include <Device/Orders/InfiniteOrderList.h>
 #include <Device/Orders/IDeviceOrder.h>

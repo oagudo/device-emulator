@@ -1,7 +1,7 @@
 #ifndef _STOPPED_STATE_H
 #define _STOPPED_STATE_h
 
-#include "IDeviceBehaviourState.h"
+#include "DeviceBehaviourState.h"
 
 namespace device_emulator {
 

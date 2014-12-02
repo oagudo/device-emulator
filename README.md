@@ -10,6 +10,7 @@ To build device-emulator you will need:
 
  * CMake >= 2.8   
  * Boost libraries 1.49
+ * Python libraries >= 2.7
 
 To compile all the modules:
 

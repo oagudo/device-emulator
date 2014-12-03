@@ -4,6 +4,7 @@
 using namespace boost::python;
 using namespace device_emulator;
 
+
 struct IMessageWrap : IMessage, wrapper<IMessage>
 {
     std::string ToString() const {
@@ -25,7 +26,7 @@ struct IMessageWrap : IMessage, wrapper<IMessage>
 
 };
 
-BOOST_PYTHON_MODULE(DeviceEmulatorKernel_ext)
+void export_IMessage()
 {
     class_<IMessageWrap, boost::noncopyable>("IMessage")
         .def("to_string", pure_virtual(&IMessage::ToString))

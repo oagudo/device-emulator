@@ -1,4 +1,6 @@
 #include "Comms/CommunicationChannel.h"
+#include "Comms/TCP/TCPServerSetup.h"
+#include "Comms/TCP/TCPClientSetup.h"
 #include <boost/python.hpp>
 
 using namespace boost::python;
@@ -41,5 +43,15 @@ void export_CommunicationChannel()
 		.def("on_msg_received", &CommunicationChannelWrap::OnMsgReceived, &CommunicationChannelWrap::default_OnMsgReceived)
 		.def("want_message", &CommunicationChannel::WantMessage)
 		;	 
+
+    class_<TCPServerSetup, TCPServerSetupPtr, bases<CommunicationChannelSetup> >("TCPServerSetup", init<const std::string>())
+        .add_property("port", &TCPServerSetup::GetPort)
+        ;
+
+    class_<TCPClientSetup, TCPClientSetupPtr, bases<CommunicationChannelSetup> >("TCPClientSetup", init<const std::string, const std::string>())
+        .add_property("port", &TCPClientSetup::GetPort)
+        .add_property("host", &TCPClientSetup::GetHost)
+        ;
+    
 }
 

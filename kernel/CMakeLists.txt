@@ -39,14 +39,14 @@ endif()
 link_directories(${Boost_LIBRARY_DIR})
 
 add_library (DeviceEmulatorKernel SHARED ${KERNEL_SOURCES})
-target_link_libraries( DeviceEmulatorKernel ${Boost_LIBRARIES} ${LOG4CXX_LIBRARIES} )
+target_link_libraries( DeviceEmulatorKernel ${Boost_LIBRARIES} ${LOG4CXX_LIBRARIES} ${PYTHON_LIBRARIES})
 
 # Creates a folder "libraries" and adds target project under it
 set_property(TARGET DeviceEmulatorKernel PROPERTY FOLDER "libraries")
 
 # Define the wrapper library 
 add_library( DeviceEmulatorKernel_ext SHARED ${KERNEL_SOURCES_EXT} )
-target_link_libraries( DeviceEmulatorKernel_ext ${Boost_LIBRARIES} DeviceEmulatorKernel )
+target_link_libraries( DeviceEmulatorKernel_ext ${Boost_LIBRARIES} DeviceEmulatorKernel ${PYTHON_LIBRARIES})
 
 # Don't prepend wrapper library name with lib
 set_target_properties( DeviceEmulatorKernel_ext PROPERTIES PREFIX "" )

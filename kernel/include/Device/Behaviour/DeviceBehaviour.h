@@ -45,13 +45,20 @@ public:
 
     void Wait();
 
+private:
+
+    friend class CommunicationChannel;
+
     void OnMessageArrived(const IMessagePtr &msg);
+
+    friend class ReceiveOrder;
 
     void WaitForMessageReception(const unsigned int milliseconds);
 
-    void TransitionTo(const DeviceBehaviourStatePtr &newState);
+    friend class RunningState;
+    friend class NotStartedState;
 
-private:
+    void TransitionTo(const DeviceBehaviourStatePtr &newState);
 
     /*!
         \brief Method executed in a separate thread

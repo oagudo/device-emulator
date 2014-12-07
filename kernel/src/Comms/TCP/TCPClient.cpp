@@ -6,7 +6,7 @@ namespace device_emulator {
 
 DEFINE_LOGGER(logger, "emulator.comms.tcp.client")
 
-TCPClient::TCPClient(TCPClientSetupPtr setup) : TCPEndPoint(setup) { }
+TCPClient::TCPClient(const TCPClientSetupPtr &setup) : TCPEndPoint(setup) { }
 
 bool TCPClient::Start() {
     try {

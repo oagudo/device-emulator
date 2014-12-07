@@ -6,7 +6,7 @@ namespace device_emulator {
 
 DEFINE_LOGGER(logger, "emulator.comms.tcp.server")
 
-TCPServer::TCPServer(TCPServerSetupPtr setup) : TCPEndPoint(setup) { }
+TCPServer::TCPServer(const TCPServerSetupPtr &setup) : TCPEndPoint(setup) { }
 
 bool TCPServer::Start() {
     try {

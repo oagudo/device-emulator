@@ -19,7 +19,7 @@ class TCPClient  : public TCPEndPoint {
 
 public:
 
-    TCPClient(TCPClientSetupPtr setup);
+    TCPClient(const TCPClientSetupPtr &setup);
     virtual ~TCPClient() { }
     bool Start();
 

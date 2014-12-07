@@ -19,4 +19,3 @@ void export_DeviceBehaviour()
         .def("wait", &DeviceBehaviour::Wait)
         ;
 }
-

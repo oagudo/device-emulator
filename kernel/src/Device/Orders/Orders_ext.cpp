@@ -21,8 +21,8 @@ struct OrderListWrap : OrderList, wrapper<OrderList>
 {
     IDeviceOrderPtr Next() {
         if (override n = this->get_override("next"))
-			return n();
-		return OrderList::Next();
+            return n();
+        return OrderList::Next();
     }
 
     IDeviceOrderPtr default_Next() { return this->OrderList::Next(); }
@@ -57,7 +57,7 @@ void export_IDeviceOrders()
         .def("add", &InfiniteOrderList::Add)
         .def("empty", &InfiniteOrderList::Empty)
         .def("count", &InfiniteOrderList::Count)
-        ;    
+        ;
 
     class_<OrderListWrap, boost::noncopyable>("OrderList")
         .def("next", &OrderList::Next, &OrderListWrap::default_Next)

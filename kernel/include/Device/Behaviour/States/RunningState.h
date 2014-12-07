@@ -17,12 +17,12 @@ public:
         }
 
         if (context->GetState()->AllowToContinue()) {
-            context->TransitionTo(DeviceBehaviourStatePtr(new FinishedState()));
+            transitionTo(context, DeviceBehaviourStatePtr(new FinishedState()));
         }
     }
 
     void Stop(const DeviceBehaviourPtr &context) { 
-        context->TransitionTo(DeviceBehaviourStatePtr(new StoppedState()));
+        transitionTo(context, DeviceBehaviourStatePtr(new StoppedState()));
     }
 };
 

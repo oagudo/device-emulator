@@ -10,7 +10,7 @@ void ReceiveOrder::Execute(const DeviceBehaviourPtr &context) {
         // Message was ready to be picked!
     }
     else {
-        context->WaitForMessageReception(_timeout);
+        context->waitForMessageReception(_timeout);
     }
 }
 

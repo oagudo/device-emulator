@@ -11,7 +11,7 @@ bool CommunicationChannel::WantMessage(const unsigned int msgID, const DeviceBeh
 
     bool received = false;
     if (existsMessage(msgID)) {
-        who->OnMessageArrived(_hashArrivedMessages[msgID].front());
+        who->onMessageArrived(_hashArrivedMessages[msgID].front());
         _hashArrivedMessages[msgID].pop();
         received = true;
     }
@@ -28,7 +28,7 @@ void CommunicationChannel::OnMsgReceived(const IMessagePtr &msg) {
     LOG_INFO(logger, "Message '" << msg->GetId() << "' received");
     if (anyDeviceWaitingFor(msg->GetId())) {
         // Notify them!
-        _hashWaitingForMessage[msg->GetId()].front()->OnMessageArrived(msg);
+        _hashWaitingForMessage[msg->GetId()].front()->onMessageArrived(msg);
         _hashWaitingForMessage[msg->GetId()].pop();
     } else {
         // Adds the message to the receiving queue

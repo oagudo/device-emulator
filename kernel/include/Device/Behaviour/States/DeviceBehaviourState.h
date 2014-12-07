@@ -24,6 +24,10 @@ public:
     virtual void Start(const DeviceBehaviourPtr &context) { }
     virtual void ExecuteOrders(const DeviceBehaviourPtr &context) { }
     virtual void Stop(const DeviceBehaviourPtr &context) { }
+protected:
+    void transitionTo(const DeviceBehaviourPtr &context, const DeviceBehaviourStatePtr &newState) {
+        context->transitionTo(newState);
+    }
 };
 /*!
     \class Represents a state which is not considered as error

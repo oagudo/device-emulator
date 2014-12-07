@@ -49,16 +49,15 @@ private:
 
     friend class CommunicationChannel;
 
-    void OnMessageArrived(const IMessagePtr &msg);
+    void onMessageArrived(const IMessagePtr &msg);
 
     friend class ReceiveOrder;
 
-    void WaitForMessageReception(const unsigned int milliseconds);
+    void waitForMessageReception(const unsigned int milliseconds);
 
-    friend class RunningState;
-    friend class NotStartedState;
+    friend class DeviceBehaviourState;
 
-    void TransitionTo(const DeviceBehaviourStatePtr &newState);
+    void transitionTo(const DeviceBehaviourStatePtr &newState);
 
     /*!
         \brief Method executed in a separate thread
@@ -96,7 +95,6 @@ private:
 
 
     DeviceBehaviourStatePtr _state;
-
 };
 
 } // namespace

@@ -10,7 +10,7 @@ namespace device_emulator {
 class NotStartedState : public NonErrorState {
 public:
     void Start(const DeviceBehaviourPtr &context) {
-        context->TransitionTo(DeviceBehaviourStatePtr(new RunningState()));
+        transitionTo(context, DeviceBehaviourStatePtr(new RunningState()));
     }
 };
 

@@ -95,6 +95,8 @@ void export_CommunicationChannel()
 		.def("send", &TCPServer::Send)
         ;   
 
+    implicitly_convertible<TCPClientPtr, boost::shared_ptr<CommunicationChannel> >();
+    implicitly_convertible<TCPServerPtr, boost::shared_ptr<CommunicationChannel> >();
 
 }
 

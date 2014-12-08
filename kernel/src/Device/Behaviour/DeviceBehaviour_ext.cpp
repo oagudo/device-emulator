@@ -57,6 +57,9 @@ void export_DeviceBehaviour()
         .def("wait", &DeviceBehaviour::Wait)
         ;
 
+    class_<DeviceBehaviourStatePtr>("DeviceBehaviourState")
+        ;
+
     class_<DeviceBehaviourStateWrap, boost::noncopyable>("DeviceBehaviourState")
         .def("is_error_state", pure_virtual(&DeviceBehaviourState::IsErrorState))
         .def("allow_to_continue", pure_virtual(&DeviceBehaviourState::AllowToContinue))

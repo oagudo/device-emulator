@@ -2,6 +2,8 @@
 #include "Device/Behaviour/States/DeviceBehaviourState.h"
 #include "Device/Orders/OrderList.h"
 #include "Comms/CommunicationChannel.h"
+#include "Device/Behaviour/States/ErrorState.h"
+#include "Device/Behaviour/States/FinishedState.h"
 #include <boost/python.hpp>
 
 using namespace boost::python;
@@ -47,6 +49,36 @@ struct DeviceBehaviourStateWrap : DeviceBehaviourState, wrapper<DeviceBehaviourS
 
 void export_DeviceBehaviour()
 {
+    class_<DeviceBehaviourState, DeviceBehaviourStatePtr, boost::noncopyable>("DeviceBehaviourState", no_init)
+        //        .def("is_error_state", pure_virtual(&DeviceBehaviourState::IsErrorState))
+        //        .def("allow_to_continue", pure_virtual(&DeviceBehaviourState::AllowToContinue))
+        ;
+
+    // class_<DeviceBehaviourStateWrap, boost::noncopyable>("DeviceBehaviourState")
+    //     .def("is_error_state", pure_virtual(&DeviceBehaviourState::IsErrorState))
+    //     .def("allow_to_continue", pure_virtual(&DeviceBehaviourState::AllowToContinue))
+    //     .def("get_error_msg", &DeviceBehaviourStateWrap::GetErrorMsg, &DeviceBehaviourStateWrap::default_GetErrorMsg)
+    //     .def("start", &DeviceBehaviourStateWrap::Start, &DeviceBehaviourStateWrap::default_Start)
+    //     .def("execute_orders", &DeviceBehaviourStateWrap::ExecuteOrders, &DeviceBehaviourStateWrap::default_ExecuteOrders)
+    //     .def("stop", &DeviceBehaviourStateWrap::Stop, &DeviceBehaviourStateWrap::default_Stop)
+    //     ;
+
+    class_<ErrorState, bases<DeviceBehaviourState> >("ErrorState", init<const std::string>())
+        .def("is_error_state", &ErrorState::IsErrorState)
+        .def("allow_to_continue", &ErrorState::AllowToContinue)
+        .def("get_error_msg", &ErrorState::GetErrorMsg)
+        ;
+
+    class_<FinishedState, bases<DeviceBehaviourState> >("FinishedState")
+        .def("is_error_state", &FinishedState::IsErrorState)
+        .def("allow_to_continue", &FinishedState::AllowToContinue)
+        .def("get_error_msg", &DeviceBehaviourState::GetErrorMsg)
+        ;
+
+    //    implicitly_convertible<boost::shared_ptr<ErrorState>, DeviceBehaviourStatePtr >();
+    //    implicitly_convertible<boost::shared_ptr<FinishedState>, DeviceBehaviourStatePtr >();
+
+
     class_<DeviceBehaviour, DeviceBehaviourPtr, boost::noncopyable>("DeviceBehaviour", init<const std::string, const ComChannelPtr, const OrderListPtr>())
         .add_property("state", &DeviceBehaviour::GetState)
         .add_property("name", &DeviceBehaviour::GetName)
@@ -55,17 +87,5 @@ void export_DeviceBehaviour()
         .def("start", &DeviceBehaviour::Start)
         .def("stop", &DeviceBehaviour::Stop)
         .def("wait", &DeviceBehaviour::Wait)
-        ;
-
-    class_<DeviceBehaviourStatePtr>("DeviceBehaviourState")
-        ;
-
-    class_<DeviceBehaviourStateWrap, boost::noncopyable>("DeviceBehaviourState")
-        .def("is_error_state", pure_virtual(&DeviceBehaviourState::IsErrorState))
-        .def("allow_to_continue", pure_virtual(&DeviceBehaviourState::AllowToContinue))
-        .def("get_error_msg", &DeviceBehaviourStateWrap::GetErrorMsg, &DeviceBehaviourStateWrap::default_GetErrorMsg)
-        .def("start", &DeviceBehaviourStateWrap::Start, &DeviceBehaviourStateWrap::default_Start)
-        .def("execute_orders", &DeviceBehaviourStateWrap::ExecuteOrders, &DeviceBehaviourStateWrap::default_ExecuteOrders)
-        .def("stop", &DeviceBehaviourStateWrap::Stop, &DeviceBehaviourStateWrap::default_Stop)
         ;
 }

@@ -6,6 +6,7 @@
 namespace device_emulator {
 
 class FinishedState : public NonErrorState {
+public:
     bool AllowToContinue() { return false; }
 };
 

@@ -21,3 +21,10 @@ finished_state = FinishedState()
 assert finished_state.is_error_state() == False
 assert finished_state.allow_to_continue() == False
 assert finished_state.get_error_msg() == ""
+
+# Not started state
+
+not_started_state = FinishedState()
+assert not_started_state.is_error_state() == False
+assert not_started_state.allow_to_continue() == False
+assert not_started_state.get_error_msg() == ""

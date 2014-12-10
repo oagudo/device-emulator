@@ -1,5 +1,5 @@
 #ifndef _FINISHED_STATE_H
-#define _FINISHED_STATE_h
+#define _FINISHED_STATE_H
 
 #include "DeviceBehaviourState.h"
 

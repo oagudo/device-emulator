@@ -4,6 +4,7 @@
 #include "Comms/CommunicationChannel.h"
 #include "Device/Behaviour/States/ErrorState.h"
 #include "Device/Behaviour/States/FinishedState.h"
+#include "Device/Behaviour/States/NotStartedState.h"
 #include <boost/python.hpp>
 
 using namespace boost::python;
@@ -73,6 +74,12 @@ void export_DeviceBehaviour()
         .def("is_error_state", &FinishedState::IsErrorState)
         .def("allow_to_continue", &FinishedState::AllowToContinue)
         .def("get_error_msg", &DeviceBehaviourState::GetErrorMsg)
+        ;
+
+    class_<NotStartedState, bases<DeviceBehaviourState> >("NotStartedState")
+        .def("is_error_state", &NotStartedState::IsErrorState)
+        .def("allow_to_continue", &NotStartedState::AllowToContinue)
+        .def("get_error_msg", &NotStartedState::GetErrorMsg)
         ;
 
     //    implicitly_convertible<boost::shared_ptr<ErrorState>, DeviceBehaviourStatePtr >();

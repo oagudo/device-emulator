@@ -1,5 +1,5 @@
 #ifndef _ERROR_STATE_H
-#define _ERROR_STATE_h
+#define _ERROR_STATE_H
 
 #include "DeviceBehaviourState.h"
 

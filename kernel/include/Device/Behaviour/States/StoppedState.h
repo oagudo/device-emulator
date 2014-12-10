@@ -1,5 +1,5 @@
 #ifndef _STOPPED_STATE_H
-#define _STOPPED_STATE_h
+#define _STOPPED_STATE_H
 
 #include "DeviceBehaviourState.h"
 

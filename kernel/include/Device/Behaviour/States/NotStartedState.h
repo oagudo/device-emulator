@@ -1,5 +1,5 @@
 #ifndef _NOT_STARTED_STATE_H
-#define _NOT_STARTED_STATE_h
+#define _NOT_STARTED_STATE_H
 
 #include "DeviceBehaviourState.h"
 #include "Device/Behaviour/DeviceBehaviour.h"

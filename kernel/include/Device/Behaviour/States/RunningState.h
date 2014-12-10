@@ -1,5 +1,5 @@
 #ifndef _RUNNING_STATE_H
-#define _RUNNING_STATE_h
+#define _RUNNING_STATE_H
 
 #include "DeviceBehaviourState.h"
 #include "Device/Behaviour/DeviceBehaviour.h"

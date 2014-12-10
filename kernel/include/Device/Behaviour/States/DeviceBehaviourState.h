@@ -21,13 +21,16 @@ public:
     virtual bool IsErrorState() = 0;
     virtual bool AllowToContinue() = 0;
     virtual std::string GetErrorMsg() { return ""; }
-    virtual void Start(const DeviceBehaviourPtr &context) { }
-    virtual void ExecuteOrders(const DeviceBehaviourPtr &context) { }
-    virtual void Stop(const DeviceBehaviourPtr &context) { }
 protected:
     void transitionTo(const DeviceBehaviourPtr &context, const DeviceBehaviourStatePtr &newState) {
         context->transitionTo(newState);
     }
+
+    friend class DeviceBehaviour;
+
+    virtual void Start(const DeviceBehaviourPtr &context) { }
+    virtual void ExecuteOrders(const DeviceBehaviourPtr &context) { }
+    virtual void Stop(const DeviceBehaviourPtr &context) { }
 };
 /*!
     \class Represents a state which is not considered as error

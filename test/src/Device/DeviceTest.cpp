@@ -59,8 +59,6 @@ struct Fixture {
 BOOST_AUTO_TEST_CASE( Device_StartsAllItsBehaviours ) {
     Fixture f;
     // Behaviours have not been started yet
-    BOOST_CHECK(f.behaviour->GetState()->AllowToContinue() == true);
-    BOOST_CHECK(f.behaviour2->GetState()->AllowToContinue() == true);
     f.device->Start();
     f.behaviour->Wait();
     f.behaviour2->Wait();

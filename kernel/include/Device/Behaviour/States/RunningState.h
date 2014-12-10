@@ -10,7 +10,6 @@
 namespace device_emulator {
 
 class RunningState : public NonErrorState {
-public:
     void ExecuteOrders(const DeviceBehaviourPtr &context) {
         while (!context->GetOrders()->Empty() && context->GetState()->AllowToContinue()) {
             context->GetOrders()->Next()->Execute(context);

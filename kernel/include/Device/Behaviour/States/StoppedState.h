@@ -6,6 +6,7 @@
 namespace device_emulator {
 
 class StoppedState : public NonErrorState {
+public:
     bool AllowToContinue() { return false; }
 };
 

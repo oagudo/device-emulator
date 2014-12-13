@@ -18,7 +18,7 @@ typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
 /*!
     \class Interface for communication channels
 */
-class CommunicationChannel {
+    class CommunicationChannel : public boost::enable_shared_from_this<CommunicationChannel> {
 public:
 
     CommunicationChannel(const ComChannelSetupPtr &setup) : _setup(setup) { };

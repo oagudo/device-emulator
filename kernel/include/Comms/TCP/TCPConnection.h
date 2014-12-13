@@ -28,13 +28,18 @@ namespace device_emulator {
  * hexadecimal.
  * @li The serialized data.
  */
-class TCPConnection
+class TCPConnection : public boost::enable_shared_from_this<TCPConnection>
 {
 public:
   /// Constructor.
   TCPConnection(boost::asio::io_service& io_service)
-    : socket_(io_service)
-  {
+    : socket_(io_service) {
+  }
+
+  ~TCPConnection() {
+      if (socket_.is_open()) {
+          socket_.close();
+      }
   }
 
   /// Get the underlying socket. Used for making a connection or for accepting
@@ -87,7 +92,7 @@ public:
 ::handle_read_header<T, Handler>;
     boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),
         boost::bind(f,
-          this, boost::asio::placeholders::error, boost::ref(t),
+                    shared_from_this(), boost::asio::placeholders::error, boost::ref(t),
           boost::make_tuple(handler)));
   }
 
@@ -122,7 +127,7 @@ public:
           T&, boost::tuple<Handler>)
         = &TCPConnection::handle_read_data<T, Handler>;
       boost::asio::async_read(socket_, boost::asio::buffer(inbound_data_),
-        boost::bind(f, this,
+                              boost::bind(f, shared_from_this(),
           boost::asio::placeholders::error, boost::ref(t), handler));
     }
   }

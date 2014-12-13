@@ -12,7 +12,7 @@
 using namespace boost::python;
 using namespace device_emulator;
 
-struct DeviceBehaviourStateWrap : DeviceBehaviourState, wrapper<DeviceBehaviourState>
+/*struct DeviceBehaviourStateWrap : DeviceBehaviourState, wrapper<DeviceBehaviourState>
 {
     bool IsErrorState() {
         return this->get_override("is_error_state")();
@@ -48,7 +48,7 @@ struct DeviceBehaviourStateWrap : DeviceBehaviourState, wrapper<DeviceBehaviourS
     }
     void default_Stop(const DeviceBehaviourPtr &context) { this->DeviceBehaviourState::Stop(context); }
 };
-
+*/
 
 void export_DeviceBehaviour()
 {
@@ -98,7 +98,6 @@ void export_DeviceBehaviour()
 
     //    implicitly_convertible<boost::shared_ptr<ErrorState>, DeviceBehaviourStatePtr >();
     //    implicitly_convertible<boost::shared_ptr<FinishedState>, DeviceBehaviourStatePtr >();
-
 
     class_<DeviceBehaviour, DeviceBehaviourPtr, boost::noncopyable>("DeviceBehaviour", init<const std::string, const ComChannelPtr, const OrderListPtr>())
         .add_property("state", &DeviceBehaviour::GetState)

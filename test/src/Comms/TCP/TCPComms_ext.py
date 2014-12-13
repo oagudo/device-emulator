@@ -6,6 +6,8 @@ sys.path.append('../../../../build/kernel')
 import DeviceEmulatorKernel_ext as emulator_ext
 import time
 
+emulator_ext.Logger.init()
+
 server_setup = emulator_ext.TCPServerSetup("3500")
 server = emulator_ext.TCPServer(server_setup)
 

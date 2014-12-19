@@ -63,8 +63,8 @@ BOOST_AUTO_TEST_CASE( Device_StartsAllItsBehaviours ) {
     f.behaviour->Wait();
     f.behaviour2->Wait();
     // Behaviours have finished (with errors)
-    BOOST_CHECK(f.behaviour->GetState()->AllowToContinue() == false);
-    BOOST_CHECK(f.behaviour2->GetState()->AllowToContinue() == false);
+    BOOST_CHECK(f.behaviour->GetState()->ToString() == "Error");
+    BOOST_CHECK(f.behaviour2->GetState()->ToString() == "Error");
 }
 
 BOOST_AUTO_TEST_CASE( Device_StopsAllItsBehaviours ) {
@@ -73,9 +73,11 @@ BOOST_AUTO_TEST_CASE( Device_StopsAllItsBehaviours ) {
     f.device->Start();
     f.device->Stop();
     f.infiniteBehaviour->Wait();
-    BOOST_CHECK(f.behaviour->GetState()->AllowToContinue() == false);
-    BOOST_CHECK(f.behaviour2->GetState()->AllowToContinue() == false);
-    BOOST_CHECK(f.infiniteBehaviour->GetState()->AllowToContinue() == false);
+    f.behaviour->Wait();
+    f.behaviour2->Wait();
+    BOOST_CHECK(f.behaviour->GetState()->ToString() == "Error");
+    BOOST_CHECK(f.behaviour2->GetState()->ToString() == "Error");
+    BOOST_CHECK(f.infiniteBehaviour->GetState()->ToString() == "Stopped");
 }
 
 BOOST_AUTO_TEST_SUITE_END()

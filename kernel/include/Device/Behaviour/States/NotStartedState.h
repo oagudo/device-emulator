@@ -7,12 +7,11 @@
 
 namespace device_emulator {
 
-class NotStartedState : public NonErrorState {
+class NotStartedState : public DeviceBehaviourState {
 public:
-    bool AllowToContinue() { return false; }
+    std::string ToString() const { return "NotStarted"; }
 protected:
-
-    void Start(const DeviceBehaviourPtr &context) {
+    void Start(const DeviceBehaviourPtr &context) const {
         transitionTo(context, DeviceBehaviourStatePtr(new RunningState()));
         createExecutionThread(context);
     }

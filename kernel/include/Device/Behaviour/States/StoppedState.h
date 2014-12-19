@@ -5,9 +5,9 @@
 
 namespace device_emulator {
 
-class StoppedState : public NonErrorState {
+class StoppedState : public DeviceBehaviourState {
 public:
-    bool AllowToContinue() { return false; }
+    std::string ToString() const { return "Stopped"; }
 };
 
 } // namespace

@@ -9,19 +9,22 @@
 
 namespace device_emulator {
 
-class RunningState : public NonErrorState {
-    
-    void ExecuteOrders(const DeviceBehaviourPtr &context) {
-        while (!context->GetOrders()->Empty() && context->GetState()->AllowToContinue()) {
+class RunningState : public DeviceBehaviourState {
+public:    
+    std::string ToString() const { return "Running"; }
+protected:
+    void ExecuteOrders(const DeviceBehaviourPtr &context) const {
+        while (!context->GetOrders()->Empty() && 
+               (context->GetState()->ToString() == "Running")) {
             context->GetOrders()->Next()->Execute(context);
         }
 
-        if (context->GetState()->AllowToContinue()) {
+        if (context->GetState()->ToString() == "Running") {
             transitionTo(context, DeviceBehaviourStatePtr(new FinishedState()));
         }
     }
 
-    void Stop(const DeviceBehaviourPtr &context) { 
+    void Stop(const DeviceBehaviourPtr &context) const { 
         transitionTo(context, DeviceBehaviourStatePtr(new StoppedState()));
     }    
 };

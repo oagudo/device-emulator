@@ -9,9 +9,8 @@ class ErrorState : public DeviceBehaviourState {
 
 public:
     ErrorState(const std::string &errorMsg) : _errorMsg(errorMsg) { }
-    bool AllowToContinue() { return false; }
-    std::string GetErrorMsg() { return _errorMsg; }
-    std::string ToString() { return "Error"; }
+    std::string GetErrorMsg() const { return _errorMsg; }
+    std::string ToString() const { return "Error"; }
 private:
     std::string _errorMsg;
 };

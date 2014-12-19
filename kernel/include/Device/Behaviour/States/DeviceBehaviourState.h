@@ -18,32 +18,25 @@ class DeviceBehaviourState {
 
 public:
     virtual ~DeviceBehaviourState() { }
-    virtual bool AllowToContinue() = 0;
-    virtual std::string ToString() {return "Not implemented!";}
+    virtual std::string ToString() const {return "Not implemented!";}
     
 protected:
-    void transitionTo(const DeviceBehaviourPtr &context, const DeviceBehaviourStatePtr &newState) {
+    void transitionTo(const DeviceBehaviourPtr &context, const DeviceBehaviourStatePtr &newState) const {
         context->transitionTo(newState);
     }
 
-    void createExecutionThread(const DeviceBehaviourPtr &context) {
+    void createExecutionThread(const DeviceBehaviourPtr &context) const {
         context->createExecutionThread();
     }
 
     friend class DeviceBehaviour;
 
-    virtual void Enter(const DeviceBehaviourPtr &contex) { }
-    virtual void Start(const DeviceBehaviourPtr &context) { }
-    virtual void ExecuteOrders(const DeviceBehaviourPtr &context) { }
-    virtual void Stop(const DeviceBehaviourPtr &context) { }
+    virtual void Enter(const DeviceBehaviourPtr &contex) const { }
+    virtual void Start(const DeviceBehaviourPtr &context) const { }
+    virtual void ExecuteOrders(const DeviceBehaviourPtr &context) const { }
+    virtual void Stop(const DeviceBehaviourPtr &context) const { }
 };
-/*!
-    \class Represents a state which is not considered as error
-*/
-class NonErrorState : public DeviceBehaviourState {
-public:
-    virtual bool AllowToContinue() { return true; }
-};
+
 
 } // namespace
 

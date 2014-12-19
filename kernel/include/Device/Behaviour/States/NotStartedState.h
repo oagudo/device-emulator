@@ -9,11 +9,12 @@ namespace device_emulator {
 
 class NotStartedState : public DeviceBehaviourState {
 public:
-    std::string ToString() const { return "NotStarted"; }
+    static DeviceBehaviourStatePtr Instance();
+    std::string ToString() const;
 protected:
-    void Start(const DeviceBehaviourPtr &context) const {
-        transitionTo(context, RunningState::Instance());
-    }
+    void Start(const DeviceBehaviourPtr &context) const;
+private:
+    NotStartedState();
 };
 
 } // namespace

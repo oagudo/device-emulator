@@ -19,8 +19,7 @@ assert finished_state.to_string() == "Finished"
 
 # Not started state
 
-not_started_state = NotStartedState()
-assert not_started_state.to_string() == "NotStarted"
+NotStartedState.instance().to_string() == "NotStarted"
 
 # Running state
 

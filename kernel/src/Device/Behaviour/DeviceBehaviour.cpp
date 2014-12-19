@@ -8,8 +8,7 @@ namespace device_emulator {
 
 DEFINE_LOGGER(logger, "emulator.device.behaviour")
 
-DeviceBehaviour::DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders) : _name(name), _channel(channel), _orders(orders), _state(DeviceBehaviourStatePtr(new NotStartedState())) {
-        //    transitionTo(DeviceBehaviourStatePtr(new NotStartedState()));
+DeviceBehaviour::DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders) : _name(name), _channel(channel), _orders(orders), _state(NotStartedState::Instance()) {
 }
 
 DeviceBehaviourStatePtr DeviceBehaviour::GetState() const {

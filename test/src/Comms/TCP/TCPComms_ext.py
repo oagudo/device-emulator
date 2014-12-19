@@ -49,5 +49,5 @@ behaviour_send.stop()
 client.stop()
 server.stop() 
 
-assert behaviour_send.state.is_error_state() == False
-assert behaviour_receive.state.is_error_state() == False
+assert behaviour_send.state.to_string() == "Finished"
+assert behaviour_receive.state.to_string() == "Finished"

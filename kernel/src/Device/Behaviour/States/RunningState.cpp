@@ -19,11 +19,11 @@ void RunningState::Enter(const DeviceBehaviourPtr &context) const {
 
 void RunningState::ExecuteOrders(const DeviceBehaviourPtr &context) const {
     while (!context->GetOrders()->Empty() &&
-           (context->GetState().get() == this)) {
+           (context->GetState() == RunningState::Instance())) {
         context->GetOrders()->Next()->Execute(context);
     }
 
-    if (context->GetState().get() == this) {
+    if (context->GetState() == RunningState::Instance()) {
         transitionTo(context, FinishedState::Instance());
     }
 }

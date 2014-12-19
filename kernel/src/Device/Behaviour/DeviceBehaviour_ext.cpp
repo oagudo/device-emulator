@@ -34,7 +34,8 @@ void export_DeviceBehaviour()
         .def("to_string", &RunningState::ToString)
         ;
 
-    class_<StoppedState, bases<DeviceBehaviourState> >("StoppedState")
+    class_<StoppedState, bases<DeviceBehaviourState> >("StoppedState", no_init)
+        .def("instance", &StoppedState::Instance).staticmethod("instance")
         .def("to_string", &StoppedState::ToString)
         ;
 

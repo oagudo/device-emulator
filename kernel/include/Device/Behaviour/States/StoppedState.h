@@ -7,12 +7,11 @@ namespace device_emulator {
 
 class StoppedState : public DeviceBehaviourState {
 public:
-    std::string ToString() const { return "Stopped"; }
-
-    void Enter(const DeviceBehaviourPtr &context) const {
-        waitExecutionThread(context);
-    }
-
+    static DeviceBehaviourStatePtr Instance();
+    std::string ToString() const;
+    void Enter(const DeviceBehaviourPtr &context) const;
+private:
+    StoppedState();
 };
 
 } // namespace

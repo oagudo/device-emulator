@@ -28,5 +28,4 @@ assert RunningState.instance().to_string() == "Running"
 
 # Stopped state
 
-stopped_state = StoppedState()
-assert stopped_state.to_string() == "Stopped"
+assert StoppedState.instance().to_string() == "Stopped"

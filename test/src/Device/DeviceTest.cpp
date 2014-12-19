@@ -4,6 +4,7 @@
 #include <Data/Message.h>
 #include <Device/Behaviour/DeviceBehaviour.h>
 #include <Device/Behaviour/States/DeviceBehaviourState.h>
+#include <Device/Behaviour/States/StoppedState.h>
 #include <Device/Orders/OrderList.h>
 #include <Device/Orders/InfiniteOrderList.h>
 #include <Device/Orders/IDeviceOrder.h>
@@ -77,7 +78,7 @@ BOOST_AUTO_TEST_CASE( Device_StopsAllItsBehaviours ) {
     f.behaviour2->Wait();
     BOOST_CHECK(f.behaviour->GetState()->ToString() == "Error");
     BOOST_CHECK(f.behaviour2->GetState()->ToString() == "Error");
-    BOOST_CHECK(f.infiniteBehaviour->GetState()->ToString() == "Stopped");
+    BOOST_CHECK(f.infiniteBehaviour->GetState() == StoppedState::Instance());
 }
 
 BOOST_AUTO_TEST_SUITE_END()

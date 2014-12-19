@@ -17,9 +17,7 @@ DeviceBehaviourStatePtr DeviceBehaviour::GetState() const {
 }
 
 void DeviceBehaviour::Wait() {
-     LOG_INFO(logger, "Waiting for behaviour " << GetName() << " to finish");
-     _behaviourThread.join();
-     LOG_INFO(logger, "Behaviour " << GetName() << " finished!");
+    _state->Wait(shared_from_this());
 }
 
 void DeviceBehaviour::Start() {
@@ -29,10 +27,16 @@ void DeviceBehaviour::Start() {
 void DeviceBehaviour::createExecutionThread() {
     _behaviourThread = boost::thread(&DeviceBehaviour::executeOrders, this);
 }
+
+void DeviceBehaviour::waitExecutionThread() {
+     LOG_INFO(logger, "Waiting for behaviour " << GetName() << " to finish");
+     _behaviourThread.join();
+     LOG_INFO(logger, "Behaviour " << GetName() << " finished!");
+}
+
 void DeviceBehaviour::Stop() {
     LOG_INFO(logger, "Behaviour " << GetName() << " stopped!");
     _state->Stop(shared_from_this());
-    _behaviourThread.join();
 }
 
 ComChannelPtr DeviceBehaviour::GetCommChannel() {

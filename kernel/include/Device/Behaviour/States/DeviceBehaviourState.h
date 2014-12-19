@@ -28,12 +28,17 @@ protected:
         context->createExecutionThread();
     }
 
+    void waitExecutionThread(const DeviceBehaviourPtr &context) const {
+        context->waitExecutionThread();
+    }
+
     friend class DeviceBehaviour;
 
     virtual void Enter(const DeviceBehaviourPtr &contex) const { }
     virtual void Start(const DeviceBehaviourPtr &context) const { }
     virtual void ExecuteOrders(const DeviceBehaviourPtr &context) const { }
     virtual void Stop(const DeviceBehaviourPtr &context) const { }
+    virtual void Wait(const DeviceBehaviourPtr &context) const { }
 };
 
 

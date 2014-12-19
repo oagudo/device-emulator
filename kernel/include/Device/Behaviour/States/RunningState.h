@@ -18,18 +18,23 @@ protected:
     }
     void ExecuteOrders(const DeviceBehaviourPtr &context) const {
         while (!context->GetOrders()->Empty() && 
-               (context->GetState()->ToString() == "Running")) {
+               (context->GetState().get() == this)) {
             context->GetOrders()->Next()->Execute(context);
         }
 
-        if (context->GetState()->ToString() == "Running") {
+        if (context->GetState().get() == this) {
             transitionTo(context, DeviceBehaviourStatePtr(new FinishedState()));
         }
     }
 
     void Stop(const DeviceBehaviourPtr &context) const { 
         transitionTo(context, DeviceBehaviourStatePtr(new StoppedState()));
-    }    
+    }
+
+    void Wait(const DeviceBehaviourPtr &context) const { 
+        waitExecutionThread(context);
+    }
+
 };
 
 } // namespace

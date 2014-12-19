@@ -70,6 +70,11 @@ private:
     void createExecutionThread();
 
     /*!
+        \brief Waits the execution thread
+     */
+    void waitExecutionThread();
+
+    /*!
         \brief Protects critical sectionds
     */
     boost::mutex _mutexCondition;

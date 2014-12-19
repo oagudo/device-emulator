@@ -14,8 +14,7 @@ assert error_state.to_string() == "Error"
 
 # Finished state
 
-finished_state = FinishedState()
-assert finished_state.to_string() == "Finished"
+assert FinishedState.instance().to_string() == "Finished"
 
 # Not started state
 

@@ -44,10 +44,11 @@ behaviour_receive.wait()
 behaviour_send.wait()
 
 behaviour_receive.stop()
+
 behaviour_send.stop()
 
 client.stop()
 server.stop() 
 
-assert behaviour_send.state.to_string() == "Finished"
+#assert behaviour_send.state == emulator_ext.FinishedState.instance()
 assert behaviour_receive.state.to_string() == "Finished"

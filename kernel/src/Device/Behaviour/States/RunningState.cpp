@@ -24,7 +24,7 @@ void RunningState::ExecuteOrders(const DeviceBehaviourPtr &context) const {
     }
 
     if (context->GetState().get() == this) {
-        transitionTo(context, DeviceBehaviourStatePtr(new FinishedState()));
+        transitionTo(context, FinishedState::Instance());
     }
 }
 

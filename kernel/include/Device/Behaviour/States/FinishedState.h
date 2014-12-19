@@ -7,7 +7,10 @@ namespace device_emulator {
 
 class FinishedState : public DeviceBehaviourState {
 public:
-    std::string ToString() const { return "Finished"; }
+    static DeviceBehaviourStatePtr Instance();
+    std::string ToString() const;
+private:
+    FinishedState();
 };
 
 } // namespace

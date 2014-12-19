@@ -11,8 +11,10 @@ class NotStartedState : public NonErrorState {
 public:
     bool AllowToContinue() { return false; }
 protected:
+
     void Start(const DeviceBehaviourPtr &context) {
         transitionTo(context, DeviceBehaviourStatePtr(new RunningState()));
+        createExecutionThread(context);
     }
 };
 

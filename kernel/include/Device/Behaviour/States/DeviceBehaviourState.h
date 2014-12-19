@@ -21,13 +21,20 @@ public:
     virtual bool IsErrorState() = 0;
     virtual bool AllowToContinue() = 0;
     virtual std::string GetErrorMsg() { return ""; }
+    virtual std::string ToString() {return "Not implemented!";}
+    
 protected:
     void transitionTo(const DeviceBehaviourPtr &context, const DeviceBehaviourStatePtr &newState) {
         context->transitionTo(newState);
     }
 
+    void createExecutionThread(const DeviceBehaviourPtr &context) {
+        context->createExecutionThread();
+    }
+
     friend class DeviceBehaviour;
 
+    virtual void Enter(const DeviceBehaviourPtr &contex) { }
     virtual void Start(const DeviceBehaviourPtr &context) { }
     virtual void ExecuteOrders(const DeviceBehaviourPtr &context) { }
     virtual void Stop(const DeviceBehaviourPtr &context) { }

@@ -8,8 +8,8 @@ namespace device_emulator {
 
 DEFINE_LOGGER(logger, "emulator.device.behaviour")
 
-DeviceBehaviour::DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders) : _name(name), _channel(channel), _orders(orders) {
-    transitionTo(DeviceBehaviourStatePtr(new NotStartedState()));
+DeviceBehaviour::DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders) : _name(name), _channel(channel), _orders(orders), _state(DeviceBehaviourStatePtr(new NotStartedState())) {
+        //    transitionTo(DeviceBehaviourStatePtr(new NotStartedState()));
 }
 
 DeviceBehaviourStatePtr DeviceBehaviour::GetState() const {
@@ -24,9 +24,11 @@ void DeviceBehaviour::Wait() {
 
 void DeviceBehaviour::Start() {
     _state->Start(shared_from_this());
-    _behaviourThread = boost::thread(&DeviceBehaviour::executeOrders, this);
 }
 
+void DeviceBehaviour::createExecutionThread() {
+    _behaviourThread = boost::thread(&DeviceBehaviour::executeOrders, this);
+}
 void DeviceBehaviour::Stop() {
     LOG_INFO(logger, "Behaviour " << GetName() << " stopped!");
     _state->Stop(shared_from_this());
@@ -51,6 +53,7 @@ void DeviceBehaviour::executeOrders() {
 
 void DeviceBehaviour::transitionTo(const DeviceBehaviourStatePtr &newState) {
     _state = newState;
+    newState->Enter(shared_from_this());
 }
 
 void DeviceBehaviour::waitForMessageReception(const unsigned int milliseconds) {

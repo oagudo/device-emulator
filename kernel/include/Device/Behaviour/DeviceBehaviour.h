@@ -65,6 +65,11 @@ private:
     void executeOrders();
 
     /*!
+        \brief Creates the execution thread
+     */
+    void createExecutionThread();
+
+    /*!
         \brief Protects critical sectionds
     */
     boost::mutex _mutexCondition;

@@ -10,6 +10,7 @@
 namespace device_emulator {
 
 class RunningState : public NonErrorState {
+    
     void ExecuteOrders(const DeviceBehaviourPtr &context) {
         while (!context->GetOrders()->Empty() && context->GetState()->AllowToContinue()) {
             context->GetOrders()->Next()->Execute(context);
@@ -22,7 +23,7 @@ class RunningState : public NonErrorState {
 
     void Stop(const DeviceBehaviourPtr &context) { 
         transitionTo(context, DeviceBehaviourStatePtr(new StoppedState()));
-    }
+    }    
 };
 
 } // namespace

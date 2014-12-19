@@ -13,7 +13,6 @@ public:
 protected:
     void Start(const DeviceBehaviourPtr &context) const {
         transitionTo(context, DeviceBehaviourStatePtr(new RunningState()));
-        createExecutionThread(context);
     }
 };
 

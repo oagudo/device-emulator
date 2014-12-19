@@ -15,10 +15,9 @@ typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
 */
 class DeviceBehaviourState {
 
-
 public:
     virtual ~DeviceBehaviourState() { }
-    virtual std::string ToString() const {return "Not implemented!";}
+    virtual std::string ToString() const = 0;
     
 protected:
     void transitionTo(const DeviceBehaviourPtr &context, const DeviceBehaviourStatePtr &newState) const {

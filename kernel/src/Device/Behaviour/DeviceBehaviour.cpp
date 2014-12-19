@@ -52,6 +52,7 @@ void DeviceBehaviour::executeOrders() {
 }
 
 void DeviceBehaviour::transitionTo(const DeviceBehaviourStatePtr &newState) {
+    LOG_INFO(logger, "Behaviour " << GetName() << " changing from " << _state->ToString() << " to " << newState->ToString());
     _state = newState;
     newState->Enter(shared_from_this());
 }

@@ -13,6 +13,9 @@ class RunningState : public DeviceBehaviourState {
 public:    
     std::string ToString() const { return "Running"; }
 protected:
+    void Enter(const DeviceBehaviourPtr &context) const {
+        createExecutionThread(context);
+    }
     void ExecuteOrders(const DeviceBehaviourPtr &context) const {
         while (!context->GetOrders()->Empty() && 
                (context->GetState()->ToString() == "Running")) {

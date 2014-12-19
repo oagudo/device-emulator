@@ -17,13 +17,6 @@ using namespace device_emulator;
     bool AllowToContinue() {
         return this->get_override("allow_to_continue")();
     }
-    std::string GetErrorMsg() {
-        if (override n = this->get_override("get_error_msg"))
-            return n();
-        return DeviceBehaviourState::GetErrorMsg();
-    }
-    std::string default_GetErrorMsg() { return this->DeviceBehaviourState::GetErrorMsg(); }
-
     void Start(const DeviceBehaviourPtr &context) {
         if (override n = this->get_override("start"))
             n(context);
@@ -56,7 +49,6 @@ void export_DeviceBehaviour()
 
     // class_<DeviceBehaviourStateWrap, boost::noncopyable>("DeviceBehaviourState")
     //     .def("allow_to_continue", pure_virtual(&DeviceBehaviourState::AllowToContinue))
-    //     .def("get_error_msg", &DeviceBehaviourStateWrap::GetErrorMsg, &DeviceBehaviourStateWrap::default_GetErrorMsg)
     //     .def("start", &DeviceBehaviourStateWrap::Start, &DeviceBehaviourStateWrap::default_Start)
     //     .def("execute_orders", &DeviceBehaviourStateWrap::ExecuteOrders, &DeviceBehaviourStateWrap::default_ExecuteOrders)
     //     .def("stop", &DeviceBehaviourStateWrap::Stop, &DeviceBehaviourStateWrap::default_Stop)
@@ -65,31 +57,26 @@ void export_DeviceBehaviour()
     class_<ErrorState, bases<DeviceBehaviourState> >("ErrorState", init<const std::string>())
         .def("to_string", &ErrorState::ToString)
         .def("allow_to_continue", &ErrorState::AllowToContinue)
-        .def("get_error_msg", &ErrorState::GetErrorMsg)
         ;
 
     class_<FinishedState, bases<DeviceBehaviourState> >("FinishedState")
         .def("to_string", &FinishedState::ToString)
         .def("allow_to_continue", &FinishedState::AllowToContinue)
-        .def("get_error_msg", &DeviceBehaviourState::GetErrorMsg)
         ;
 
     class_<NotStartedState, bases<DeviceBehaviourState> >("NotStartedState")
         .def("to_string", &NotStartedState::ToString)
         .def("allow_to_continue", &NotStartedState::AllowToContinue)
-        .def("get_error_msg", &NotStartedState::GetErrorMsg)
         ;
 
     class_<RunningState, bases<DeviceBehaviourState> >("RunningState")
         .def("to_string", &RunningState::ToString)
         .def("allow_to_continue", &RunningState::AllowToContinue)
-        .def("get_error_msg", &RunningState::GetErrorMsg)
         ;
 
     class_<StoppedState, bases<DeviceBehaviourState> >("StoppedState")
         .def("to_string", &StoppedState::ToString)
         .def("allow_to_continue", &StoppedState::AllowToContinue)
-        .def("get_error_msg", &StoppedState::GetErrorMsg)
         ;
 
     //    implicitly_convertible<boost::shared_ptr<ErrorState>, DeviceBehaviourStatePtr >();

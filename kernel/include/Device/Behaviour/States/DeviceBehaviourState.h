@@ -1,6 +1,9 @@
 #ifndef _IDEVICE_BEHAVIOUR_STATE_H
 #define _IDEVICE_BEHAVIOUR_STATE_H
 
+#include <boost/shared_ptr.hpp>
+#include "Device/Behaviour/DeviceBehaviour.h"
+
 namespace device_emulator {
 
 
@@ -18,7 +21,7 @@ class DeviceBehaviourState {
 public:
     virtual ~DeviceBehaviourState() { }
     virtual std::string ToString() const = 0;
-    
+
 protected:
     void transitionTo(const DeviceBehaviourPtr &context, const DeviceBehaviourStatePtr &newState) const {
         context->transitionTo(newState);

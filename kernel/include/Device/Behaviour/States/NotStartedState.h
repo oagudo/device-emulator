@@ -12,7 +12,7 @@ public:
     std::string ToString() const { return "NotStarted"; }
 protected:
     void Start(const DeviceBehaviourPtr &context) const {
-        transitionTo(context, DeviceBehaviourStatePtr(new RunningState()));
+        transitionTo(context, RunningState::Instance());
     }
 };
 

@@ -24,8 +24,7 @@ assert not_started_state.to_string() == "NotStarted"
 
 # Running state
 
-running_state = RunningState()
-assert running_state.to_string() == "Running"
+assert RunningState.instance().to_string() == "Running"
 
 # Stopped state
 

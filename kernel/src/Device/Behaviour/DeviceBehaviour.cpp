@@ -28,9 +28,9 @@ void DeviceBehaviour::createExecutionThread() {
 }
 
 void DeviceBehaviour::waitExecutionThread() {
-     LOG_INFO(logger, "Waiting for behaviour " << GetName() << " to finish");
+     LOG_DEBUG(logger, "Waiting for behaviour " << GetName() << " to finish");
      _behaviourThread.join();
-     LOG_INFO(logger, "Behaviour " << GetName() << " finished!");
+     LOG_DEBUG(logger, "Behaviour " << GetName() << " finished!");
 }
 
 void DeviceBehaviour::Stop() {
@@ -55,7 +55,7 @@ void DeviceBehaviour::executeOrders() {
 }
 
 void DeviceBehaviour::transitionTo(const DeviceBehaviourStatePtr &newState) {
-    LOG_INFO(logger, "Behaviour " << GetName() << " changing from " << _state->ToString() << " to " << newState->ToString());
+    LOG_INFO(logger, "Behaviour " << GetName() << " changing from " << _state->ToString() << " state to " << newState->ToString() << " state");
     _state = newState;
     newState->Enter(shared_from_this());
 }
@@ -67,17 +67,17 @@ void DeviceBehaviour::waitForMessageReception(const unsigned int milliseconds) {
     boost::mutex::scoped_lock lock(_mutexCondition);
 
     if (_condition.timed_wait(lock,timeout) == true) {
-        LOG_INFO(logger, "Behaviour " << GetName() << " received message '" << _msgReceived->GetId() << "'");
+        LOG_DEBUG(logger, "Behaviour " << GetName() << " received message '" << _msgReceived->GetId() << "'");
     }
     else {
-        LOG_INFO(logger, "Timeout [" << milliseconds << " ms] triggered because behaviour " <<
+        LOG_ERROR(logger, "Timeout [" << milliseconds << " ms] triggered because behaviour " <<
                  GetName() << " did not receive any message");
         transitionTo(ErrorState::Instance());
     }
 }
 
 void DeviceBehaviour::onMessageArrived(const IMessagePtr &msg) {
-    LOG_INFO(logger, "Behaviour " << GetName() << " is notified for message '" << msg->GetId() << "' arrival");
+    LOG_DEBUG(logger, "Behaviour " << GetName() << " is notified for message '" << msg->GetId() << "' arrival");
     boost::mutex::scoped_lock lock(_mutexCondition);
     _msgReceived = msg;
     _condition.notify_one();

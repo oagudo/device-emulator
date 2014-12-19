@@ -5,6 +5,7 @@
 #include <Device/Behaviour/DeviceBehaviour.h>
 #include <Device/Behaviour/States/DeviceBehaviourState.h>
 #include <Device/Behaviour/States/StoppedState.h>
+#include <Device/Behaviour/States/ErrorState.h>
 #include <Device/Orders/OrderList.h>
 #include <Device/Orders/InfiniteOrderList.h>
 #include <Device/Orders/IDeviceOrder.h>
@@ -64,8 +65,8 @@ BOOST_AUTO_TEST_CASE( Device_StartsAllItsBehaviours ) {
     f.behaviour->Wait();
     f.behaviour2->Wait();
     // Behaviours have finished (with errors)
-    BOOST_CHECK(f.behaviour->GetState()->ToString() == "Error");
-    BOOST_CHECK(f.behaviour2->GetState()->ToString() == "Error");
+BOOST_CHECK(f.behaviour->GetState() == ErrorState::Instance());
+BOOST_CHECK(f.behaviour2->GetState() == ErrorState::Instance());
 }
 
 BOOST_AUTO_TEST_CASE( Device_StopsAllItsBehaviours ) {
@@ -76,8 +77,8 @@ BOOST_AUTO_TEST_CASE( Device_StopsAllItsBehaviours ) {
     f.infiniteBehaviour->Wait();
     f.behaviour->Wait();
     f.behaviour2->Wait();
-    BOOST_CHECK(f.behaviour->GetState()->ToString() == "Error");
-    BOOST_CHECK(f.behaviour2->GetState()->ToString() == "Error");
+    BOOST_CHECK(f.behaviour->GetState() == ErrorState::Instance());
+    BOOST_CHECK(f.behaviour2->GetState() == ErrorState::Instance());
     BOOST_CHECK(f.infiniteBehaviour->GetState() == StoppedState::Instance());
 }
 

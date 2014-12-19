@@ -8,11 +8,10 @@ namespace device_emulator {
 class ErrorState : public DeviceBehaviourState {
 
 public:
-    ErrorState(const std::string &errorMsg) : _errorMsg(errorMsg) { }
-    std::string GetErrorMsg() const { return _errorMsg; }
-    std::string ToString() const { return "Error"; }
+    static DeviceBehaviourStatePtr Instance();
+    std::string ToString() const;
 private:
-    std::string _errorMsg;
+    ErrorState();
 };
 
 } // namespace

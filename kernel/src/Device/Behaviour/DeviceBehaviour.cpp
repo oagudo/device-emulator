@@ -72,7 +72,7 @@ void DeviceBehaviour::waitForMessageReception(const unsigned int milliseconds) {
     else {
         LOG_INFO(logger, "Timeout [" << milliseconds << " ms] triggered because behaviour " <<
                  GetName() << " did not receive any message");
-        transitionTo(DeviceBehaviourStatePtr(new ErrorState("Timeout when waiting for message")));
+        transitionTo(ErrorState::Instance());
     }
 }
 

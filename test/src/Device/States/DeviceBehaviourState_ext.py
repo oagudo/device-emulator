@@ -8,9 +8,7 @@ from DeviceEmulatorKernel_ext import ErrorState, FinishedState, NotStartedState,
 
 # Error state
 
-error_description = "error description msg"
-error_state = ErrorState(error_description)
-assert error_state.to_string() == "Error"
+assert ErrorState.instance().to_string() == "Error"
 
 # Finished state
 

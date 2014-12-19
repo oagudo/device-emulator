@@ -17,7 +17,8 @@ void export_DeviceBehaviour()
     class_<DeviceBehaviourState, DeviceBehaviourStatePtr, boost::noncopyable>("DeviceBehaviourState", no_init)
         ;
 
-    class_<ErrorState, bases<DeviceBehaviourState> >("ErrorState", init<const std::string>())
+    class_<ErrorState, bases<DeviceBehaviourState> >("ErrorState", no_init)
+        .def("instance", &ErrorState::Instance).staticmethod("instance")
         .def("to_string", &ErrorState::ToString)
         ;
 

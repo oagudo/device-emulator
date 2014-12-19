@@ -4,6 +4,7 @@
 #include <Comms/TCP/TCPServer.h>
 #include <Device/Behaviour/DeviceBehaviour.h>
 #include <Device/Behaviour/States/DeviceBehaviourState.h>
+#include <Device/Behaviour/States/ErrorState.h>
 #include <Data/Message.h>
 #include <Device/Orders/OrderList.h>
 #include <Device/Orders/IDeviceOrder.h>
@@ -88,8 +89,8 @@ BOOST_AUTO_TEST_CASE( TCPCommsTests_DeviceBehavioursSendAndReceiveMessagesThroug
     f.behaviourServer->Wait();
     f.behaviourClient->Wait();
     
-    BOOST_CHECK(f.behaviourServer->GetState()->ToString() != "Error");
-    BOOST_CHECK(f.behaviourClient->GetState()->ToString() != "Error");
+    BOOST_CHECK(f.behaviourServer->GetState() != ErrorState::Instance());
+    BOOST_CHECK(f.behaviourClient->GetState() != ErrorState::Instance());
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -88,8 +88,8 @@ BOOST_AUTO_TEST_CASE( TCPCommsTests_DeviceBehavioursSendAndReceiveMessagesThroug
     f.behaviourServer->Wait();
     f.behaviourClient->Wait();
     
-    BOOST_CHECK(f.behaviourServer->GetState()->IsErrorState() == false);
-    BOOST_CHECK(f.behaviourClient->GetState()->IsErrorState() == false);
+    BOOST_CHECK(f.behaviourServer->GetState()->ToString() != "Error");
+    BOOST_CHECK(f.behaviourClient->GetState()->ToString() != "Error");
 }
 
 BOOST_AUTO_TEST_SUITE_END()

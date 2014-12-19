@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_FinishedWithErrorWhenNoMessageIsReceived )
     Fixture f;
     f.behaviour->Start();
     f.behaviour->Wait();
-    BOOST_CHECK(f.behaviour->GetState()->IsErrorState() == true);
+    BOOST_CHECK(f.behaviour->GetState()->ToString() == "Error");
 }
 
 BOOST_AUTO_TEST_CASE( DeviceBehaviour_WakesUpAfterReceivingAMessageWhichWasWaitingFor ) {
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_WakesUpAfterReceivingAMessageWhichWasWaiti
     f.channel->OnMsgReceived(f.msg1); // After 50 ms the message is received, at this point thread should be wake up
     f.channel->OnMsgReceived(f.msg2);
     f.behaviour->Wait();
-    BOOST_CHECK(f.behaviour->GetState()->IsErrorState() == false);
+    BOOST_CHECK(f.behaviour->GetState()->ToString() != "Error");
 }
 
 BOOST_AUTO_TEST_CASE( DeviceBehaviour_FinishedOKIfMessagesArePresent ) {
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_FinishedOKIfMessagesArePresent ) {
     f.channel->OnMsgReceived(f.msg2);
     f.behaviour->Start();
     f.behaviour->Wait();
-    BOOST_CHECK(f.behaviour->GetState()->IsErrorState() == false);
+    BOOST_CHECK(f.behaviour->GetState()->ToString() != "Error");
 }
 
 BOOST_AUTO_TEST_CASE( DeviceBehaviour_CanBeStoppedAtAnyTime ) {
@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_CanBeStoppedAtAnyTime ) {
     // After 50 ms a stop is requested
     f.infiniteBehaviour->Stop();
     f.infiniteBehaviour->Wait();
-    BOOST_CHECK(f.infiniteBehaviour->GetState()->IsErrorState() == false);
+    BOOST_CHECK(f.infiniteBehaviour->GetState()->ToString() != "Error");
 }
 
 BOOST_AUTO_TEST_CASE( DeviceBehaviour_MessagesArePickedInOrder ) {
@@ -98,8 +98,8 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_MessagesArePickedInOrder ) {
     boost::this_thread::sleep( boost::posix_time::milliseconds(50) );
     f.behaviour2->Start(); // Second behaviour starts after first one
     f.behaviour2->Wait();
-    BOOST_CHECK(f.behaviour->GetState()->IsErrorState() == false); // First behaviour finished OK
-    BOOST_CHECK(f.behaviour2->GetState()->IsErrorState() == true); // Second behaviour did not receive nothing!
+    BOOST_CHECK(f.behaviour->GetState()->ToString() != "Error"); // First behaviour finished OK
+    BOOST_CHECK(f.behaviour2->GetState()->ToString() == "Error"); // Second behaviour did not receive nothing!
 }
 
 BOOST_AUTO_TEST_SUITE_END()

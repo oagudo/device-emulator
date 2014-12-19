@@ -18,7 +18,6 @@ class DeviceBehaviourState {
 
 public:
     virtual ~DeviceBehaviourState() { }
-    virtual bool IsErrorState() = 0;
     virtual bool AllowToContinue() = 0;
     virtual std::string GetErrorMsg() { return ""; }
     virtual std::string ToString() {return "Not implemented!";}
@@ -44,7 +43,6 @@ protected:
 */
 class NonErrorState : public DeviceBehaviourState {
 public:
-    bool IsErrorState() { return false; }
     virtual bool AllowToContinue() { return true; }
 };
 

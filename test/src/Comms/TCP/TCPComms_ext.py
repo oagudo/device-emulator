@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 
 import sys
-sys.path.append('../../../../build/model')
-
-import DeviceEmulatorModel_ext as emulator_ext
 import time
+import DeviceEmulatorModel_ext as emulator_ext
 
 emulator_ext.Logger.init()
 

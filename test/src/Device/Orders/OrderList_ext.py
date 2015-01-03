@@ -2,8 +2,6 @@
 
 import sys
 
-sys.path.append('../../../../build/model')
-
 from DeviceEmulatorModel_ext import OrderList, InfiniteOrderList, WaitOrder, SendOrder, ReceiveOrder, Message
 
 # Orders

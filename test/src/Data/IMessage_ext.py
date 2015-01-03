@@ -2,8 +2,6 @@
 
 import sys
 
-sys.path.append('../../../build/model')
-
 from DeviceEmulatorModel_ext import IMessage
 
 class PythonDerived(IMessage):
@@ -11,4 +9,4 @@ class PythonDerived(IMessage):
         return "PythonDerived to_string method"
 
 p = PythonDerived()
-print p.to_string()
+assert p.to_string() == "PythonDerived to_string method"

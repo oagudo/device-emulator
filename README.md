@@ -20,7 +20,7 @@ To compile all the modules:
     
 To run all tests:   
 
-    ./build/test/UnitTests
+    ./build/run_tests.sh
     
 Definitions
 ---------------

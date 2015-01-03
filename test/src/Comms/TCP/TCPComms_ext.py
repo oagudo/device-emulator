@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import sys
-sys.path.append('../../../../build/kernel')
+sys.path.append('../../../../build/model')
 
-import DeviceEmulatorKernel_ext as emulator_ext
+import DeviceEmulatorModel_ext as emulator_ext
 import time
 
 emulator_ext.Logger.init()

@@ -25,7 +25,7 @@ FILE(GLOB_RECURSE TEST_INCLUDES "src/*.h")
 source_group("src" FILES ${TEST_SOURCES})
 source_group("include" FILES ${TEST_INCLUDES})
 
-include_directories ("${PROJECT_SOURCE_DIR}/kernel/include") 
+include_directories ("${PROJECT_SOURCE_DIR}/model/include") 
 include_directories (./src/) 
 
 link_directories(${Boost_LIBRARY_DIR})
@@ -39,7 +39,7 @@ target_link_libraries(UnitTests
                       ${Boost_SYSTEM_LIBRARY}
                       ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
                       ${Boost_THREAD_LIBRARY}
-                      DeviceEmulatorKernel
+                      DeviceEmulatorModel
                       )
 
 # Creates a folder "executables" and adds target project under it

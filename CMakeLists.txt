@@ -23,6 +23,6 @@ endif()
 message ("cxx Flags: " ${CMAKE_CXX_FLAGS})
 
 # Sub-directories where more CMakeLists.txt exist
-add_subdirectory(kernel)
+add_subdirectory(model)
 add_subdirectory (test)
 

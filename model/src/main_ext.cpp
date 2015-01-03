@@ -9,7 +9,7 @@ void export_IMessage();
 void export_DeviceBehaviour();
 void export_CommunicationChannel();
 
-BOOST_PYTHON_MODULE(DeviceEmulatorKernel_ext)
+BOOST_PYTHON_MODULE(DeviceEmulatorModel_ext)
 {
     class_<Logger, boost::noncopyable>("Logger", no_init)
         .def("init", &Logger::Init).staticmethod("init")

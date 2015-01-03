@@ -2,9 +2,9 @@
 
 import sys
 
-sys.path.append('../../../build/kernel')
+sys.path.append('../../../build/model')
 
-from DeviceEmulatorKernel_ext import IMessage
+from DeviceEmulatorModel_ext import IMessage
 
 class PythonDerived(IMessage):
     def to_string(self):

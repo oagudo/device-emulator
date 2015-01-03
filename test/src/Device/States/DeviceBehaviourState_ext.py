@@ -2,9 +2,9 @@
 
 import sys
 
-sys.path.append('../../../../build/kernel')
+sys.path.append('../../../../build/model')
 
-from DeviceEmulatorKernel_ext import ErrorState, FinishedState, NotStartedState, RunningState, StoppedState
+from DeviceEmulatorModel_ext import ErrorState, FinishedState, NotStartedState, RunningState, StoppedState
 
 # Error state
 

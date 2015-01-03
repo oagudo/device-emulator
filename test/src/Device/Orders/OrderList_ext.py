@@ -2,9 +2,9 @@
 
 import sys
 
-sys.path.append('../../../../build/kernel')
+sys.path.append('../../../../build/model')
 
-from DeviceEmulatorKernel_ext import OrderList, InfiniteOrderList, WaitOrder, SendOrder, ReceiveOrder, Message
+from DeviceEmulatorModel_ext import OrderList, InfiniteOrderList, WaitOrder, SendOrder, ReceiveOrder, Message
 
 # Orders
 wait_order = WaitOrder(500)

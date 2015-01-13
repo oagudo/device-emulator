@@ -6,6 +6,10 @@ namespace device_emulator {
 
 DEFINE_LOGGER(logger, "emulator.comms")
 
+CommunicationChannel::CommunicationChannel() { }
+
+CommunicationChannel::~CommunicationChannel() { }
+
 bool CommunicationChannel::WantMessage(const unsigned int msgID, const DeviceBehaviourPtr &who) {
     boost::lock_guard<boost::mutex> lock(_mutexMsgArrived);
 

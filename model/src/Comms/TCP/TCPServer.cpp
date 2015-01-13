@@ -6,14 +6,14 @@ namespace device_emulator {
 
 DEFINE_LOGGER(logger, "emulator.comms.tcp.server")
 
-TCPServer::TCPServer(const TCPServerSetupPtr &setup) : TCPEndPoint(setup) { }
+TCPServer::TCPServer(const TCPServerSetup &setup) : _setup(setup) { }
 
 bool TCPServer::Start() {
     try {
         _acceptorPtr.reset(
            new boost::asio::ip::tcp::acceptor(_io_service,
                                               boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
-                                              boost::lexical_cast<int>(getSetup()->GetPort()))));
+                                              boost::lexical_cast<int>(getSetup().GetPort()))));
         // Starts a new connection
         TCPConnectionPtr newConn(new TCPConnection(_acceptorPtr->get_io_service()));
 
@@ -26,7 +26,7 @@ bool TCPServer::Start() {
 
     } catch (std::exception &e) {
         LOG_ERROR(logger, "Error starting listening on port (" << 
-                  getSetup()->GetPort() << ") [ex:" << e.what() << "]" );
+                  getSetup().GetPort() << ") [ex:" << e.what() << "]" );
         return false;
     }
 
@@ -47,7 +47,7 @@ void TCPServer::handleAccept(const boost::system::error_code& e, TCPConnectionPt
 
     if (!e) {
         LOG_INFO(logger, "Successfully accepted new connection to port (" << 
-                 getSetup()->GetPort() << ")" );
+                 getSetup().GetPort() << ")" );
 
         _conn = conn;
 
@@ -58,15 +58,14 @@ void TCPServer::handleAccept(const boost::system::error_code& e, TCPConnectionPt
 
     } else {
         LOG_ERROR(logger, "Error when accepting a new connection to port (" << 
-                  getSetup()->GetPort() << ") [error:" << e.message() << "]" );
+                  getSetup().GetPort() << ") [error:" << e.message() << "]" );
     }
 
     // Do not starts a new accept operation as only one client can be connected
 }
 
-TCPServerSetupPtr TCPServer::getSetup() {
-    return boost::dynamic_pointer_cast<TCPServerSetup>(_setup);
+const TCPServerSetup& TCPServer::getSetup() {
+    return _setup;
 }
-
 
 }

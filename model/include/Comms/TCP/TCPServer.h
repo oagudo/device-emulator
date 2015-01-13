@@ -19,7 +19,7 @@ class TCPServer : public TCPEndPoint {
 
 public:
 
-    TCPServer(const TCPServerSetupPtr &setup);
+    TCPServer(const TCPServerSetup &setup);
     virtual ~TCPServer() { }
     bool Start();
     void Stop();
@@ -33,13 +33,15 @@ private:
 
     /*!
         \brief Retrieves the server setup
-     */
-    TCPServerSetupPtr getSetup();
+    */
+    const TCPServerSetup& getSetup();
 
     /*!
         \brief Acceptor object used for accepting new conenctions
      */
     boost::shared_ptr<boost::asio::ip::tcp::acceptor> _acceptorPtr;
+
+    TCPServerSetup _setup;
 };
 
 } // namespace s11n_example

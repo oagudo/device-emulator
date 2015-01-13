@@ -6,7 +6,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/thread/mutex.hpp>
 
-#include "Comms/CommunicationChannelSetup.h"
 #include "Device/Behaviour/DeviceBehaviour.h"
 #include "Data/Message.h"
 
@@ -21,10 +20,10 @@ typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
     class CommunicationChannel : public boost::enable_shared_from_this<CommunicationChannel> {
 public:
 
-    CommunicationChannel(const ComChannelSetupPtr &setup) : _setup(setup) { };
+    CommunicationChannel();
 
 
-    virtual ~CommunicationChannel() { }
+    virtual ~CommunicationChannel();
 
     /*!
         \brief Starts the communication
@@ -87,11 +86,6 @@ protected:
         \brief Protects critical section
     */
     boost::mutex _mutexMsgArrived;
-
-    /*!
-        \brief Setup of the channel
-    */
-    ComChannelSetupPtr _setup;
 };
 
 } // namespace

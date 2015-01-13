@@ -10,7 +10,7 @@ using namespace device_emulator;
 
 struct CommunicationChannelWrap : CommunicationChannel, wrapper<CommunicationChannel>
 {
-    CommunicationChannelWrap(const ComChannelSetupPtr &setup) : CommunicationChannel(setup) { };
+    CommunicationChannelWrap() { };
 
     bool Start() {
         return this->get_override("start")();
@@ -31,7 +31,7 @@ struct CommunicationChannelWrap : CommunicationChannel, wrapper<CommunicationCha
 
 struct TCPEndPointWrap : TCPEndPoint, wrapper<TCPEndPoint>
 {
-    TCPEndPointWrap(const ComChannelSetupPtr &setup) : TCPEndPoint(setup) { };
+    TCPEndPointWrap() { };
 
     bool Start() {
         return this->get_override("start")();
@@ -54,13 +54,11 @@ struct TCPEndPointWrap : TCPEndPoint, wrapper<TCPEndPoint>
 
 void export_CommunicationChannel()
 {
-    class_<CommunicationChannelSetup, ComChannelSetupPtr>("CommunicationChannelSetup")
-        ;
 
     class_<CommunicationChannel, boost::shared_ptr<CommunicationChannel>, boost::noncopyable >("CommunicationChannel", no_init)
         ;
 
-//    class_<CommunicationChannelWrap, boost::noncopyable>("CommunicationChannel", init<const ComChannelSetupPtr>())
+//    class_<CommunicationChannelWrap, boost::noncopyable>("CommunicationChannel", init<>())
 //        .def("start", pure_virtual(&CommunicationChannel::Start))
 //        .def("stop", pure_virtual(&CommunicationChannel::Stop))
 //        .def("send", pure_virtual(&CommunicationChannel::Send))
@@ -71,28 +69,28 @@ void export_CommunicationChannel()
     class_<TCPEndPoint, boost::shared_ptr<TCPEndPoint>, boost::noncopyable >("TCPEndPoint", no_init);
     
 
-    class_<TCPEndPointWrap, boost::noncopyable>("TCPEndPoint", init<const ComChannelSetupPtr>())
+    class_<TCPEndPointWrap, boost::noncopyable>("TCPEndPoint", init<>())
         .def("start", pure_virtual(&TCPEndPoint::Start))
         .def("stop", &TCPEndPointWrap::Stop, &TCPEndPointWrap::default_Stop)
         .def("send", &TCPEndPointWrap::Send, &TCPEndPointWrap::default_Send)
         ;
 
-    class_<TCPClientSetup, TCPClientSetupPtr, bases<CommunicationChannelSetup> >("TCPClientSetup", init<const std::string, const std::string>())
+    class_<TCPClientSetup>("TCPClientSetup", init<const std::string, const std::string>())
         .add_property("port", &TCPClientSetup::GetPort)
         .add_property("host", &TCPClientSetup::GetHost)
         ;
 
-    class_<TCPClient,TCPClientPtr, boost::noncopyable, bases<TCPEndPoint> >("TCPClient", init<const TCPClientSetupPtr>())
+    class_<TCPClient, TCPClientPtr, boost::noncopyable, bases<TCPEndPoint> >("TCPClient", init<const TCPClientSetup>())
         .def("start", &TCPClient::Start)
         .def("stop", &TCPClient::Stop)
         .def("send", &TCPClient::Send)
         ;
 
-    class_<TCPServerSetup, TCPServerSetupPtr, bases<CommunicationChannelSetup> >("TCPServerSetup", init<const std::string>())
+    class_<TCPServerSetup>("TCPServerSetup", init<const std::string>())
         .add_property("port", &TCPServerSetup::GetPort)
         ;
 
-    class_<TCPServer, TCPServerPtr, boost::noncopyable, bases<TCPEndPoint> >("TCPServer", init<const TCPServerSetupPtr>())
+    class_<TCPServer, TCPServerPtr, boost::noncopyable, bases<TCPEndPoint> >("TCPServer", init<const TCPServerSetup>())
         .def("start", &TCPServer::Start)
         .def("stop", &TCPServer::Stop)
         .def("send", &TCPServer::Send)

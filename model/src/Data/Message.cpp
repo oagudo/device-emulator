@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Data/Message.h"
 
 namespace device_emulator {

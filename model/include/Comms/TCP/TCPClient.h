@@ -19,7 +19,7 @@ class TCPClient  : public TCPEndPoint {
 
 public:
 
-    TCPClient(const TCPClientSetupPtr &setup);
+    TCPClient(const TCPClientSetup &setup);
     virtual ~TCPClient() { }
     bool Start();
 
@@ -33,7 +33,9 @@ private:
     /*!
         \brief Retrieves the current client setup
      */
-    TCPClientSetupPtr getSetup();
+    const TCPClientSetup& getSetup();
+
+    TCPClientSetup _setup;
 };
 } // namespace
 

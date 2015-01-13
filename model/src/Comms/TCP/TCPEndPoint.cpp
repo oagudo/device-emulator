@@ -7,7 +7,7 @@ namespace device_emulator {
 
 DEFINE_LOGGER(logger, "emulator.comms.tcp")
 
-TCPEndPoint::TCPEndPoint(const ComChannelSetupPtr &setup) : CommunicationChannel(setup) { }
+TCPEndPoint::TCPEndPoint() { }
 
 void TCPEndPoint::Send(const IMessagePtr &msg) {
     MessagePtr msgPtr = boost::dynamic_pointer_cast<Message>(msg);

@@ -2,19 +2,16 @@
 #define _TCP_SERVER_SETUP_H
 
 #include <string>
-#include "Comms/CommunicationChannelSetup.h"
 
 namespace device_emulator {
-
-class TCPServerSetup;
-typedef boost::shared_ptr<TCPServerSetup> TCPServerSetupPtr;
 
 /*! 
     This class represents a setup for a TCP Server
 */
-class TCPServerSetup : public CommunicationChannelSetup {
+class TCPServerSetup {
 public:
     TCPServerSetup(const std::string &port) : _port(port) { };
+    virtual ~TCPServerSetup() { }
 
     std::string GetPort() const { return _port; }
         

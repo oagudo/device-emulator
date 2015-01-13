@@ -26,7 +26,7 @@ public:
 protected:
 
     // This class cannot be instancied
-    TCPEndPoint(const ComChannelSetupPtr &setup);
+    TCPEndPoint();
 
     /*!
       \brief Handles a new read of a message from the socket

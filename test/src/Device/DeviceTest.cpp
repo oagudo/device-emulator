@@ -65,8 +65,8 @@ BOOST_AUTO_TEST_CASE( Device_StartsAllItsBehaviours ) {
     f.behaviour->Wait();
     f.behaviour2->Wait();
     // Behaviours have finished (with errors)
-BOOST_CHECK(f.behaviour->GetState() == ErrorState::Instance());
-BOOST_CHECK(f.behaviour2->GetState() == ErrorState::Instance());
+    BOOST_CHECK(f.behaviour->GetState() == ErrorState::Instance());
+    BOOST_CHECK(f.behaviour2->GetState() == ErrorState::Instance());
 }
 
 BOOST_AUTO_TEST_CASE( Device_StopsAllItsBehaviours ) {
@@ -74,11 +74,9 @@ BOOST_AUTO_TEST_CASE( Device_StopsAllItsBehaviours ) {
     f.device->AddBehaviour(f.infiniteBehaviour);
     f.device->Start();
     f.device->Stop();
-    f.infiniteBehaviour->Wait();
     f.behaviour->Wait();
     f.behaviour2->Wait();
-    BOOST_CHECK(f.behaviour->GetState() == ErrorState::Instance());
-    BOOST_CHECK(f.behaviour2->GetState() == ErrorState::Instance());
+    f.infiniteBehaviour->Wait();
     BOOST_CHECK(f.infiniteBehaviour->GetState() == StoppedState::Instance());
 }
 

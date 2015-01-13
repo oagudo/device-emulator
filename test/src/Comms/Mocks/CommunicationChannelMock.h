@@ -2,24 +2,15 @@
 #define _COMMUNICATION_CHANNEL_MOCK_H
 
 #include "Comms/CommunicationChannel.h"
-#include "Comms/CommunicationChannelSetup.h"
 
 using namespace device_emulator;
-
-/*!
-    \brief CommunicationChannelSetup Mock
-*/
-class CommsSetupMock : public CommunicationChannelSetup {
- public:
-    CommsSetupMock() { };
-};
 
 /*!
     \brief CommunicationChannel Mock
 */
 class CommsMock : public CommunicationChannel {
 public:
-    CommsMock() : CommunicationChannel(ComChannelSetupPtr(new CommsSetupMock())) { };
+    CommsMock() { };
 
     bool Start() { return true; }
 

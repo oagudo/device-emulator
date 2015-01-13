@@ -2,19 +2,16 @@
 #define _TCP_CLIENT_SETUP_H
 
 #include <string>
-#include "Comms/CommunicationChannelSetup.h"
 
 namespace device_emulator {
-
-class TCPClientSetup;
-typedef boost::shared_ptr<TCPClientSetup> TCPClientSetupPtr;
 
 /*! 
     This class represents a setup for a TCP Client
 */
-class TCPClientSetup : public CommunicationChannelSetup {
+class TCPClientSetup {
  public:
     TCPClientSetup(const std::string &host, const std::string &port) : _host(host), _port(port) { };
+    virtual ~TCPClientSetup() { }
 
     std::string GetPort() const { return _port; }
     std::string GetHost() const { return _host; }

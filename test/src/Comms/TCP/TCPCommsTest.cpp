@@ -12,16 +12,15 @@
 #include <Device/Orders/SendOrder.h>
 #include <Device/Orders/WaitOrder.h>
 
-
 using namespace device_emulator;
 
 BOOST_AUTO_TEST_SUITE( TCPCommsTests )
 
 struct Fixture {
     IMessagePtr msg1;
-    TCPClientSetupPtr clientSetup;
+    TCPClientSetup clientSetup;
     TCPClientPtr clientChannel;
-    TCPServerSetupPtr serverSetup;
+    TCPServerSetup serverSetup;
     TCPServerPtr serverChannel;
     OrderListPtr ordersClient;
     OrderListPtr ordersServer;
@@ -32,9 +31,9 @@ struct Fixture {
     IDeviceOrderPtr orderWait;
     Fixture() :
         msg1(new Message(1, "msg1", "content1")),
-        clientSetup(new TCPClientSetup("localhost", "2222")),
+        clientSetup("localhost", "2222"),
         clientChannel(new TCPClient(clientSetup)),
-        serverSetup(new TCPServerSetup("2222")),
+        serverSetup("2222"),
         serverChannel(new TCPServer(serverSetup)),
         ordersClient(new OrderList),
         ordersServer(new OrderList),
@@ -43,7 +42,7 @@ struct Fixture {
         orderReceive(new ReceiveOrder(1, 250)),
         orderSend(new SendOrder(msg1)),
         orderWait(new WaitOrder(50))
-    {
+    { 
         ordersClient->Add(orderReceive);
         ordersServer->Add(orderWait);
         ordersServer->Add(orderSend);

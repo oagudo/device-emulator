@@ -1,7 +1,6 @@
 #ifndef _IDEVICE_ORDER_H
 #define _IDEVICE_ORDER_H
 
-#include <iostream>
 #include <boost/format.hpp>
 
 #include "Comms/CommunicationChannel.h"

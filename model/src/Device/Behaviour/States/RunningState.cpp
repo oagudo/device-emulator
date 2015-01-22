@@ -1,4 +1,5 @@
 #include "Device/Behaviour/States/RunningState.h"
+#include "Device/Orders/IDeviceOrder.h"
 
 namespace device_emulator {
 

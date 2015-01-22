@@ -1,5 +1,6 @@
 #include <boost/assert.hpp>
 #include "Device/Orders/OrderList.h"
+#include "Device/Orders/IDeviceOrder.h"
 
 namespace device_emulator {
 

@@ -4,12 +4,13 @@
 #include <queue>
 #include <boost/shared_ptr.hpp>
 
-#include "Device/Orders/IDeviceOrder.h"
-
 namespace device_emulator {
 
 class OrderList;
 typedef boost::shared_ptr<OrderList> OrderListPtr;
+
+class IDeviceOrder;
+typedef boost::shared_ptr<IDeviceOrder> IDeviceOrderPtr;
 
 /*!
     \class Represents a list of orders

@@ -3,6 +3,7 @@
 #include "Device/Behaviour/States/ErrorState.h"
 #include "Device/Orders/OrderList.h"
 #include "Log/Logger.h"
+#include "Data/IMessage.h"
 
 namespace device_emulator {
 

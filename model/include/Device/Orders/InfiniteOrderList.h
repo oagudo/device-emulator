@@ -13,6 +13,11 @@ class InfiniteOrderList : public OrderList
 {
 public:
     IDeviceOrderPtr Next();
+
+    /*!
+        \brief Implements virtual constructor
+    */
+    IOrderList* Clone() const;  // Virtual constructor
 };
 
 } // namespace

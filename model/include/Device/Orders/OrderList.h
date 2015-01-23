@@ -4,19 +4,14 @@
 #include <queue>
 #include <boost/shared_ptr.hpp>
 
+#include "IOrderList.h"
+
 namespace device_emulator {
-
-class OrderList;
-typedef boost::shared_ptr<OrderList> OrderListPtr;
-
-class IDeviceOrder;
-typedef boost::shared_ptr<IDeviceOrder> IDeviceOrderPtr;
 
 /*!
     \class Represents a list of orders
 */
-class OrderList
-{
+class OrderList : public IOrderList {
 public:
 
     OrderList() { }
@@ -42,6 +37,11 @@ public:
         \brief Returns the number of order of the list
     */    
     unsigned int Count() const;
+
+    /*!
+        \brief Implements virtual constructor
+    */
+    IOrderList* Clone() const;  // Virtual constructor
     
 protected:
     std::queue<IDeviceOrderPtr> _queue;

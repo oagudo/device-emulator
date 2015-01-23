@@ -13,15 +13,14 @@ struct Fixture {
     IMessagePtr msg1;
     IMessagePtr msg2;
     ComChannelPtr channel;
-    OrderListPtr orders;
+    OrderList orders;
     DeviceBehaviourPtr behaviour;
 
     Fixture() :
         msg1(new Message(1, "msg1", "content1")),
         msg2(new Message(2, "msg2", "content2")),
-        channel(new CommsMock()),
-        orders(new OrderList),
-        behaviour(new DeviceBehaviour("Test Behaviour", channel, orders)) {
+        channel(new CommsMock()) {
+          behaviour.reset(new DeviceBehaviour("Test Behaviour", channel, orders));
     };
 };
 

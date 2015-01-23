@@ -23,5 +23,9 @@ unsigned int OrderList::Count() const {
     return _queue.size();
 }
 
+IOrderList* OrderList::Clone() const {
+    return new OrderList(*this);
+}
+
 } // namespace
 

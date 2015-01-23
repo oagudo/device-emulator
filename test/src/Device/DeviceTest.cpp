@@ -22,9 +22,9 @@ struct Fixture {
     IMessagePtr msg1;
     IMessagePtr msg2;
     ComChannelPtr channel;
-    OrderListPtr orders;
-    OrderListPtr orders2;
-    OrderListPtr infSendOrders;
+    OrderList orders;
+    OrderList orders2;
+    InfiniteOrderList infSendOrders;
     DeviceBehaviourPtr behaviour;
     DeviceBehaviourPtr behaviour2;
     DeviceBehaviourPtr infiniteBehaviour;
@@ -37,22 +37,21 @@ struct Fixture {
         msg1(new Message(1, "msg1", "content1")),
         msg2(new Message(2, "msg2", "content2")),
         channel(new CommsMock()),
-        orders(new OrderList),
-        orders2(new OrderList),
-        infSendOrders(new InfiniteOrderList),
-        behaviour(new DeviceBehaviour("Test Behaviour", channel, orders)),
-        behaviour2(new DeviceBehaviour("Test Behaviour 2", channel, orders2)),
-        infiniteBehaviour(new DeviceBehaviour("Infinite behaviour", channel, infSendOrders)),
         orderReceive1(new ReceiveOrder(1, 2500)),
         orderReceive2(new ReceiveOrder(2, 2500)),
         orderSend1(new SendOrder(msg1)),
         device(new Device("Device test"))
     {
-        orders->Add(orderReceive1);
-        orders->Add(orderReceive2);
-        orders2->Add(orderReceive1);
-        orders2->Add(orderReceive2);
-        infSendOrders->Add(orderSend1);
+        orders.Add(orderReceive1);
+        orders.Add(orderReceive2);
+        orders2.Add(orderReceive1);
+        orders2.Add(orderReceive2);
+        infSendOrders.Add(orderSend1);
+
+        behaviour.reset(new DeviceBehaviour("Test Behaviour", channel, orders));
+        behaviour2.reset(new DeviceBehaviour("Test Behaviour 2", channel, orders2));
+        infiniteBehaviour.reset(new DeviceBehaviour("Infinite behaviour", channel, infSendOrders));
+
         device->AddBehaviour(behaviour);
         device->AddBehaviour(behaviour2);
     };

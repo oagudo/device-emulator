@@ -1,7 +1,7 @@
 #include "Device/Behaviour/DeviceBehaviour.h"
 #include "Device/Behaviour/States/NotStartedState.h"
 #include "Device/Behaviour/States/ErrorState.h"
-#include "Device/Orders/OrderList.h"
+#include "Device/Orders/IOrderList.h"
 #include "Log/Logger.h"
 #include "Data/IMessage.h"
 
@@ -9,7 +9,7 @@ namespace device_emulator {
 
 DEFINE_LOGGER(logger, "emulator.device.behaviour")
 
-DeviceBehaviour::DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders) : _name(name), _channel(channel), _orders(orders), _state(NotStartedState::Instance()) {
+DeviceBehaviour::DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const IOrderList &orders) : _name(name), _channel(channel), _orders(orders.Clone()), _state(NotStartedState::Instance()) {
 }
 
 DeviceBehaviourStatePtr DeviceBehaviour::GetState() const {
@@ -47,8 +47,8 @@ std::string DeviceBehaviour::GetName() const {
     return _name; 
 }
 
-OrderListPtr DeviceBehaviour::GetOrders() { 
-    return _orders; 
+IOrderList& DeviceBehaviour::GetOrders() { 
+    return *_orders; 
 }
 
 void DeviceBehaviour::executeOrders() {

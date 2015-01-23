@@ -8,5 +8,9 @@ IDeviceOrderPtr InfiniteOrderList::Next() {
     return order;
 }
 
+IOrderList* InfiniteOrderList::Clone() const {
+    return new InfiniteOrderList(*this);
+}
+
 } // namespace
 

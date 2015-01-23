@@ -6,6 +6,7 @@
 #include <boost/thread/condition_variable.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/enable_shared_from_this.hpp>
+#include "Device/Orders/IOrderList.h"
 
 namespace device_emulator {
 
@@ -14,9 +15,6 @@ typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
 
 class CommunicationChannel;
 typedef boost::shared_ptr<CommunicationChannel> ComChannelPtr;
-
-class OrderList;
-typedef boost::shared_ptr<OrderList> OrderListPtr;
 
 class DeviceBehaviourState;
 typedef boost::shared_ptr<DeviceBehaviourState> DeviceBehaviourStatePtr;
@@ -27,7 +25,7 @@ typedef boost::shared_ptr<IMessage> IMessagePtr;
 class DeviceBehaviour : public boost::enable_shared_from_this<DeviceBehaviour> {
 public:
     
-    DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const OrderListPtr &orders);
+    DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const IOrderList &orders);
 
     virtual ~DeviceBehaviour() { }
 
@@ -35,7 +33,7 @@ public:
 
     std::string GetName() const;
 
-    OrderListPtr GetOrders();
+    IOrderList& GetOrders();
 
     ComChannelPtr GetCommChannel();
 
@@ -94,16 +92,18 @@ private:
     std::string _name;
 
     /*!
-      \brief Communication channel used for exchanging messages
+        \brief Communication channel used for exchanging messages
      */
     ComChannelPtr _channel;
 
     /*!
-      \brief List of orders executed by the behaviour
+        \brief List of orders executed by the behaviour
      */
-    OrderListPtr _orders;
+    IOrderListScopedPtr _orders;
 
-
+    /*!
+        \brief Holds the state of the behaviour
+    */
     DeviceBehaviourStatePtr _state;
 };
 

@@ -1,6 +1,6 @@
 #include "Device/Behaviour/DeviceBehaviour.h"
 #include "Device/Behaviour/States/DeviceBehaviourState.h"
-#include "Device/Orders/OrderList.h"
+#include "Device/Orders/IOrderList.h"
 #include "Comms/CommunicationChannel.h"
 #include "Device/Behaviour/States/ErrorState.h"
 #include "Device/Behaviour/States/FinishedState.h"
@@ -45,10 +45,10 @@ void export_DeviceBehaviour()
     //    implicitly_convertible<boost::shared_ptr<ErrorState>, DeviceBehaviourStatePtr >();
     //    implicitly_convertible<boost::shared_ptr<FinishedState>, DeviceBehaviourStatePtr >();
 
-    class_<DeviceBehaviour, DeviceBehaviourPtr, boost::noncopyable>("DeviceBehaviour", init<const std::string, const ComChannelPtr, const OrderListPtr>())
+    class_<DeviceBehaviour, DeviceBehaviourPtr, boost::noncopyable>("DeviceBehaviour", init<const std::string, const ComChannelPtr, const IOrderList&>())
         .add_property("state", &DeviceBehaviour::GetState)
         .add_property("name", &DeviceBehaviour::GetName)
-        .add_property("orders", &DeviceBehaviour::GetOrders)
+        .add_property("orders", make_function(&DeviceBehaviour::GetOrders, return_value_policy<reference_existing_object>()) )
         .add_property("channel", &DeviceBehaviour::GetCommChannel)
         .def("start", &DeviceBehaviour::Start)
         .def("stop", &DeviceBehaviour::Stop)

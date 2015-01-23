@@ -2,6 +2,7 @@
 #include "Device/Orders/SendOrder.h"
 #include "Device/Orders/ReceiveOrder.h"
 #include "Device/Orders/WaitOrder.h"
+#include "Device/Orders/IOrderList.h"
 #include "Device/Orders/OrderList.h"
 #include "Device/Orders/InfiniteOrderList.h"
 #include <boost/python.hpp>
@@ -49,7 +50,10 @@ void export_IDeviceOrders()
         .def("execute", &WaitOrder::Execute)
         ;
 
-    class_<OrderList, OrderListPtr>("OrderList")
+    class_<IOrderList, boost::noncopyable>("IOrderList", no_init)
+        ;
+
+    class_<OrderList, bases<IOrderList> >("OrderList")
         ;
 
     class_<InfiniteOrderList, bases<OrderList> >("InfiniteOrderList")

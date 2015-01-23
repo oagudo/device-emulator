@@ -22,8 +22,8 @@ struct Fixture {
     TCPClientPtr clientChannel;
     TCPServerSetup serverSetup;
     TCPServerPtr serverChannel;
-    OrderListPtr ordersClient;
-    OrderListPtr ordersServer;
+    OrderList ordersClient;
+    OrderList ordersServer;
     DeviceBehaviourPtr behaviourClient;
     DeviceBehaviourPtr behaviourServer;
     IDeviceOrderPtr orderReceive;
@@ -35,17 +35,16 @@ struct Fixture {
         clientChannel(new TCPClient(clientSetup)),
         serverSetup("2222"),
         serverChannel(new TCPServer(serverSetup)),
-        ordersClient(new OrderList),
-        ordersServer(new OrderList),
-        behaviourClient(new DeviceBehaviour("Test Behaviour", clientChannel, ordersClient)),
-        behaviourServer(new DeviceBehaviour("Test Behaviour2", serverChannel, ordersServer)),
         orderReceive(new ReceiveOrder(1, 250)),
         orderSend(new SendOrder(msg1)),
         orderWait(new WaitOrder(50))
     { 
-        ordersClient->Add(orderReceive);
-        ordersServer->Add(orderWait);
-        ordersServer->Add(orderSend);
+        ordersClient.Add(orderReceive);
+        ordersServer.Add(orderWait);
+        ordersServer.Add(orderSend);
+
+        behaviourClient.reset(new DeviceBehaviour("Test Behaviour", clientChannel, ordersClient));
+        behaviourServer.reset(new DeviceBehaviour("Test Behaviour2", serverChannel, ordersServer));
     };
 
     ~Fixture()

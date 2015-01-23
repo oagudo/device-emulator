@@ -19,9 +19,9 @@ void RunningState::Enter(const DeviceBehaviourPtr &context) const {
 }
 
 void RunningState::ExecuteOrders(const DeviceBehaviourPtr &context) const {
-    while (!context->GetOrders()->Empty() &&
+    while (!context->GetOrders().Empty() &&
            (context->GetState() == RunningState::Instance())) {
-        context->GetOrders()->Next()->Execute(context);
+        context->GetOrders().Next()->Execute(context);
     }
 
     if (context->GetState() == RunningState::Instance()) {

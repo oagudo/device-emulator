@@ -3,7 +3,7 @@
 #include <boost/test/auto_unit_test.hpp>
 #include <boost/filesystem.hpp>
 
-#include <Log/Logger.h>
+#include <log/Logger.h>
 
 struct InitTests {
     InitTests() {

@@ -2,8 +2,6 @@
 #define _ORDER_LIST_H
 
 #include <queue>
-#include <boost/shared_ptr.hpp>
-
 #include "IOrderList.h"
 
 namespace device_emulator {

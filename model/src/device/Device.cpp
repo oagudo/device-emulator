@@ -1,4 +1,5 @@
 #include "device/Device.h"
+#include "device/behaviour/DeviceBehaviour.h"
 
 namespace device_emulator {
 

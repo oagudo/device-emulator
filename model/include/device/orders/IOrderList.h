@@ -1,15 +1,9 @@
 #ifndef _IORDER_LIST_H
 #define _IORDER_LIST_H
 
-#include <boost/scoped_ptr.hpp>
+#include "Common.h"
 
 namespace device_emulator {
-
-class IDeviceOrder;
-typedef boost::shared_ptr<IDeviceOrder> IDeviceOrderPtr;
-
-class IOrderList;
-typedef boost::scoped_ptr<IOrderList> IOrderListScopedPtr;
 
 /*!
     \class IOrderList

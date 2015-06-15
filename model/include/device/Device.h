@@ -3,13 +3,9 @@
 
 #include <string>
 #include <vector>
-#include <boost/shared_ptr.hpp>
-#include "device/behaviour/DeviceBehaviour.h"
+#include "Common.h"
 
 namespace device_emulator {
-
-class Device;
-typedef boost::shared_ptr< Device > DevicePtr;
 
 /*!
     \class This class is responsible for emulating a Device, which is composed of a set of behaviours

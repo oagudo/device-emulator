@@ -14,6 +14,8 @@
 
 using namespace device_emulator;
 
+#define WAIT_TIME 50
+
 BOOST_AUTO_TEST_SUITE( TCPCommsTests )
 
 struct Fixture {
@@ -52,7 +54,6 @@ struct Fixture {
         clientChannel->Stop();
         serverChannel->Stop();
     }
-    
 };
 
 BOOST_AUTO_TEST_CASE( TCPCommsTests_ServerStartsListenningCorrectly ) {
@@ -70,9 +71,9 @@ BOOST_AUTO_TEST_CASE( TCPCommsTests_MessagesAreSentAndReceivedCorrectly ) {
     Fixture f;
     f.serverChannel->Start();
     f.clientChannel->Start();
-    boost::this_thread::sleep( boost::posix_time::milliseconds(50) ); // Waits for connection
+    boost::this_thread::sleep( boost::posix_time::milliseconds(WAIT_TIME) ); // Waits for connection
     f.clientChannel->Send(f.msg1);
-    boost::this_thread::sleep( boost::posix_time::milliseconds(50) ); // Waits for message to be received
+    boost::this_thread::sleep( boost::posix_time::milliseconds(WAIT_TIME) ); // Waits for message to be received
     BOOST_CHECK(f.serverChannel->WantMessage(f.msg1->GetId(), f.behaviourServer));
 }
 

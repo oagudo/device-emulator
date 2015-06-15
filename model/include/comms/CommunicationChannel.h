@@ -16,7 +16,6 @@ public:
 
     CommunicationChannel();
 
-
     virtual ~CommunicationChannel();
 
     /*!

@@ -14,6 +14,8 @@
 
 using namespace device_emulator;
 
+#define WAIT_TIME 50
+
 BOOST_AUTO_TEST_SUITE( DeviceBehaviourTests )
 
 struct Fixture {
@@ -63,8 +65,8 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_FinishedWithErrorWhenNoMessageIsReceived )
 BOOST_AUTO_TEST_CASE( DeviceBehaviour_WakesUpAfterReceivingAMessageWhichWasWaitingFor ) {
     Fixture f;
     f.behaviour->Start();
-    boost::this_thread::sleep( boost::posix_time::milliseconds(50) );
-    f.channel->OnMsgReceived(f.msg1); // After 50 ms the message is received, at this point thread should be wake up
+    boost::this_thread::sleep( boost::posix_time::milliseconds(WAIT_TIME) );
+    f.channel->OnMsgReceived(f.msg1); // After WAIT_TIME ms the message is received, at this point thread should be wake up
     f.channel->OnMsgReceived(f.msg2);
     f.behaviour->Wait();
     BOOST_CHECK(f.behaviour->GetState() != ErrorState::Instance());
@@ -82,8 +84,8 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_FinishedOKIfMessagesArePresent ) {
 BOOST_AUTO_TEST_CASE( DeviceBehaviour_CanBeStoppedAtAnyTime ) {
     Fixture f;
     f.infiniteBehaviour->Start(); // Infinite order list
-    boost::this_thread::sleep( boost::posix_time::milliseconds(50) );
-    // After 50 ms a stop is requested
+    boost::this_thread::sleep( boost::posix_time::milliseconds(WAIT_TIME) );
+    // After WAIT_TIME ms a stop is requested
     f.infiniteBehaviour->Stop();
     f.infiniteBehaviour->Wait();
     BOOST_CHECK(f.infiniteBehaviour->GetState() != ErrorState::Instance());
@@ -94,7 +96,7 @@ BOOST_AUTO_TEST_CASE( DeviceBehaviour_MessagesArePickedInOrder ) {
     f.channel->OnMsgReceived(f.msg1);
     f.channel->OnMsgReceived(f.msg2);
     f.behaviour->Start();
-    boost::this_thread::sleep( boost::posix_time::milliseconds(50) );
+    boost::this_thread::sleep( boost::posix_time::milliseconds(WAIT_TIME) );
     f.behaviour2->Start(); // Second behaviour starts after first one
     f.behaviour2->Wait();
     BOOST_CHECK(f.behaviour->GetState() != ErrorState::Instance()); // First behaviour finished OK

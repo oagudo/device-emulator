@@ -7,7 +7,7 @@
 namespace device_emulator {
 
 /*!
-    \class Represents a TCP Server
+    \class Represents a simple TCP Server with no session management
  */
 class TCPServer : public TCPEndPoint {
 

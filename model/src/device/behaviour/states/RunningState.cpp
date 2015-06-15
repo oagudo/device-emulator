@@ -1,5 +1,8 @@
 #include "device/behaviour/states/RunningState.h"
+#include "device/behaviour/states/FinishedState.h"
+#include "device/behaviour/states/StoppedState.h"
 #include "device/orders/IDeviceOrder.h"
+#include "device/orders/IOrderList.h"
 
 namespace device_emulator {
 

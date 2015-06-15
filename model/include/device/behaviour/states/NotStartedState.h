@@ -1,9 +1,7 @@
 #ifndef _NOT_STARTED_STATE_H
 #define _NOT_STARTED_STATE_H
 
-#include "DeviceBehaviourState.h"
-#include "device/behaviour/DeviceBehaviour.h"
-#include "RunningState.h"
+#include "device/behaviour/states/DeviceBehaviourState.h"
 
 namespace device_emulator {
 

@@ -1,10 +1,7 @@
 #ifndef _RUNNING_STATE_H
 #define _RUNNING_STATE_H
 
-#include "DeviceBehaviourState.h"
-#include "device/orders/OrderList.h"
-#include "StoppedState.h"
-#include "FinishedState.h"
+#include "device/behaviour/states/DeviceBehaviourState.h"
 
 namespace device_emulator {
 

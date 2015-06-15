@@ -1,4 +1,5 @@
 #include "device/behaviour/states/NotStartedState.h"
+#include "device/behaviour/states/RunningState.h"
 
 namespace device_emulator {
 

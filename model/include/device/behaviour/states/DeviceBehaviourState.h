@@ -1,17 +1,9 @@
 #ifndef _IDEVICE_BEHAVIOUR_STATE_H
 #define _IDEVICE_BEHAVIOUR_STATE_H
 
-#include <boost/shared_ptr.hpp>
 #include "device/behaviour/DeviceBehaviour.h"
 
 namespace device_emulator {
-
-
-class DeviceBehaviourState;
-typedef boost::shared_ptr<DeviceBehaviourState> DeviceBehaviourStatePtr;
-
-class DeviceBehaviour;
-typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
 
 /*!
     \class Represents a state of the device behaviour

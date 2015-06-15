@@ -4,7 +4,8 @@ project (DeviceEmulator)
 # Turn on the ability to create folders to organize projects
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-# Set compiler flags and options. 
+# Set compiler flags and options.
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11") 
 # Here it is setting the Visual Studio warning level to 4
 if(MSVC)
   # Force to always compile with W4

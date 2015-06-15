@@ -15,7 +15,7 @@ class Device
 public:
     
     /*! Default constructor */
-    Device(const std::string &deviceName) : _deviceName(deviceName) { }
+    Device(const std::string &deviceName);
 
     /*!
         \brief Adds a behaviour to the device
@@ -35,7 +35,7 @@ public:
     /*!
       Name Getter 
     */
-    std::string GetName() const { return _deviceName; }
+    std::string GetName() const;
     
 private:
     std::string _deviceName;

@@ -3,22 +3,24 @@
 
 namespace device_emulator {
 
+Device::Device(const std::string &deviceName) : _deviceName(deviceName) { }
+
 void Device::AddBehaviour(const DeviceBehaviourPtr &behaviour) {
     _behaviours.push_back(behaviour);
 }
 
 void Device::Start() {
-    std::vector< DeviceBehaviourPtr >::iterator it;
-    for (it = _behaviours.begin(); it != _behaviours.end(); ++it) {
-        (*it)->Start();
-    }
+	for (auto &behaviour : _behaviours) {
+		behaviour->Start();
+	}
 }
 
 void Device::Stop() {
-    std::vector< DeviceBehaviourPtr >::iterator it;
-    for (it = _behaviours.begin(); it != _behaviours.end(); ++it) {
-        (*it)->Stop();
-    }
+	for (auto &behaviour : _behaviours) {
+		behaviour->Stop();
+	}
 }
+
+std::string Device::GetName() const { return _deviceName; }
 
 } // namespace

@@ -11,18 +11,21 @@ CommunicationChannel::CommunicationChannel() { }
 
 CommunicationChannel::~CommunicationChannel() { }
 
-bool CommunicationChannel::WantMessage(const unsigned int msgID, const DeviceBehaviourPtr &who) {
+bool CommunicationChannel::WantMessage(const unsigned int msgID,
+                                       const std::function<void(const IMessagePtr &msg)> &callback) {
+
     boost::lock_guard<boost::mutex> lock(_mutexMsgArrived);
 
     bool received = false;
     if (existsMessage(msgID)) {
-        who->onMessageArrived(_hashArrivedMessages[msgID].front());
+        auto msg = _hashArrivedMessages[msgID].front();
+        callback(msg);
         _hashArrivedMessages[msgID].pop();
         received = true;
     }
     else {
-        LOG_INFO(logger, "No message '" << msgID << "' ready for " << who->GetName());
-        addWaitingForMessage(msgID, who);
+        LOG_INFO(logger, "There is no message with id = '" << msgID);
+        addWaitingForMessage(msgID, callback);
     }
     return received;
 }
@@ -31,9 +34,10 @@ void CommunicationChannel::OnMsgReceived(const IMessagePtr &msg) {
     boost::lock_guard<boost::mutex> lock(_mutexMsgArrived);
 
     LOG_INFO(logger, "Message '" << msg->GetId() << "' received");
-    if (anyDeviceWaitingFor(msg->GetId())) {
+    if (anyWaitingForMessage(msg->GetId())) {
         // Notify them!
-        _hashWaitingForMessage[msg->GetId()].front()->onMessageArrived(msg);
+        auto callback = _hashWaitingForMessage[msg->GetId()].front();
+        callback(msg);
         _hashWaitingForMessage[msg->GetId()].pop();
     } else {
         // Adds the message to the receiving queue
@@ -41,8 +45,9 @@ void CommunicationChannel::OnMsgReceived(const IMessagePtr &msg) {
     }
 }
 
-void CommunicationChannel::addWaitingForMessage(unsigned int msgId, const DeviceBehaviourPtr &who) {
-    _hashWaitingForMessage[msgId].push(who);
+void CommunicationChannel::addWaitingForMessage(unsigned int msgId,
+                                                const std::function<void(const IMessagePtr &msg)> &callback) {
+    _hashWaitingForMessage[msgId].push(callback);
 }
 
 bool CommunicationChannel::existsMessage(const unsigned int msgID) {
@@ -50,7 +55,7 @@ bool CommunicationChannel::existsMessage(const unsigned int msgID) {
            (!_hashArrivedMessages[msgID].empty());
 }
 
-bool CommunicationChannel::anyDeviceWaitingFor(const unsigned int msgID) {
+bool CommunicationChannel::anyWaitingForMessage(const unsigned int msgID) {
     return (_hashWaitingForMessage.count(msgID) > 0) &&
             (!_hashWaitingForMessage[msgID].empty());
 }

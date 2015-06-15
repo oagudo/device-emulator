@@ -20,7 +20,7 @@ public:
 
     /*!
         \brief Starts the communication
-        True if communication is stablished, False otherwise
+        True if communication is established, False otherwise
     */
     virtual bool Start() = 0;
 
@@ -40,16 +40,16 @@ public:
     virtual void OnMsgReceived(const IMessagePtr &msg);
 
     /*!
-        \brief Used for Device behaviour for retrieving messages from the channel
+        \brief Used for retrieving messages from the channel
     */
-    bool WantMessage(const unsigned int msgID, const DeviceBehaviourPtr &who);
+    bool WantMessage(const unsigned int msgID, const ComChannelReceiveCallback &callback);
 
 protected:
 
     /*!
         \brief True if the message has arrived, False otherwise
     */
-    bool anyDeviceWaitingFor(const unsigned int msgID);
+    bool anyWaitingForMessage(const unsigned int msgID);
 
     /*!
         \brief True if the message has arrived, False otherwise
@@ -59,14 +59,14 @@ protected:
     /*!
         \brief Adds a device behaviour to the waiting queue
     */
-    void addWaitingForMessage(unsigned int msgId, const DeviceBehaviourPtr &who);
+    void addWaitingForMessage(unsigned int msgId, const ComChannelReceiveCallback &callback);
 
     /*!
-        \brief Queue of device behaviour for each kind of messages
+        \brief Queue of callbacks for each kind of messages
                TODO: Encapsulate in custom class
-               Hash { msgID } -> Queue { DeviceBehaviour }
+               Hash { msgID } -> Queue { ComChannelReceiveCallback }
     */
-    std::map< unsigned int, std::queue< DeviceBehaviourPtr > > _hashWaitingForMessage;
+    std::map< unsigned int, std::queue< ComChannelReceiveCallback > > _hashWaitingForMessage;
 
     /*!
         \brief Queue of messages for each kind of message

@@ -8,8 +8,8 @@ std::string Message::ToString() const {
 
 std::vector<unsigned char> Message::ToVector() const {
     std::vector<unsigned char> vector;
-    for(unsigned int charIndex = 0; charIndex < _msgContent.length(); charIndex++) {
-            vector.push_back((unsigned char)_msgContent[charIndex]);
+    for (auto &character : _msgContent) {
+        vector.push_back((unsigned char)character);
     }
     return vector;
 }

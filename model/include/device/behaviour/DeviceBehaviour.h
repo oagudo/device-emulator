@@ -32,8 +32,6 @@ public:
 
 private:
 
-    friend class CommunicationChannel;
-
     void onMessageArrived(const IMessagePtr &msg);
 
     friend class ReceiveOrder;

@@ -12,7 +12,8 @@ namespace device_emulator {
 class Message : public IMessage {
 public:
 
-    Message(const unsigned int msgID, const std::string &msgName, const std::string &msgContent) : _msgId(msgID), _msgName(msgName), _msgContent(msgContent) { };
+    Message(const unsigned int msgID, const std::string &msgName, const std::string &msgContent) :
+            _msgId(msgID), _msgName(msgName), _msgContent(msgContent) { };
     Message() { };
 
     virtual ~Message() { };

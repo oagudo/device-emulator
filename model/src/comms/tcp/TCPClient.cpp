@@ -21,7 +21,7 @@ bool TCPClient::Start() {
 
         // Start an asynchronous connect operation
         boost::asio::async_connect(_conn->socket(), endpoint_iterator,
-                                   boost::bind(&TCPClient::handleConnect, boost::static_pointer_cast<TCPClient>(shared_from_this()),
+                                   boost::bind(&TCPClient::handleConnect, this,
                                                boost::asio::placeholders::error));
 
         _thread = boost::thread(boost::bind(&boost::asio::io_service::run, &_io_service));
@@ -44,7 +44,7 @@ void TCPClient::handleConnect(const boost::system::error_code& e) {
                  getSetup().GetHost() << ":" << getSetup().GetPort() << ")" );
 
         _conn->async_read(_msg,
-                          boost::bind(&TCPClient::handleRead, boost::static_pointer_cast<TCPClient>(shared_from_this()),
+                          boost::bind(&TCPClient::handleRead, this,
                                       boost::asio::placeholders::error));
     } else {
         LOG_ERROR(logger, "Error when connecting to server (" << 

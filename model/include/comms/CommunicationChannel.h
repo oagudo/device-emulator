@@ -4,7 +4,6 @@
 #include <queue>
 #include <map>
 #include <boost/thread/mutex.hpp>
-#include <boost/enable_shared_from_this.hpp>
 #include "Common.h"
 
 namespace device_emulator {
@@ -12,7 +11,7 @@ namespace device_emulator {
 /*!
     \class Interface for communication channels
 */
-class CommunicationChannel : public boost::enable_shared_from_this<CommunicationChannel> {
+class CommunicationChannel {
 public:
 
     CommunicationChannel();

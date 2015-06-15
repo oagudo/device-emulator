@@ -18,7 +18,7 @@ bool TCPServer::Start() {
         TCPConnectionPtr newConn(new TCPConnection(_acceptorPtr->get_io_service()));
 
         _acceptorPtr->async_accept(newConn->socket(),
-                                   boost::bind(&TCPServer::handleAccept, boost::static_pointer_cast<TCPServer>(shared_from_this()),
+                                   boost::bind(&TCPServer::handleAccept, this,
                                                boost::asio::placeholders::error, newConn));
         
         // Boost asio loop in other thread
@@ -53,7 +53,7 @@ void TCPServer::handleAccept(const boost::system::error_code& e, TCPConnectionPt
 
         // Starts reading data from the socket
         conn->async_read(_msg,
-                         boost::bind(&TCPServer::handleRead, boost::static_pointer_cast<TCPServer>(shared_from_this()),
+                         boost::bind(&TCPServer::handleRead, this,
                                      boost::asio::placeholders::error));
 
     } else {

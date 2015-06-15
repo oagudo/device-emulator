@@ -9,7 +9,7 @@ namespace device_emulator {
 /*!
     \class Represents a TCP client
 */
-class TCPClient  : public TCPEndPoint {
+class TCPClient : public TCPEndPoint {
 
 public:
 

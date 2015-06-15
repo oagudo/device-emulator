@@ -13,7 +13,7 @@ namespace device_emulator {
 /*!
   \class Represents a TCP end point
 */
-class TCPEndPoint  : public CommunicationChannel {
+class TCPEndPoint : public CommunicationChannel {
 
 public:
 

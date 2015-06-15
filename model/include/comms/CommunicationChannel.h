@@ -3,21 +3,16 @@
 
 #include <queue>
 #include <map>
-#include <boost/shared_ptr.hpp>
 #include <boost/thread/mutex.hpp>
-
-#include "device/behaviour/DeviceBehaviour.h"
-#include "data/Message.h"
+#include <boost/enable_shared_from_this.hpp>
+#include "Common.h"
 
 namespace device_emulator {
-
-class DeviceBehaviour;
-typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
 
 /*!
     \class Interface for communication channels
 */
-    class CommunicationChannel : public boost::enable_shared_from_this<CommunicationChannel> {
+class CommunicationChannel : public boost::enable_shared_from_this<CommunicationChannel> {
 public:
 
     CommunicationChannel();

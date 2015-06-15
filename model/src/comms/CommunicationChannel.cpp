@@ -1,4 +1,5 @@
 #include "comms/CommunicationChannel.h"
+#include "data/Message.h"
 #include "device/behaviour/DeviceBehaviour.h"
 #include "log/Logger.h"
 

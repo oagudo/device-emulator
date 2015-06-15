@@ -1,5 +1,6 @@
 #include "device/orders/SendOrder.h"
 #include "comms/CommunicationChannel.h"
+#include "device/behaviour/DeviceBehaviour.h"
 
 namespace device_emulator {
 

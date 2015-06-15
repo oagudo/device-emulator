@@ -1,16 +1,10 @@
 #ifndef _TCP_SERVER_H
 #define _TCP_SERVER_H
 
-#include <boost/asio.hpp>
-#include <boost/bind.hpp>
-#include <boost/thread.hpp>
 #include "comms/tcp/TCPEndPoint.h"
 #include "comms/tcp/TCPServerSetup.h"
 
 namespace device_emulator {
-
-class TCPServer;
-typedef boost::shared_ptr<TCPServer> TCPServerPtr;
 
 /*!
     \class Represents a TCP Server

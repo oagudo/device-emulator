@@ -4,7 +4,6 @@
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
-#include <boost/shared_ptr.hpp>
 #include "comms/CommunicationChannel.h"
 #include "comms/tcp/TCPConnection.h"
 #include "data/Message.h"

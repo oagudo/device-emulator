@@ -2,32 +2,19 @@
 #define _DEVICE_BEHAVIOUR_H
 
 #include <boost/thread.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/thread/condition_variable.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/enable_shared_from_this.hpp>
-#include "device/orders/IOrderList.h"
+#include "Common.h"
 
 namespace device_emulator {
-
-class DeviceBehaviour;
-typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
-
-class CommunicationChannel;
-typedef boost::shared_ptr<CommunicationChannel> ComChannelPtr;
-
-class DeviceBehaviourState;
-typedef boost::shared_ptr<DeviceBehaviourState> DeviceBehaviourStatePtr;
-
-class IMessage;
-typedef boost::shared_ptr<IMessage> IMessagePtr;
 
 class DeviceBehaviour : public boost::enable_shared_from_this<DeviceBehaviour> {
 public:
     
     DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const IOrderList &orders);
 
-    virtual ~DeviceBehaviour() { }
+    virtual ~DeviceBehaviour();
 
     DeviceBehaviourStatePtr GetState() const;
 

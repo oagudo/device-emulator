@@ -12,6 +12,8 @@ DEFINE_LOGGER(logger, "emulator.device.behaviour")
 DeviceBehaviour::DeviceBehaviour(const std::string &name, const ComChannelPtr &channel, const IOrderList &orders) : _name(name), _channel(channel), _orders(orders.Clone()), _state(NotStartedState::Instance()) {
 }
 
+DeviceBehaviour::~DeviceBehaviour() { }
+
 DeviceBehaviourStatePtr DeviceBehaviour::GetState() const {
     return _state;
 }

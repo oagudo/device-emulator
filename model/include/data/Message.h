@@ -6,9 +6,6 @@
 
 namespace device_emulator {
 
-class Message;
-typedef boost::shared_ptr<Message> MessagePtr;    
-
 /*!
   \class Message implementation
 */

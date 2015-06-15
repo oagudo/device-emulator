@@ -1,20 +1,9 @@
 #ifndef _IDEVICE_ORDER_H
 #define _IDEVICE_ORDER_H
 
-#include <boost/format.hpp>
-
-#include "comms/CommunicationChannel.h"
+#include "Common.h"
 
 namespace device_emulator {
-
-class IDeviceOrder;
-typedef boost::shared_ptr<IDeviceOrder> IDeviceOrderPtr;
-
-class DeviceBehaviour;
-typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
-
-class CommunicationChannel;
-typedef boost::shared_ptr<CommunicationChannel> ComChannelPtr;
 
 /*!
     \class Represents a device order

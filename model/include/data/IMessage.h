@@ -3,13 +3,10 @@
 
 #include <vector>
 #include <string>
-#include <boost/shared_ptr.hpp>
 #include <boost/serialization/serialization.hpp>
+#include "Common.h"
 
 namespace device_emulator {
-
-class IMessage;
-typedef boost::shared_ptr<IMessage> IMessagePtr;
 
 /*!
   \class Interface for messages

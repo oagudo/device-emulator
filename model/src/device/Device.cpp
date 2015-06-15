@@ -10,15 +10,15 @@ void Device::AddBehaviour(const DeviceBehaviourPtr &behaviour) {
 }
 
 void Device::Start() {
-	for (auto &behaviour : _behaviours) {
-		behaviour->Start();
-	}
+    for (auto &behaviour : _behaviours) {
+        behaviour->Start();
+    }
 }
 
 void Device::Stop() {
-	for (auto &behaviour : _behaviours) {
-		behaviour->Stop();
-	}
+    for (auto &behaviour : _behaviours) {
+        behaviour->Stop();
+    }
 }
 
 std::string Device::GetName() const { return _deviceName; }

@@ -1,4 +1,5 @@
 #include <boost/lexical_cast.hpp>
+#include <boost/make_shared.hpp>
 #include "comms/tcp/TCPServer.h"
 #include "log/Logger.h"
 
@@ -10,12 +11,12 @@ TCPServer::TCPServer(const TCPServerSetup &setup) : _setup(setup) { }
 
 bool TCPServer::Start() {
     try {
-        _acceptorPtr.reset(
-           new boost::asio::ip::tcp::acceptor(_io_service,
+        _acceptorPtr = boost::make_shared<boost::asio::ip::tcp::acceptor>(
+                                              _io_service,
                                               boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(),
-                                              boost::lexical_cast<int>(getSetup().GetPort()))));
+                                              boost::lexical_cast<int>(getSetup().GetPort())));
         // Starts a new connection
-        TCPConnectionPtr newConn(new TCPConnection(_acceptorPtr->get_io_service()));
+        auto newConn = boost::make_shared<TCPConnection>(_acceptorPtr->get_io_service());
 
         _acceptorPtr->async_accept(newConn->socket(),
                                    boost::bind(&TCPServer::handleAccept, this,

@@ -1,5 +1,5 @@
 #include <boost/test/auto_unit_test.hpp>
-
+#include <boost/make_shared.hpp>
 #include <data/Message.h>
 #include <device/behaviour/DeviceBehaviour.h>
 #include <device/orders/OrderList.h>
@@ -18,7 +18,7 @@ struct Fixture {
     Fixture() :
         msg1(1, "msg1", "content1"),
         msg2(2, "msg2", "content2"),
-        channel(new CommsMock()) { };
+        channel(boost::make_shared<CommsMock>()) { };
 };
 
 BOOST_AUTO_TEST_CASE( CommunicationChannel_ReceivedMessageIsReadyToBePicked ) {

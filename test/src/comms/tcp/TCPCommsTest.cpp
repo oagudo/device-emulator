@@ -1,5 +1,5 @@
 #include <boost/test/auto_unit_test.hpp>
-
+#include <boost/make_shared.hpp>
 #include <comms/tcp/TCPClient.h>
 #include <comms/tcp/TCPServer.h>
 #include <device/behaviour/DeviceBehaviour.h>
@@ -21,8 +21,8 @@ BOOST_AUTO_TEST_SUITE( TCPCommsTests )
 struct Fixture {
     Message msg1;
     TCPClientSetup clientSetup;
-    TCPClientPtr clientChannel;
     TCPServerSetup serverSetup;
+    TCPClientPtr clientChannel;
     TCPServerPtr serverChannel;
     OrderList ordersClient;
     OrderList ordersServer;
@@ -34,19 +34,19 @@ struct Fixture {
     Fixture() :
         msg1(1, "msg1", "content1"),
         clientSetup("localhost", "2222"),
-        clientChannel(new TCPClient(clientSetup)),
         serverSetup("2222"),
-        serverChannel(new TCPServer(serverSetup)),
-        orderReceive(new ReceiveOrder(1, 250)),
-        orderSend(new SendOrder(msg1)),
-        orderWait(new WaitOrder(50))
+        clientChannel(boost::make_shared<TCPClient>(clientSetup)),
+        serverChannel(boost::make_shared<TCPServer>(serverSetup)),
+        orderReceive(boost::make_shared<ReceiveOrder>(1, 250)),
+        orderSend(boost::make_shared<SendOrder>(msg1)),
+        orderWait(boost::make_shared<WaitOrder>(50))
     { 
         ordersClient.Add(orderReceive);
         ordersServer.Add(orderWait);
         ordersServer.Add(orderSend);
 
-        behaviourClient.reset(new DeviceBehaviour("Test Behaviour", clientChannel, ordersClient));
-        behaviourServer.reset(new DeviceBehaviour("Test Behaviour2", serverChannel, ordersServer));
+        behaviourClient = boost::make_shared<DeviceBehaviour>("Test Behaviour", clientChannel, ordersClient);
+        behaviourServer = boost::make_shared<DeviceBehaviour>("Test Behaviour2", serverChannel, ordersServer);
     };
 
     ~Fixture()
@@ -74,7 +74,9 @@ BOOST_AUTO_TEST_CASE( TCPCommsTests_MessagesAreSentAndReceivedCorrectly ) {
     boost::this_thread::sleep( boost::posix_time::milliseconds(WAIT_TIME) ); // Waits for connection
     f.clientChannel->Send(f.msg1);
     boost::this_thread::sleep( boost::posix_time::milliseconds(WAIT_TIME) ); // Waits for message to be received
-    BOOST_CHECK(f.serverChannel->WantMessage(f.msg1.GetId(), [](const Message&) { }));
+    BOOST_CHECK(f.serverChannel->WantMessage(f.msg1.GetId(), [&f](const Message &msg) {
+        BOOST_CHECK(msg.ToString() == f.msg1.ToString());
+    }));
 }
 
 BOOST_AUTO_TEST_CASE( TCPCommsTests_DeviceBehavioursSendAndReceiveMessagesThroughtTCPChannel ) {

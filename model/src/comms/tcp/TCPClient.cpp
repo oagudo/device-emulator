@@ -1,3 +1,4 @@
+#include <boost/make_shared.hpp>
 #include "comms/tcp/TCPClient.h"
 #include "data/Message.h"
 #include "log/Logger.h"
@@ -12,12 +13,12 @@ bool TCPClient::Start() {
     try {
 
         // Start an accept operation for a new connection
-        _conn.reset(new TCPConnection(_io_service));
+        _conn = boost::make_shared<TCPConnection>(_io_service);
 
         // Resolve the host name into an IP address
         boost::asio::ip::tcp::resolver resolver(_io_service);
         boost::asio::ip::tcp::resolver::query query(getSetup().GetHost(), getSetup().GetPort());
-        boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
+        auto endpoint_iterator = resolver.resolve(query);
 
         // Start an asynchronous connect operation
         boost::asio::async_connect(_conn->socket(), endpoint_iterator,

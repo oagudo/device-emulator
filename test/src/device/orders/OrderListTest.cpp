@@ -1,5 +1,5 @@
 #include <boost/test/auto_unit_test.hpp>
-
+#include <boost/make_shared.hpp>
 #include <data/Message.h>
 #include <device/orders/OrderList.h>
 #include <device/orders/InfiniteOrderList.h>
@@ -18,8 +18,8 @@ struct Fixture {
     Fixture() :
         msg1(1, "msg1", "content1"),
         msg2(2, "msg2", "content2"),
-        orderReceive1(new ReceiveOrder(1, 1000)),
-        orderReceive2(new ReceiveOrder(2, 1000))
+        orderReceive1(boost::make_shared<ReceiveOrder>(1, 1000)),
+        orderReceive2(boost::make_shared<ReceiveOrder>(2, 1000))
     {
         orders.Add(orderReceive1);
         orders.Add(orderReceive2);
@@ -29,7 +29,7 @@ struct Fixture {
 BOOST_AUTO_TEST_CASE( OrderList_GrowsWhenNeeded ) {
     Fixture f;
     unsigned int numberOrders = f.orders.Count();
-    f.orders.Add(IDeviceOrderPtr (new ReceiveOrder (1, 1000)));
+    f.orders.Add(boost::make_shared<ReceiveOrder>(1, 1000));
     BOOST_CHECK_EQUAL(f.orders.Count(), numberOrders + 1);
 }
 

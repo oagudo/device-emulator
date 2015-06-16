@@ -1,5 +1,5 @@
 #include <boost/test/auto_unit_test.hpp>
-
+#include <boost/make_shared.hpp>
 #include <data/Message.h>
 #include <device/orders/OrderList.h>
 #include <device/orders/InfiniteOrderList.h>
@@ -18,8 +18,8 @@ struct Fixture {
     Fixture() :
         msg1(1, "msg1", "content1"),
         msg2(2, "msg2", "content2"),
-        orderSend1(new SendOrder(msg1)),
-        orderSend2(new SendOrder(msg2))
+        orderSend1(boost::make_shared<SendOrder>(msg1)),
+        orderSend2(boost::make_shared<SendOrder>(msg2))
     {
         infSendOrders.Add(orderSend1);
         infSendOrders.Add(orderSend2);

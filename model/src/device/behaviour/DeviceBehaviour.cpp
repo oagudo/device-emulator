@@ -3,7 +3,6 @@
 #include "device/behaviour/states/ErrorState.h"
 #include "device/orders/IOrderList.h"
 #include "log/Logger.h"
-#include "data/IMessage.h"
 
 namespace device_emulator {
 
@@ -75,7 +74,7 @@ void DeviceBehaviour::waitForMessageReception(const unsigned int milliseconds) {
 
     if (_condition.timed_wait(lock,timeout) == true) {
         LOG_DEBUG(logger, "Behaviour " << GetName() << " received message '" <<
-                          _msgReceived->GetId() << "'");
+                          _msgReceived.GetId() << "'");
     }
     else {
         LOG_ERROR(logger, "Timeout [" << milliseconds << " ms] triggered because behaviour " <<
@@ -84,8 +83,8 @@ void DeviceBehaviour::waitForMessageReception(const unsigned int milliseconds) {
     }
 }
 
-void DeviceBehaviour::onMessageArrived(const IMessagePtr &msg) {
-    LOG_DEBUG(logger, "Behaviour " << GetName() << " is notified for message '" << msg->GetId() <<
+void DeviceBehaviour::onMessageArrived(const Message &msg) {
+    LOG_DEBUG(logger, "Behaviour " << GetName() << " is notified for message '" << msg.GetId() <<
                       "' arrival");
     boost::mutex::scoped_lock lock(_mutexCondition);
     _msgReceived = msg;

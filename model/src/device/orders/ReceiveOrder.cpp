@@ -9,7 +9,7 @@ ReceiveOrder::ReceiveOrder(const unsigned int msgID, const unsigned int timeout)
 }
 
 void ReceiveOrder::Execute(const DeviceBehaviourPtr &context) {
-    auto callback = [&context] (const IMessagePtr &msg) {
+    auto callback = [&context] (const Message &msg) {
         context->onMessageArrived(msg);
     };
 

@@ -12,7 +12,7 @@ CommunicationChannel::CommunicationChannel() { }
 CommunicationChannel::~CommunicationChannel() { }
 
 bool CommunicationChannel::WantMessage(const unsigned int msgID,
-                                       const std::function<void(const IMessagePtr &msg)> &callback) {
+                                       const ComChannelReceiveCallback &callback) {
 
     boost::lock_guard<boost::mutex> lock(_mutexMsgArrived);
 
@@ -30,23 +30,23 @@ bool CommunicationChannel::WantMessage(const unsigned int msgID,
     return received;
 }
 
-void CommunicationChannel::OnMsgReceived(const IMessagePtr &msg) {
+void CommunicationChannel::OnMsgReceived(const Message &msg) {
     boost::lock_guard<boost::mutex> lock(_mutexMsgArrived);
 
-    LOG_INFO(logger, "Message '" << msg->GetId() << "' received");
-    if (anyWaitingForMessage(msg->GetId())) {
+    LOG_INFO(logger, "Message '" << msg.GetId() << "' received");
+    if (anyWaitingForMessage(msg.GetId())) {
         // Notify them!
-        auto callback = _hashWaitingForMessage[msg->GetId()].front();
+        auto callback = _hashWaitingForMessage[msg.GetId()].front();
         callback(msg);
-        _hashWaitingForMessage[msg->GetId()].pop();
+        _hashWaitingForMessage[msg.GetId()].pop();
     } else {
         // Adds the message to the receiving queue
-        _hashArrivedMessages[msg->GetId()].push(msg);
+        _hashArrivedMessages[msg.GetId()].push(msg);
     }
 }
 
 void CommunicationChannel::addWaitingForMessage(unsigned int msgId,
-                                                const std::function<void(const IMessagePtr &msg)> &callback) {
+                                                const ComChannelReceiveCallback &callback) {
     _hashWaitingForMessage[msgId].push(callback);
 }
 

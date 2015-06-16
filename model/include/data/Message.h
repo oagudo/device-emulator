@@ -1,27 +1,29 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
-#include <boost/serialization/base_object.hpp>
-#include "IMessage.h"
+#include <boost/serialization/serialization.hpp>
+#include <vector>
 
 namespace device_emulator {
 
 /*!
-  \class Message implementation
+  \class Represents a Message
 */
-class Message : public IMessage {
+class Message {
+
 public:
 
-    Message(const unsigned int msgID, const std::string &msgName, const std::string &msgContent) :
-            _msgId(msgID), _msgName(msgName), _msgContent(msgContent) { };
-    Message() { };
+    Message(const unsigned int msgID, const std::string &msgName, const std::string &msgContent);
 
-    virtual ~Message() { };
+    Message();
+
+    virtual ~Message();
 
     std::string ToString() const;
+
     std::vector<unsigned char> ToVector() const;
+
     unsigned int GetId() const;
-    bool IsValid() const;
 
 private:
 
@@ -34,7 +36,6 @@ private:
     template <typename Archive>
     void serialize(Archive& ar, const unsigned int version) 
     { 
-        ar & boost::serialization::base_object<IMessage>(*this);
         ar & _msgId;
         ar & _msgName;
         ar & _msgContent;

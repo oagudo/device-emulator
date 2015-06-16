@@ -1,4 +1,3 @@
-#include <boost/make_shared.hpp>
 #include "comms/tcp/TCPEndPoint.h"
 #include "data/Message.h"
 #include "log/Logger.h"
@@ -9,15 +8,13 @@ DEFINE_LOGGER(logger, "emulator.comms.tcp")
 
 TCPEndPoint::TCPEndPoint() { }
 
-void TCPEndPoint::Send(const IMessagePtr &msg) {
-    MessagePtr msgPtr = boost::dynamic_pointer_cast<Message>(msg);
-    _io_service.post(boost::bind(&TCPEndPoint::doWrite, this, *(msgPtr.get())));
+void TCPEndPoint::Send(const Message &msg) {
+    _io_service.post(boost::bind(&TCPEndPoint::doWrite, this, msg));
 }
 
 void TCPEndPoint::handleRead(const boost::system::error_code& e) {
     if (!e) {
-        MessagePtr msgPtr(new Message(_msg));
-        CommunicationChannel::OnMsgReceived(boost::dynamic_pointer_cast<IMessage>(msgPtr));
+        CommunicationChannel::OnMsgReceived(_msg);
         _conn->async_read(_msg,
                           boost::bind(&TCPEndPoint::handleRead, this,
                                       boost::asio::placeholders::error));

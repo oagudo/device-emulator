@@ -5,6 +5,7 @@
 #include <boost/thread/condition_variable.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/enable_shared_from_this.hpp>
+#include "data/Message.h"
 #include "Common.h"
 
 namespace device_emulator {
@@ -32,10 +33,9 @@ public:
 
 private:
 
-    void onMessageArrived(const IMessagePtr &msg);
-
     friend class ReceiveOrder;
 
+    void onMessageArrived(const Message &msg);
     void waitForMessageReception(const unsigned int milliseconds);
 
     friend class DeviceBehaviourState;
@@ -71,7 +71,7 @@ private:
     /*!
         \brief Last message received
     */
-    IMessagePtr _msgReceived;
+    Message _msgReceived;
 
 
     std::string _name;

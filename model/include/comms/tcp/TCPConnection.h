@@ -88,8 +88,7 @@ public:
     void (TCPConnection::*f)(
         const boost::system::error_code&,
         T&, boost::tuple<Handler>)
-      = &TCPConnection
-::handle_read_header<T, Handler>;
+      = &TCPConnection::handle_read_header<T, Handler>;
     boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),
         boost::bind(f,
                     shared_from_this(), boost::asio::placeholders::error, boost::ref(t),

@@ -2,6 +2,7 @@
 #define _SEND_ORDER_H
 
 #include "device/orders/IDeviceOrder.h"
+#include "data/Message.h"
 
 namespace device_emulator {
 
@@ -11,11 +12,11 @@ namespace device_emulator {
 class SendOrder : public IDeviceOrder
 {
 public:
-    SendOrder(const IMessagePtr &msg);
+    SendOrder(const Message &msg);
     void Execute(const DeviceBehaviourPtr &context);
 
 private:
-    IMessagePtr _msg;
+    Message _msg;
 };
 
 } // namespace

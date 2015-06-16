@@ -32,12 +32,12 @@ public:
     /*!
         \brief Sends a message throught the channel
     */
-    virtual void Send(const IMessagePtr &msg) = 0;
+    virtual void Send(const Message &msg) = 0;
 
     /*!
         \brief Called when a message is received at the channel
     */
-    virtual void OnMsgReceived(const IMessagePtr &msg);
+    virtual void OnMsgReceived(const Message &msg);
 
     /*!
         \brief Used for retrieving messages from the channel
@@ -73,7 +73,7 @@ protected:
                TODO: Encapsulate in custom class
                Hash { msgID } -> Queue { Message }
     */
-    std::map< unsigned int, std::queue< IMessagePtr > > _hashArrivedMessages;
+    std::map< unsigned int, std::queue< Message > > _hashArrivedMessages;
 
     /*!
         \brief Protects critical section

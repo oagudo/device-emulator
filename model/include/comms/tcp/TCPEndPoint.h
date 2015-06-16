@@ -20,7 +20,7 @@ public:
     virtual ~TCPEndPoint() { }
     bool Start() = 0;
     virtual void Stop();
-    void Send(const IMessagePtr &msg);
+    void Send(const Message &msg);
 
 protected:
 

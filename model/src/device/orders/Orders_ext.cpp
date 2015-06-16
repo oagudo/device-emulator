@@ -38,7 +38,7 @@ void export_IDeviceOrders()
         .def("execute", pure_virtual(&IDeviceOrder::Execute))
         ;
 
-    class_<SendOrder, bases<IDeviceOrder> >("SendOrder", init<const IMessagePtr&>())
+    class_<SendOrder, bases<IDeviceOrder> >("SendOrder", init<const Message&>())
         .def("execute", &SendOrder::Execute)
         ;
 

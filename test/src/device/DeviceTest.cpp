@@ -19,8 +19,8 @@ using namespace device_emulator;
 BOOST_AUTO_TEST_SUITE( DeviceTests )
 
 struct Fixture {
-    IMessagePtr msg1;
-    IMessagePtr msg2;
+    Message msg1;
+    Message msg2;
     ComChannelPtr channel;
     OrderList orders;
     OrderList orders2;
@@ -34,8 +34,8 @@ struct Fixture {
     DevicePtr device;
 
     Fixture() :
-        msg1(new Message(1, "msg1", "content1")),
-        msg2(new Message(2, "msg2", "content2")),
+        msg1(1, "msg1", "content1"),
+        msg2(2, "msg2", "content2"),
         channel(new CommsMock()),
         orderReceive1(new ReceiveOrder(1, 2500)),
         orderReceive2(new ReceiveOrder(2, 2500)),

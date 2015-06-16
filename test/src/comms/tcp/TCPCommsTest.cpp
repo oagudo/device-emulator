@@ -19,7 +19,7 @@ using namespace device_emulator;
 BOOST_AUTO_TEST_SUITE( TCPCommsTests )
 
 struct Fixture {
-    IMessagePtr msg1;
+    Message msg1;
     TCPClientSetup clientSetup;
     TCPClientPtr clientChannel;
     TCPServerSetup serverSetup;
@@ -32,7 +32,7 @@ struct Fixture {
     IDeviceOrderPtr orderSend;
     IDeviceOrderPtr orderWait;
     Fixture() :
-        msg1(new Message(1, "msg1", "content1")),
+        msg1(1, "msg1", "content1"),
         clientSetup("localhost", "2222"),
         clientChannel(new TCPClient(clientSetup)),
         serverSetup("2222"),
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE( TCPCommsTests_MessagesAreSentAndReceivedCorrectly ) {
     boost::this_thread::sleep( boost::posix_time::milliseconds(WAIT_TIME) ); // Waits for connection
     f.clientChannel->Send(f.msg1);
     boost::this_thread::sleep( boost::posix_time::milliseconds(WAIT_TIME) ); // Waits for message to be received
-    BOOST_CHECK(f.serverChannel->WantMessage(f.msg1->GetId(), [](const IMessagePtr&) { }));
+    BOOST_CHECK(f.serverChannel->WantMessage(f.msg1.GetId(), [](const Message&) { }));
 }
 
 BOOST_AUTO_TEST_CASE( TCPCommsTests_DeviceBehavioursSendAndReceiveMessagesThroughtTCPChannel ) {

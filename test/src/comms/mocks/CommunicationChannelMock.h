@@ -16,9 +16,9 @@ public:
 
     void Stop() { }
 
-    void Send(const IMessagePtr &/*msg*/) { }
+    void Send(const Message &/*msg*/) { }
 
-    void OnMsgReceived(const IMessagePtr &msg) { CommunicationChannel::OnMsgReceived(msg); };
+    void OnMsgReceived(const Message &msg) { CommunicationChannel::OnMsgReceived(msg); };
 };
 
 #endif

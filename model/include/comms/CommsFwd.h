@@ -10,12 +10,11 @@ namespace device_emulator {
 class CommunicationChannel;
 class TCPClient;
 class TCPServer;
-class IMessage;
+class Message;
 
 // typedefs
 typedef boost::shared_ptr<CommunicationChannel> ComChannelPtr;
-typedef boost::shared_ptr<IMessage> IMessagePtr;
-typedef std::function<void(const IMessagePtr &)> ComChannelReceiveCallback;
+typedef std::function<void(const Message &)> ComChannelReceiveCallback;
 typedef boost::shared_ptr<TCPClient> TCPClientPtr;
 typedef boost::shared_ptr<TCPServer> TCPServerPtr;
 

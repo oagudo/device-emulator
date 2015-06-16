@@ -18,15 +18,15 @@ struct CommunicationChannelWrap : CommunicationChannel, wrapper<CommunicationCha
     void Stop() {
         this->get_override("stop")();
     }
-    void Send(const IMessagePtr &msg) {
+    void Send(const Message &msg) {
         this->get_override("send")(msg);
     }
-    void OnMsgReceived(const IMessagePtr &msg) {
+    void OnMsgReceived(const Message &msg) {
         if (override n = this->get_override("on_msg_received"))
             n(msg);
         CommunicationChannel::OnMsgReceived(msg);
     }
-    void default_OnMsgReceived(const IMessagePtr &msg) { this->CommunicationChannel::OnMsgReceived(msg); }
+    void default_OnMsgReceived(const Message &msg) { this->CommunicationChannel::OnMsgReceived(msg); }
 };
 
 struct TCPEndPointWrap : TCPEndPoint, wrapper<TCPEndPoint>
@@ -43,12 +43,12 @@ struct TCPEndPointWrap : TCPEndPoint, wrapper<TCPEndPoint>
     }
     void default_Stop() { this->TCPEndPoint::Stop(); }
 
-    void Send(const IMessagePtr &msg) {
+    void Send(const Message &msg) {
         if (override n = this->get_override("send"))
             n(msg);
         TCPEndPoint::Send(msg);
     }
-    void default_Send(const IMessagePtr &msg) { this->TCPEndPoint::Send(msg); }
+    void default_Send(const Message &msg) { this->TCPEndPoint::Send(msg); }
 };
 
 

@@ -4,9 +4,6 @@ test/UnitTests
 export PYTHONPATH=$PYTHONPATH:./model
 echo 'Running python extension tests ...'
 
-echo ' - Message extension tests ...'
-python ../test/src/data/IMessage_ext.py
-
 echo ' - Orders extension tests ...'
 python ../test/src/device/orders/OrderList_ext.py
 

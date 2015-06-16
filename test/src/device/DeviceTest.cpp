@@ -31,7 +31,7 @@ struct Fixture {
     IDeviceOrderPtr orderReceive1;
     IDeviceOrderPtr orderReceive2;
     IDeviceOrderPtr orderSend1;
-    DevicePtr device;
+    Device device;
 
     Fixture() :
         msg1(1, "msg1", "content1"),
@@ -40,7 +40,7 @@ struct Fixture {
         orderReceive1(boost::make_shared<ReceiveOrder>(1, 2500)),
         orderReceive2(boost::make_shared<ReceiveOrder>(2, 2500)),
         orderSend1(boost::make_shared<SendOrder>(msg1)),
-        device(boost::make_shared<Device>("Device test"))
+        device("Device test")
     {
         orders.Add(orderReceive1);
         orders.Add(orderReceive2);
@@ -52,15 +52,15 @@ struct Fixture {
         behaviour2 = boost::make_shared<DeviceBehaviour>("Test Behaviour 2", channel, orders2);
         infiniteBehaviour = boost::make_shared<DeviceBehaviour>("Infinite behaviour", channel, infSendOrders);
 
-        device->AddBehaviour(behaviour);
-        device->AddBehaviour(behaviour2);
+        device.AddBehaviour(behaviour);
+        device.AddBehaviour(behaviour2);
     };
 };
 
 BOOST_AUTO_TEST_CASE( Device_StartsAllItsBehaviours ) {
     Fixture f;
     // Behaviours have not been started yet
-    f.device->Start();
+    f.device.Start();
     f.behaviour->Wait();
     f.behaviour2->Wait();
     // Behaviours have finished (with errors)
@@ -70,9 +70,9 @@ BOOST_AUTO_TEST_CASE( Device_StartsAllItsBehaviours ) {
 
 BOOST_AUTO_TEST_CASE( Device_StopsAllItsBehaviours ) {
     Fixture f;
-    f.device->AddBehaviour(f.infiniteBehaviour);
-    f.device->Start();
-    f.device->Stop();
+    f.device.AddBehaviour(f.infiniteBehaviour);
+    f.device.Start();
+    f.device.Stop();
     f.behaviour->Wait();
     f.behaviour2->Wait();
     f.infiniteBehaviour->Wait();

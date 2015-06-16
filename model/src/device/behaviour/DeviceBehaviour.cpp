@@ -67,7 +67,7 @@ void DeviceBehaviour::transitionTo(const DeviceBehaviourStatePtr &newState) {
 }
 
 void DeviceBehaviour::waitForMessageReception(const unsigned int milliseconds) {
-    boost::system_time const timeout =
+    const auto timeout =
         boost::get_system_time() + boost::posix_time::milliseconds(milliseconds);
 
     boost::mutex::scoped_lock lock(_mutexCondition);

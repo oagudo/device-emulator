@@ -20,7 +20,7 @@ public:
 
     /*!
         \brief Starts the communication
-        True if communication is established, False otherwise
+        \return True if communication is established, False otherwise
     */
     virtual bool Start() = 0;
 
@@ -31,8 +31,9 @@ public:
 
     /*!
         \brief Sends a message throught the channel
+        \return True if message was sent, False otherwise
     */
-    virtual void Send(const Message &msg) = 0;
+    virtual bool Send(const Message &msg) = 0;
 
     /*!
         \brief Called when a message is received at the channel

@@ -16,7 +16,7 @@ public:
 
     void Stop() { }
 
-    void Send(const Message &/*msg*/) { }
+    bool Send(const Message &/*msg*/) { return true; }
 
     void OnMsgReceived(const Message &msg) { CommunicationChannel::OnMsgReceived(msg); };
 };

@@ -6,6 +6,8 @@
 
 namespace device_emulator {
 
+// TODO: Provide movement contructors
+
 /*!
   \class Represents a Message
 */

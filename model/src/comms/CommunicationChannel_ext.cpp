@@ -18,8 +18,8 @@ struct CommunicationChannelWrap : CommunicationChannel, wrapper<CommunicationCha
     void Stop() {
         this->get_override("stop")();
     }
-    void Send(const Message &msg) {
-        this->get_override("send")(msg);
+    bool Send(const Message &msg) {
+        return this->get_override("send")(msg);
     }
     void OnMsgReceived(const Message &msg) {
         if (override n = this->get_override("on_msg_received"))
@@ -43,12 +43,12 @@ struct TCPEndPointWrap : TCPEndPoint, wrapper<TCPEndPoint>
     }
     void default_Stop() { this->TCPEndPoint::Stop(); }
 
-    void Send(const Message &msg) {
+    bool Send(const Message &msg) {
         if (override n = this->get_override("send"))
             n(msg);
-        TCPEndPoint::Send(msg);
+        return TCPEndPoint::Send(msg);
     }
-    void default_Send(const Message &msg) { this->TCPEndPoint::Send(msg); }
+    bool default_Send(const Message &msg) { return this->TCPEndPoint::Send(msg); }
 };
 
 
@@ -57,14 +57,6 @@ void export_CommunicationChannel()
 
     class_<CommunicationChannel, boost::shared_ptr<CommunicationChannel>, boost::noncopyable >("CommunicationChannel", no_init)
         ;
-
-//    class_<CommunicationChannelWrap, boost::noncopyable>("CommunicationChannel", init<>())
-//        .def("start", pure_virtual(&CommunicationChannel::Start))
-//        .def("stop", pure_virtual(&CommunicationChannel::Stop))
-//        .def("send", pure_virtual(&CommunicationChannel::Send))
-//        .def("on_msg_received", &CommunicationChannelWrap::OnMsgReceived, &CommunicationChannelWrap::default_OnMsgReceived)
-//        .def("want_message", &CommunicationChannel::WantMessage)
-//        ;
 
     class_<TCPEndPoint, boost::shared_ptr<TCPEndPoint>, boost::noncopyable >("TCPEndPoint", no_init);
     

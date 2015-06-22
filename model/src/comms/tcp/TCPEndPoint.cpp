@@ -8,8 +8,9 @@ DEFINE_LOGGER(logger, "emulator.comms.tcp")
 
 TCPEndPoint::TCPEndPoint() { }
 
-void TCPEndPoint::Send(const Message &msg) {
+bool TCPEndPoint::Send(const Message &msg) {
     _io_service.post(boost::bind(&TCPEndPoint::doWrite, this, msg));
+    return true;
 }
 
 void TCPEndPoint::handleRead(const boost::system::error_code& e) {

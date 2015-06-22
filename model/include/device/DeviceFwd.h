@@ -16,7 +16,7 @@ class DeviceBehaviourState;
 // typedefs
 typedef boost::shared_ptr<DeviceBehaviour> DeviceBehaviourPtr;
 typedef boost::shared_ptr<IDeviceOrder> IDeviceOrderPtr;
-typedef boost::scoped_ptr<IOrderList> IOrderListScopedPtr;
+typedef IOrderList* IOrderListPtr;
 typedef boost::shared_ptr<DeviceBehaviourState> DeviceBehaviourStatePtr;
 
 }

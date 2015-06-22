@@ -16,6 +16,10 @@ struct IDeviceOrderWrap : IDeviceOrder, wrapper<IDeviceOrder>
     bool Execute(const DeviceBehaviourPtr &context) {
         return this->get_override("execute")(context);
     }
+
+    IDeviceOrderPtr Clone() const {
+        return this->get_override("clone")();
+    }
 };
 
 struct OrderListWrap : OrderList, wrapper<OrderList>

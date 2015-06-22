@@ -16,7 +16,7 @@ public:
     virtual IDeviceOrderPtr Next() = 0;
     virtual bool Empty() const = 0;
     virtual unsigned int Count() const = 0;
-    virtual IOrderList* Clone() const = 0;  // Virtual constructor
+    virtual IOrderListPtr Clone() const = 0;  // Virtual constructor
 };
 
 } // namespace

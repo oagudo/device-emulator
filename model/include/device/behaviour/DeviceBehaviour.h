@@ -2,10 +2,7 @@
 #define _DEVICE_BEHAVIOUR_H
 
 #include <boost/thread.hpp>
-#include <boost/thread/condition_variable.hpp>
-#include <boost/thread/mutex.hpp>
 #include <boost/enable_shared_from_this.hpp>
-#include "data/Message.h"
 #include "Common.h"
 
 namespace device_emulator {
@@ -33,11 +30,6 @@ public:
 
 private:
 
-    friend class ReceiveOrder;
-
-    void onMessageArrived(const Message &msg);
-    void waitForMessageReception(const unsigned int milliseconds);
-
     friend class DeviceBehaviourState;
 
     void transitionTo(const DeviceBehaviourStatePtr &newState);
@@ -58,22 +50,13 @@ private:
     void waitExecutionThread();
 
     /*!
-        \brief Protects critical sectionds
-    */
-    boost::mutex _mutexCondition;
-    boost::condition_variable _condition;
-
-    /*!
         \brief Executing thread
     */
     boost::thread _behaviourThread;
 
     /*!
-        \brief Last message received
-    */
-    Message _msgReceived;
-
-
+        \brief behaviour name
+     */
     std::string _name;
 
     /*!
@@ -84,7 +67,7 @@ private:
     /*!
         \brief List of orders executed by the behaviour
      */
-    IOrderListScopedPtr _orders;
+    IOrderList& _orders;
 
     /*!
         \brief Holds the state of the behaviour

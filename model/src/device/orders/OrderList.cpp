@@ -4,27 +4,34 @@
 
 namespace device_emulator {
 
+OrderList::OrderList() { }
+
+OrderList::~OrderList() { }
+
 void OrderList::Add(const IDeviceOrderPtr &order) {
-    _queue.push(order);
+    _orders.push_back(order);
 }
 
 IDeviceOrderPtr OrderList::Next() {
     BOOST_ASSERT(Count() > 0);
-    IDeviceOrderPtr order = _queue.front();
-    _queue.pop();
+    IDeviceOrderPtr order = _orders.front();
+    _orders.erase(_orders.begin());
     return order;
 }
 
 bool OrderList::Empty() const {
-    return _queue.empty();
+    return _orders.empty();
 }
 
 unsigned int OrderList::Count() const {
-    return _queue.size();
+    return _orders.size();
 }
 
-IOrderList* OrderList::Clone() const {
-    return new OrderList(*this);
+IOrderListPtr OrderList::Clone() const {
+    auto cloned = new OrderList();
+    for (auto const& orderPtr : this->_orders)
+        cloned->_orders.push_back(orderPtr->Clone());
+    return cloned;
 }
 
 } // namespace

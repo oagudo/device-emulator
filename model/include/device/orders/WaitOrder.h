@@ -13,7 +13,7 @@ class WaitOrder : public IDeviceOrder
 public:
     WaitOrder(const unsigned int milliseconds);
     bool Execute(const DeviceBehaviourPtr &context);
-
+    IDeviceOrderPtr Clone() const;
 private:
     unsigned int _milliseconds;
 };

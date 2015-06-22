@@ -10,7 +10,7 @@ DEFINE_LOGGER(logger, "emulator.device.behaviour")
 
 DeviceBehaviour::DeviceBehaviour(const std::string &name, const ComChannelPtr &channel,
                                  const IOrderList &orders) : _name(name), _channel(channel),
-                                                             _orders(orders.Clone()),
+                                                             _orders(*(orders.Clone())),
                                                              _state(NotStartedState::Instance()) {
 }
 
@@ -52,7 +52,7 @@ std::string DeviceBehaviour::GetName() const {
 }
 
 IOrderList& DeviceBehaviour::GetOrders() { 
-    return *_orders; 
+    return _orders;
 }
 
 void DeviceBehaviour::executeOrders() {
@@ -64,31 +64,6 @@ void DeviceBehaviour::transitionTo(const DeviceBehaviourStatePtr &newState) {
                      _state->ToString() << " state to " << newState->ToString() << " state");
     _state = newState;
     newState->Enter(shared_from_this());
-}
-
-void DeviceBehaviour::waitForMessageReception(const unsigned int milliseconds) {
-    const auto timeout =
-        boost::get_system_time() + boost::posix_time::milliseconds(milliseconds);
-
-    boost::mutex::scoped_lock lock(_mutexCondition);
-
-    if (_condition.timed_wait(lock,timeout) == true) {
-        LOG_DEBUG(logger, "Behaviour " << GetName() << " received message '" <<
-                          _msgReceived.GetId() << "'");
-    }
-    else {
-        LOG_ERROR(logger, "Timeout [" << milliseconds << " ms] triggered because behaviour " <<
-                          GetName() << " did not receive any message");
-        transitionTo(ErrorState::Instance());
-    }
-}
-
-void DeviceBehaviour::onMessageArrived(const Message &msg) {
-    LOG_DEBUG(logger, "Behaviour " << GetName() << " is notified for message '" << msg.GetId() <<
-                      "' arrival");
-    boost::mutex::scoped_lock lock(_mutexCondition);
-    _msgReceived = msg;
-    _condition.notify_one();
 }
 
 } // namespace

@@ -14,7 +14,7 @@ class SendOrder : public IDeviceOrder
 public:
     SendOrder(const Message &msg);
     bool Execute(const DeviceBehaviourPtr &context);
-
+    IDeviceOrderPtr Clone() const;
 private:
     Message _msg;
 };

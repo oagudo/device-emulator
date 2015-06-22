@@ -1,4 +1,5 @@
 #include "device/orders/InfiniteOrderList.h"
+#include "device/orders/IDeviceOrder.h"
 
 namespace device_emulator {
 
@@ -8,8 +9,11 @@ IDeviceOrderPtr InfiniteOrderList::Next() {
     return order;
 }
 
-IOrderList* InfiniteOrderList::Clone() const {
-    return new InfiniteOrderList(*this);
+IOrderListPtr InfiniteOrderList::Clone() const {
+    auto cloned = new InfiniteOrderList();
+    for (auto const& orderPtr : this->_orders)
+        cloned->_orders.push_back(orderPtr->Clone());
+    return cloned;
 }
 
 } // namespace

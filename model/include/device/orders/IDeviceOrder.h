@@ -16,6 +16,11 @@ public:
         \return True if execution was ok, False otherwise
      */
     virtual bool Execute(const DeviceBehaviourPtr &context) = 0;
+
+    /*!
+        \brief Clones the order
+     */
+    virtual IDeviceOrderPtr Clone() const = 0;
 };
 
 } // namespace

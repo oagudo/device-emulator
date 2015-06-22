@@ -1,7 +1,6 @@
 #ifndef _ORDER_LIST_H
 #define _ORDER_LIST_H
 
-#include <queue>
 #include "device/orders/IOrderList.h"
 
 namespace device_emulator {
@@ -12,9 +11,9 @@ namespace device_emulator {
 class OrderList : public IOrderList {
 public:
 
-    OrderList() { }
+    OrderList();
 
-    virtual ~OrderList() { }
+    virtual ~OrderList();
 
     /*!
         \brief Adds a new device order at the end of the collection
@@ -39,10 +38,10 @@ public:
     /*!
         \brief Implements virtual constructor
     */
-    IOrderList* Clone() const;  // Virtual constructor
+    IOrderListPtr Clone() const;  // Virtual constructor
     
 protected:
-    std::queue<IDeviceOrderPtr> _queue;
+    std::vector<IDeviceOrderPtr> _orders;
 };
 
 } // namespace

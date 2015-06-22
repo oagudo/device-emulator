@@ -17,7 +17,7 @@ public:
     /*!
         \brief Implements virtual constructor
     */
-    IOrderList* Clone() const;  // Virtual constructor
+    IOrderListPtr Clone() const;  // Virtual constructor
 };
 
 } // namespace

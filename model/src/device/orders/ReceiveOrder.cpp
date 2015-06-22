@@ -8,7 +8,8 @@ ReceiveOrder::ReceiveOrder(const unsigned int msgID, const unsigned int timeout)
                            _msgID(msgID), _timeout(timeout) {
 }
 
-void ReceiveOrder::Execute(const DeviceBehaviourPtr &context) {
+bool ReceiveOrder::Execute(const DeviceBehaviourPtr &context) {
+
     auto callback = [&context] (const Message &msg) {
         context->onMessageArrived(msg);
     };
@@ -19,6 +20,8 @@ void ReceiveOrder::Execute(const DeviceBehaviourPtr &context) {
     else {
         context->waitForMessageReception(_timeout);
     }
+
+    return true;
 }
 
 } // namespace

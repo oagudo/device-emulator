@@ -1,6 +1,7 @@
 #include "device/behaviour/states/RunningState.h"
 #include "device/behaviour/states/FinishedState.h"
 #include "device/behaviour/states/StoppedState.h"
+#include "device/behaviour/states/ErrorState.h"
 #include "device/orders/IDeviceOrder.h"
 #include "device/orders/IOrderList.h"
 
@@ -24,7 +25,9 @@ void RunningState::Enter(const DeviceBehaviourPtr &context) const {
 void RunningState::ExecuteOrders(const DeviceBehaviourPtr &context) const {
     while (!context->GetOrders().Empty() &&
            (context->GetState() == RunningState::Instance())) {
-        context->GetOrders().Next()->Execute(context);
+        if (!context->GetOrders().Next()->Execute(context)) {
+            transitionTo(context, ErrorState::Instance());
+        }
     }
 
     if (context->GetState() == RunningState::Instance()) {

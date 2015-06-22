@@ -13,8 +13,8 @@ using namespace device_emulator;
 
 struct IDeviceOrderWrap : IDeviceOrder, wrapper<IDeviceOrder>
 {
-    void Execute(const DeviceBehaviourPtr &context) {
-        this->get_override("execute")(context);
+    bool Execute(const DeviceBehaviourPtr &context) {
+        return this->get_override("execute")(context);
     }
 };
 

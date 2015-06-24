@@ -21,6 +21,12 @@ void Device::Stop() {
     }
 }
 
+void Device::Wait() {
+    for (auto &behaviour : _behaviours) {
+        behaviour->Wait();
+    }
+}
+
 std::string Device::GetName() const { return _deviceName; }
 
 } // namespace

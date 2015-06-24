@@ -23,14 +23,19 @@ public:
     void AddBehaviour(const DeviceBehaviourPtr &behaviour);
 
     /*!
-      \brief Starts all its behaviours
+        \brief Starts all its behaviours
      */
     void Start();
 
     /*!
-      \brief Stops all its behaviours
+        \brief Stops all its behaviours
      */
     void Stop();
+
+    /*!
+        \brief Waits for all behaviours to finish
+     */
+    void Wait();
 
     /*!
       Name Getter 

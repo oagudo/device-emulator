@@ -7,6 +7,7 @@ using namespace device_emulator;
 void export_IDeviceOrders();
 void export_IMessage();
 void export_DeviceBehaviour();
+void export_Device();
 void export_CommunicationChannel();
 
 BOOST_PYTHON_MODULE(DeviceEmulatorModel_ext)
@@ -20,5 +21,6 @@ BOOST_PYTHON_MODULE(DeviceEmulatorModel_ext)
     export_IMessage();
     export_IDeviceOrders();
     export_DeviceBehaviour();
+    export_Device();
     export_CommunicationChannel();
 }

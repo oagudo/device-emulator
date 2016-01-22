@@ -8,6 +8,12 @@ namespace device_emulator {
 
 DEFINE_LOGGER(logger, "emulator.device.behaviour.orders.receive")
 
+namespace {
+    inline boost::posix_time::ptime Now() {
+        return boost::get_system_time();
+    }
+}
+
 ReceiveOrder::ReceiveOrder(const unsigned int msgID, const unsigned int timeout) :
                            _msgID(msgID), _timeout(timeout) {
 }
@@ -50,8 +56,7 @@ bool ReceiveOrder::Execute(const DeviceBehaviourPtr &context) {
 bool ReceiveOrder::waitForMessageReception(const DeviceBehaviourPtr &context,
                                            const unsigned int milliseconds) {
     bool msgReceived = false;
-    const auto timeout =
-        boost::get_system_time() + boost::posix_time::milliseconds(milliseconds);
+    const auto timeout = Now() + boost::posix_time::milliseconds(milliseconds);
 
     boost::mutex::scoped_lock lock(_mutexCondition);
 

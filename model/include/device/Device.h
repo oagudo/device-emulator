@@ -13,8 +13,6 @@ namespace device_emulator {
 class Device
 {
 public:
-    
-    /*! Default constructor */
     Device(const std::string &deviceName);
 
     /*!
